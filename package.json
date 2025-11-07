@@ -20,7 +20,9 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node --watch backend.js"
+    "start": "node backend.js",
+    "build": "cd frontend && npm install && npm run build",
+    "dev": "node --watch backend.js"
   },
   "keywords": [],
   "author": "Phillip Chandy",

@@ -15,7 +15,7 @@ router.get('/discover/:userId', async (req, res) => {
       query.skills = { $in: [skill] };
     }
     
-    //filter by location 
+    //filter by location
     if (location) {
       query.location = { $regex: location, $options: 'i' };
     }
