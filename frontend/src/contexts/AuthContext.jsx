@@ -101,7 +101,7 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  // Initialize user from localStorage on mount
+  // get from local storage 
   React.useEffect(() => {
     const savedUser = localStorage.getItem('user');
     if (savedUser) {
