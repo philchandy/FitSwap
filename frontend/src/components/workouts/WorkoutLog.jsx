@@ -78,7 +78,7 @@ const WorkoutLog = () => {
           notes: '',
         });
         setShowForm(false);
-        fetchWorkouts(); // Refresh the list
+        fetchWorkouts(); //refresh the list
       }
     } catch (error) {
       console.error('Error logging workout:', error);

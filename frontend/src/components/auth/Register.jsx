@@ -16,7 +16,6 @@ const Register = () => {
   const { register, loading } = useAuth();
   const navigate = useNavigate();
 
-  // Predefined skills for selection
   const availableSkills = [
     'Weightlifting', 'Cardio', 'Yoga', 'Boxing', 'Running', 
     'Swimming', 'Cycling', 'CrossFit', 'Pilates', 'Rock Climbing'
@@ -48,7 +47,6 @@ const Register = () => {
     e.preventDefault();
     setError('');
 
-    // Validation
     if (formData.password !== formData.confirmPassword) {
       setError('Passwords do not match');
       return;

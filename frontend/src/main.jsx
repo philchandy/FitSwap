@@ -4,6 +4,7 @@ import './index.css'
 import App from './App.jsx'
 import { AuthProvider } from './contexts/AuthContext.jsx'
 
+//wrap app with auth context provider
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <AuthProvider>

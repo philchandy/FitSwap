@@ -3,29 +3,26 @@ import { ObjectId } from 'mongodb';
 
 const router = express.Router();
 
-// Get all users for discovery (excluding current user)
 router.get('/discover/:userId', async (req, res) => {
   try {
     const { userId } = req.params;
     const { skill, location } = req.query;
     const db = req.app.locals.db;
     
-    // Build query to exclude current user
     let query = { _id: { $ne: ObjectId.createFromHexString(userId) } };
     
-    // Filter by skill if provided
     if (skill) {
       query.skills = { $in: [skill] };
     }
     
-    // Filter by location if provided
+    //filter by location 
     if (location) {
       query.location = { $regex: location, $options: 'i' };
     }
     
     const users = await db.collection('users')
       .find(query)
-      .project({ password: 0 }) // Exclude password
+      .project({ password: 0 }) //dont include pass 
       .toArray();
     
     res.json(users);
@@ -35,13 +32,12 @@ router.get('/discover/:userId', async (req, res) => {
   }
 });
 
-// Find potential matches based on user's wanted skills
 router.get('/matches/:userId', async (req, res) => {
   try {
     const { userId } = req.params;
     const db = req.app.locals.db;
     
-    // Get current user's wanted skills
+    //get wanted skills
     const currentUser = await db.collection('users').findOne(
       { _id: ObjectId.createFromHexString(userId) },
       { projection: { wantedSkills: 1, skills: 1 } }
@@ -51,22 +47,18 @@ router.get('/matches/:userId', async (req, res) => {
       return res.status(404).json({ error: 'User not found' });
     }
     
-    // Find users who have skills that current user wants to learn
-    // AND who want to learn skills that current user has
+    // try to find matches
     const matches = await db.collection('users')
       .find({
         _id: { $ne: ObjectId.createFromHexString(userId) },
         $or: [
-          // Users who have skills I want to learn
           { skills: { $in: currentUser.wantedSkills || [] } },
-          // Users who want to learn skills I have
           { wantedSkills: { $in: currentUser.skills || [] } }
         ]
       })
       .project({ password: 0 })
       .toArray();
     
-    // Add match score and type for each user
     const matchesWithScore = matches.map(user => {
       const canTeachMe = user.skills?.filter(skill => 
         currentUser.wantedSkills?.includes(skill)
@@ -86,7 +78,6 @@ router.get('/matches/:userId', async (req, res) => {
       };
     });
     
-    // Sort by match score (highest first)
     matchesWithScore.sort((a, b) => b.matchScore - a.matchScore);
     
     res.json(matchesWithScore);
@@ -96,7 +87,6 @@ router.get('/matches/:userId', async (req, res) => {
   }
 });
 
-// Get user details by ID (for viewing profiles)
 router.get('/:id', async (req, res) => {
   try {
     const { id } = req.params;
