@@ -10,7 +10,7 @@ router.post('/register', async (req, res) => {
     
     const existingUser = await db.collection('users').findOne({ email });
     if (existingUser) {
-      return res.status(400).json({ error: 'User already exists with this email' });
+      return res.status(400).json({ error: 'User already exists with this email!' });
     }
     
     // new user
@@ -118,7 +118,7 @@ router.put('/profile/:id', async (req, res) => {
       return res.status(404).json({ error: 'User not found' });
     }
     
-    res.json({ message: 'Profile updated successfully' });
+    res.json({ message: 'Profile updated!' });
   } catch (error) {
     console.error('Profile update error:', error);
     res.status(500).json({ error: 'Internal server error' });

@@ -5,6 +5,8 @@ import dotenv from 'dotenv';
 import userRoutes from './routes/users.js';
 import authRoutes from './routes/auth.js';
 import workoutRoutes from './routes/workouts.js';
+import discoverRoutes from './routes/discover.js';
+import sessionRoutes from './routes/sessions.js';
 
 dotenv.config();
 
@@ -31,6 +33,8 @@ MongoClient.connect(MONGODB_URI)
     app.use('/api/users', userRoutes);
     app.use('/api/auth', authRoutes);
     app.use('/api/workouts', workoutRoutes);
+    app.use('/api/discover', discoverRoutes);
+    app.use('/api/sessions', sessionRoutes);
 
     app.listen(PORT, () => {
       console.log(`Server is running on port ${PORT}`);

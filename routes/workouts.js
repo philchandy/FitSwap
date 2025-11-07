@@ -16,7 +16,7 @@ router.get('/user/:userId', async (req, res) => {
     
     res.json(workouts);
   } catch (error) {
-    console.error('Fetch workouts error:', error);
+    console.error('GET user workouts error:', error);
     res.status(500).json({ error: 'Internal server error' });
   }
 });
@@ -42,16 +42,16 @@ router.post('/', async (req, res) => {
     const result = await db.collection('workouts').insertOne(newWorkout);
     
     res.status(201).json({ 
-      message: 'Workout logged successfully', 
+      message: 'Workout logged!', 
       workout: { ...newWorkout, _id: result.insertedId }
     });
   } catch (error) {
-    console.error('Create workout error:', error);
+    console.error('POST workout error:', error);
     res.status(500).json({ error: 'Internal server error' });
   }
 });
 
-// Get specific workout
+//get workout with id
 router.get('/:id', async (req, res) => {
   try {
     const { id } = req.params;
@@ -64,12 +64,12 @@ router.get('/:id', async (req, res) => {
     
     res.json(workout);
   } catch (error) {
-    console.error('Fetch workout error:', error);
+    console.error('GET workout error:', error);
     res.status(500).json({ error: 'Internal server error' });
   }
 });
 
-// Update workout
+//update workout with id 
 router.put('/:id', async (req, res) => {
   try {
     const { id } = req.params;
@@ -96,14 +96,14 @@ router.put('/:id', async (req, res) => {
       return res.status(404).json({ error: 'Workout not found' });
     }
     
-    res.json({ message: 'Workout updated successfully' });
+    res.json({ message: 'Workout updated!' });
   } catch (error) {
-    console.error('Update workout error:', error);
+    console.error('PUT workout error:', error);
     res.status(500).json({ error: 'Internal server error' });
   }
 });
 
-// Delete workout
+//delete workout 
 router.delete('/:id', async (req, res) => {
   try {
     const { id } = req.params;
@@ -115,9 +115,9 @@ router.delete('/:id', async (req, res) => {
       return res.status(404).json({ error: 'Workout not found' });
     }
     
-    res.json({ message: 'Workout deleted successfully' });
+    res.json({ message: 'Workout deleted!' });
   } catch (error) {
-    console.error('Delete workout error:', error);
+    console.error('DELETE workout error:', error);
     res.status(500).json({ error: 'Internal server error' });
   }
 });

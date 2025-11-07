@@ -24,7 +24,7 @@ const Dashboard = () => {
       </div>
       
       <div className="row mt-4">
-        <div className="col-md-4">
+        <div className="col-md-3">
           <div className="card">
             <div className="card-body">
               <h5 className="card-title">Your Profile</h5>
@@ -38,7 +38,7 @@ const Dashboard = () => {
           </div>
         </div>
         
-        <div className="col-md-4">
+        <div className="col-md-3">
           <div className="card">
             <div className="card-body">
               <h5 className="card-title">Log Workout</h5>
@@ -52,16 +52,30 @@ const Dashboard = () => {
           </div>
         </div>
         
-        <div className="col-md-4">
+        <div className="col-md-3">
           <div className="card">
             <div className="card-body">
               <h5 className="card-title">Find Partners</h5>
               <p className="card-text">
-                Connect with others to learn and teach new skills.
+                Discover users and find matches based on skills.
               </p>
-              <button className="btn btn-info" disabled>
-                Coming Soon
-              </button>
+              <Link to="/discover" className="btn btn-info">
+                Find Partners
+              </Link>
+            </div>
+          </div>
+        </div>
+        
+        <div className="col-md-3">
+          <div className="card">
+            <div className="card-body">
+              <h5 className="card-title">My Sessions</h5>
+              <p className="card-text">
+                View and manage your training sessions.
+              </p>
+              <Link to="/sessions" className="btn btn-warning">
+                View Sessions
+              </Link>
             </div>
           </div>
         </div>
