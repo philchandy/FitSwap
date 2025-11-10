@@ -209,6 +209,17 @@ FitSwap/
 4. Run tests and linting
 5. Submit a pull request
 
+## GenAI Used
+Used GenAI (Claude Sonnet 4) to create database schemas for 3 collections; users, sessions, and workouts and creating a schema that connects the 3 collections correctly.
+
+Prompt Used:
+"Imagine you are designing a schema for a Mongo database for a fitness tracking application. You need to have a collection of users- which has a general user data along with bio and goals. However, users also has to point to a collection of workouts where workout data can be stored (user id, type, duration, calories burned, etc.). Another collection, sessions, will also contain data for appointments that users set up with each other, so this must contain user_id, trainer_id, location, dateTtime, etc. Please guide me through selecting the correct fields to set up this schema correctly"
+
+Used GenAI (Claude Sonnet 4) to create a README file for the project.
+
+Prompt Used:
+"Please create a clear and descriptive readme file including at least: * Author * Class Link * Project Objective * Screenshot * Instructions to build, and put notes as to where I should input specific assets not available to you." 
+
 ---
 
 **Course**: CS 5610 Web Development  
