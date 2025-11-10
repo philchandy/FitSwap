@@ -1,7 +1,7 @@
-import React from 'react';
-import { useAuth } from '../../contexts/AuthContext';
-import { Link } from 'react-router-dom';
-import WorkoutChart from './WorkoutChart';
+import React from "react";
+import { useAuth } from "../../contexts/AuthContext";
+import { Link } from "react-router-dom";
+import WorkoutChart from "./WorkoutChart";
 
 const Dashboard = () => {
   const { user, isAuthenticated } = useAuth();
@@ -10,7 +10,10 @@ const Dashboard = () => {
     return (
       <div className="text-center">
         <h2>Welcome to FitSwap</h2>
-        <p>Please <Link to="/login">login</Link> or <Link to="/register">register</Link> to get started.</p>
+        <p>
+          Please <Link to="/login">login</Link> or{" "}
+          <Link to="/register">register</Link> to get started.
+        </p>
       </div>
     );
   }
@@ -23,7 +26,7 @@ const Dashboard = () => {
           <p className="lead">Your fitness journey starts here.</p>
         </div>
       </div>
-      
+
       <div className="row mt-4">
         <div className="col-md-3">
           <div className="card">
@@ -38,7 +41,7 @@ const Dashboard = () => {
             </div>
           </div>
         </div>
-        
+
         <div className="col-md-3">
           <div className="card">
             <div className="card-body">
@@ -52,7 +55,7 @@ const Dashboard = () => {
             </div>
           </div>
         </div>
-        
+
         <div className="col-md-3">
           <div className="card">
             <div className="card-body">
@@ -66,7 +69,7 @@ const Dashboard = () => {
             </div>
           </div>
         </div>
-        
+
         <div className="col-md-3">
           <div className="card">
             <div className="card-body">
@@ -81,7 +84,7 @@ const Dashboard = () => {
           </div>
         </div>
       </div>
-      
+
       <div className="row mt-4">
         <div className="col-lg-8">
           <WorkoutChart />
@@ -102,7 +105,10 @@ const Dashboard = () => {
               {user?.goals && user.goals.length > 0 ? (
                 <div className="goals-list">
                   {user.goals.map((goal, index) => (
-                    <div key={index} className="d-flex align-items-center mb-3 p-2 bg-light rounded">
+                    <div
+                      key={index}
+                      className="d-flex align-items-center mb-3 p-2 bg-light rounded"
+                    >
                       <div className="me-2">
                         <i className="bi bi-target text-success"></i>
                       </div>
@@ -115,10 +121,14 @@ const Dashboard = () => {
                 </div>
               ) : (
                 <div className="text-center py-4">
-                  <i className="bi bi-clipboard-x text-muted" style={{ fontSize: '2rem' }}></i>
+                  <i
+                    className="bi bi-clipboard-x text-muted"
+                    style={{ fontSize: "2rem" }}
+                  ></i>
                   <p className="text-muted mt-2 mb-3">No goals set yet</p>
                   <p className="text-muted small mb-3">
-                    Set your fitness goals to stay motivated and track your progress!
+                    Set your fitness goals to stay motivated and track your
+                    progress!
                   </p>
                   <Link to="/profile" className="btn btn-primary btn-sm">
                     <i className="bi bi-plus-circle me-1"></i>
@@ -130,13 +140,13 @@ const Dashboard = () => {
           </div>
         </div>
       </div>
-      
+
       {user?.skills && user.skills.length > 0 && (
         <div className="row mt-4">
           <div className="col-12">
             <h3>Your Skills</h3>
             <div className="d-flex flex-wrap gap-2">
-              {user.skills.map(skill => (
+              {user.skills.map((skill) => (
                 <span key={skill} className="badge bg-secondary">
                   {skill}
                 </span>
@@ -145,13 +155,13 @@ const Dashboard = () => {
           </div>
         </div>
       )}
-      
+
       {user?.wantedSkills && user.wantedSkills.length > 0 && (
         <div className="row mt-3">
           <div className="col-12">
             <h3>Skills You Want to Learn</h3>
             <div className="d-flex flex-wrap gap-2">
-              {user.wantedSkills.map(skill => (
+              {user.wantedSkills.map((skill) => (
                 <span key={skill} className="badge bg-secondary">
                   {skill}
                 </span>

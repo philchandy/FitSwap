@@ -1,41 +1,41 @@
-import React, { useState, useEffect } from 'react';
-import { useAuth } from '../../contexts/AuthContext';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect, useCallback } from "react";
+import { useAuth } from "../../contexts/AuthContext";
+import { Link } from "react-router-dom";
 
 const Sessions = () => {
   const { user } = useAuth();
   const [sessions, setSessions] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [filter, setFilter] = useState('all');
+  const [filter, setFilter] = useState("all");
 
-  useEffect(() => {
-    if (user) {
-      fetchSessions();
-    }
-  }, [user, filter]);
-
-  const fetchSessions = async () => {
+  const fetchSessions = useCallback(async () => {
     setLoading(true);
     try {
-      const params = filter !== 'all' ? `?status=${filter}` : '';
+      const params = filter !== "all" ? `?status=${filter}` : "";
       const response = await fetch(`/api/sessions/user/${user._id}${params}`);
       if (response.ok) {
         const data = await response.json();
         setSessions(data);
       }
     } catch (error) {
-      console.error('Error fetching sessions:', error);
+      console.error("Error fetching sessions:", error);
     } finally {
       setLoading(false);
     }
-  };
+  }, [user, filter]);
+
+  useEffect(() => {
+    if (user) {
+      fetchSessions();
+    }
+  }, [user, fetchSessions]);
 
   const updateSessionStatus = async (sessionId, status) => {
     try {
       const response = await fetch(`/api/sessions/${sessionId}/status`, {
-        method: 'PATCH',
+        method: "PATCH",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({ status }),
       });
@@ -43,37 +43,28 @@ const Sessions = () => {
       if (response.ok) {
         fetchSessions(); //refresh
       } else {
-        console.error('Error updating session status');
+        console.error("Error updating session status");
       }
     } catch (error) {
-      console.error('Error updating session status:', error);
+      console.error("Error updating session status:", error);
     }
   };
 
   const deleteSession = async (sessionId) => {
-    if (window.confirm('Are you sure you want to cancel this session?')) {
+    if (window.confirm("Are you sure you want to cancel this session?")) {
       try {
         const response = await fetch(`/api/sessions/${sessionId}`, {
-          method: 'DELETE',
+          method: "DELETE",
         });
 
         if (response.ok) {
           fetchSessions(); //refresh
         } else {
-          console.error('Error deleting session');
+          console.error("Error deleting session");
         }
       } catch (error) {
-        console.error('Error deleting session:', error);
+        console.error("Error deleting session:", error);
       }
-    }
-  };
-
-  const getStatusBadgeColor = (status) => {
-    switch (status) {
-      case 'scheduled': return 'primary';
-      case 'completed': return 'success';
-      case 'cancelled': return 'danger';
-      default: return 'secondary';
     }
   };
 
@@ -93,24 +84,24 @@ const Sessions = () => {
       <ul className="nav nav-pills mb-4">
         <li className="nav-item">
           <button
-            className={`nav-link ${filter === 'all' ? 'active' : ''}`}
-            onClick={() => setFilter('all')}
+            className={`nav-link ${filter === "all" ? "active" : ""}`}
+            onClick={() => setFilter("all")}
           >
             All Sessions
           </button>
         </li>
         <li className="nav-item">
           <button
-            className={`nav-link ${filter === 'scheduled' ? 'active' : ''}`}
-            onClick={() => setFilter('scheduled')}
+            className={`nav-link ${filter === "scheduled" ? "active" : ""}`}
+            onClick={() => setFilter("scheduled")}
           >
             Upcoming
           </button>
         </li>
         <li className="nav-item">
           <button
-            className={`nav-link ${filter === 'completed' ? 'active' : ''}`}
-            onClick={() => setFilter('completed')}
+            className={`nav-link ${filter === "completed" ? "active" : ""}`}
+            onClick={() => setFilter("completed")}
           >
             Completed
           </button>
@@ -129,10 +120,9 @@ const Sessions = () => {
         <div className="text-center py-5">
           <h4>No sessions found</h4>
           <p>
-            {filter === 'all' 
-              ? "You haven't scheduled any sessions yet." 
-              : `No ${filter} sessions found.`
-            }
+            {filter === "all"
+              ? "You haven't scheduled any sessions yet."
+              : `No ${filter} sessions found.`}
           </p>
           <Link to="/discover" className="btn btn-primary">
             Find Training Partners
@@ -140,7 +130,7 @@ const Sessions = () => {
         </div>
       ) : (
         <div className="row">
-          {sessions.map(session => (
+          {sessions.map((session) => (
             <SessionCard
               key={session._id}
               session={session}
@@ -158,35 +148,38 @@ const Sessions = () => {
 const SessionCard = ({ session, currentUser, onStatusUpdate, onDelete }) => {
   const isTrainer = session.trainerId === currentUser._id;
   const partner = isTrainer ? session.trainee : session.trainer;
-  const role = isTrainer ? 'Trainer' : 'Trainee';
+  const role = isTrainer ? "Trainer" : "Trainee";
 
   const formatDate = (date) => {
-    return new Date(date).toLocaleDateString('en-US', {
-      weekday: 'long',
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric'
+    return new Date(date).toLocaleDateString("en-US", {
+      weekday: "long",
+      year: "numeric",
+      month: "long",
+      day: "numeric",
     });
   };
 
   const formatTime = (time) => {
-    return new Date(`2000-01-01T${time}`).toLocaleTimeString('en-US', {
-      hour: 'numeric',
-      minute: '2-digit',
-      hour12: true
+    return new Date(`2000-01-01T${time}`).toLocaleTimeString("en-US", {
+      hour: "numeric",
+      minute: "2-digit",
+      hour12: true,
     });
   };
 
   const getStatusBadgeColor = (status) => {
     switch (status) {
-      case 'scheduled': return 'primary';
-      case 'completed': return 'success';
-      default: return 'secondary';
+      case "scheduled":
+        return "primary";
+      case "completed":
+        return "success";
+      default:
+        return "secondary";
     }
   };
 
-  const canMarkCompleted = session.status === 'scheduled' && 
-                          new Date(session.date) <= new Date();
+  const canMarkCompleted =
+    session.status === "scheduled" && new Date(session.date) <= new Date();
 
   return (
     <div className="col-md-6 col-lg-4 mb-4">
@@ -204,11 +197,12 @@ const SessionCard = ({ session, currentUser, onStatusUpdate, onDelete }) => {
           </div>
 
           <div className="mb-2">
-            <strong>Partner:</strong> {partner?.name || 'Unknown'}
+            <strong>Partner:</strong> {partner?.name || "Unknown"}
           </div>
 
           <div className="mb-2">
-            <strong>Skill:</strong> <span className="badge bg-secondary">{session.skill}</span>
+            <strong>Skill:</strong>{" "}
+            <span className="badge bg-secondary">{session.skill}</span>
           </div>
 
           <div className="mb-2">
@@ -216,7 +210,8 @@ const SessionCard = ({ session, currentUser, onStatusUpdate, onDelete }) => {
           </div>
 
           <div className="mb-2">
-            <strong>Time:</strong> {formatTime(session.startTime)} - {formatTime(session.endTime)}
+            <strong>Time:</strong> {formatTime(session.startTime)} -{" "}
+            {formatTime(session.endTime)}
           </div>
 
           {session.location && (
@@ -232,17 +227,17 @@ const SessionCard = ({ session, currentUser, onStatusUpdate, onDelete }) => {
           )}
 
           <div className="d-flex gap-2 flex-wrap">
-            {session.status === 'scheduled' && (
+            {session.status === "scheduled" && (
               <>
                 {canMarkCompleted && (
                   <button
                     className="btn btn-success btn-sm"
-                    onClick={() => onStatusUpdate(session._id, 'completed')}
+                    onClick={() => onStatusUpdate(session._id, "completed")}
                   >
                     Mark Complete
                   </button>
                 )}
-                
+
                 <button
                   className="btn btn-outline-danger btn-sm"
                   onClick={() => onDelete(session._id)}

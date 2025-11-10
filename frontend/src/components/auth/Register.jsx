@@ -1,24 +1,32 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { useAuth } from '../../contexts/AuthContext';
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../../contexts/AuthContext";
 
 const Register = () => {
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    password: '',
-    confirmPassword: '',
+    name: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
     skills: [],
     wantedSkills: [],
     goals: [],
   });
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const { register, loading } = useAuth();
   const navigate = useNavigate();
 
   const availableSkills = [
-    'Weightlifting', 'Cardio', 'Yoga', 'Boxing', 'Running', 
-    'Swimming', 'Cycling', 'CrossFit', 'Pilates', 'Rock Climbing'
+    "Weightlifting",
+    "Cardio",
+    "Yoga",
+    "Boxing",
+    "Running",
+    "Swimming",
+    "Cycling",
+    "CrossFit",
+    "Pilates",
+    "Rock Climbing",
   ];
 
   const handleChange = (e) => {
@@ -33,7 +41,7 @@ const Register = () => {
     if (currentSkills.includes(skill)) {
       setFormData({
         ...formData,
-        [type]: currentSkills.filter(s => s !== skill),
+        [type]: currentSkills.filter((s) => s !== skill),
       });
     } else {
       setFormData({
@@ -45,15 +53,15 @@ const Register = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError('');
+    setError("");
 
     if (formData.password !== formData.confirmPassword) {
-      setError('Passwords do not match');
+      setError("Passwords do not match");
       return;
     }
 
     if (formData.password.length < 6) {
-      setError('Password must be at least 6 characters');
+      setError("Password must be at least 6 characters");
       return;
     }
 
@@ -63,13 +71,13 @@ const Register = () => {
       password: formData.password,
       skills: formData.skills,
       wantedSkills: formData.wantedSkills,
-      goals: formData.goals.filter(goal => goal.trim() !== ''),
+      goals: formData.goals.filter((goal) => goal.trim() !== ""),
     };
 
     const result = await register(userData);
-    
+
     if (result.success) {
-      navigate('/dashboard');
+      navigate("/dashboard");
     } else {
       setError(result.error);
     }
@@ -81,13 +89,13 @@ const Register = () => {
         <div className="card">
           <div className="card-body">
             <h2 className="card-title text-center mb-4">Join FitSwap</h2>
-            
+
             {error && (
               <div className="alert alert-danger" role="alert">
                 {error}
               </div>
             )}
-            
+
             <form onSubmit={handleSubmit}>
               <div className="row">
                 <div className="col-md-6 mb-3">
@@ -104,7 +112,7 @@ const Register = () => {
                     required
                   />
                 </div>
-                
+
                 <div className="col-md-6 mb-3">
                   <label htmlFor="email" className="form-label">
                     Email
@@ -120,7 +128,7 @@ const Register = () => {
                   />
                 </div>
               </div>
-              
+
               <div className="row">
                 <div className="col-md-6 mb-3">
                   <label htmlFor="password" className="form-label">
@@ -136,7 +144,7 @@ const Register = () => {
                     required
                   />
                 </div>
-                
+
                 <div className="col-md-6 mb-3">
                   <label htmlFor="confirmPassword" className="form-label">
                     Confirm Password
@@ -152,11 +160,11 @@ const Register = () => {
                   />
                 </div>
               </div>
-              
+
               <div className="mb-3">
                 <label className="form-label">Skills I can teach:</label>
                 <div className="row">
-                  {availableSkills.map(skill => (
+                  {availableSkills.map((skill) => (
                     <div key={skill} className="col-md-4 mb-2">
                       <div className="form-check">
                         <input
@@ -164,9 +172,12 @@ const Register = () => {
                           type="checkbox"
                           id={`skill-${skill}`}
                           checked={formData.skills.includes(skill)}
-                          onChange={() => handleSkillToggle(skill, 'skills')}
+                          onChange={() => handleSkillToggle(skill, "skills")}
                         />
-                        <label className="form-check-label" htmlFor={`skill-${skill}`}>
+                        <label
+                          className="form-check-label"
+                          htmlFor={`skill-${skill}`}
+                        >
                           {skill}
                         </label>
                       </div>
@@ -174,11 +185,11 @@ const Register = () => {
                   ))}
                 </div>
               </div>
-              
+
               <div className="mb-3">
                 <label className="form-label">Skills I want to learn:</label>
                 <div className="row">
-                  {availableSkills.map(skill => (
+                  {availableSkills.map((skill) => (
                     <div key={skill} className="col-md-4 mb-2">
                       <div className="form-check">
                         <input
@@ -186,9 +197,14 @@ const Register = () => {
                           type="checkbox"
                           id={`wanted-${skill}`}
                           checked={formData.wantedSkills.includes(skill)}
-                          onChange={() => handleSkillToggle(skill, 'wantedSkills')}
+                          onChange={() =>
+                            handleSkillToggle(skill, "wantedSkills")
+                          }
                         />
-                        <label className="form-check-label" htmlFor={`wanted-${skill}`}>
+                        <label
+                          className="form-check-label"
+                          htmlFor={`wanted-${skill}`}
+                        >
                           {skill}
                         </label>
                       </div>
@@ -196,19 +212,19 @@ const Register = () => {
                   ))}
                 </div>
               </div>
-              
+
               <button
                 type="submit"
                 className="btn btn-primary w-100"
                 disabled={loading}
               >
-                {loading ? 'Creating Account...' : 'Create Account'}
+                {loading ? "Creating Account..." : "Create Account"}
               </button>
             </form>
-            
+
             <div className="text-center mt-3">
               <p>
-                Already have an account?{' '}
+                Already have an account?{" "}
                 <Link to="/login" className="text-decoration-none">
                   Login here
                 </Link>

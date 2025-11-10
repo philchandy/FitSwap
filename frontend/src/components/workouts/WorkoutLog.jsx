@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { useAuth } from '../../contexts/AuthContext';
+import React, { useState, useEffect, useCallback } from "react";
+import { useAuth } from "../../contexts/AuthContext";
 
 const WorkoutLog = () => {
   const { user } = useAuth();
@@ -8,27 +8,29 @@ const WorkoutLog = () => {
   const [loading, setLoading] = useState(false);
   const [editingWorkout, setEditingWorkout] = useState(null);
   const [formData, setFormData] = useState({
-    type: '',
-    date: new Date().toISOString().split('T')[0],
-    duration: '',
-    caloriesBurned: '',
+    type: "",
+    date: new Date().toISOString().split("T")[0],
+    duration: "",
+    caloriesBurned: "",
     exercises: [],
-    distance: '',
-    notes: '',
+    distance: "",
+    notes: "",
   });
 
   const workoutTypes = [
-    'Weightlifting', 'Cardio', 'Running', 'Cycling', 'Swimming', 
-    'Yoga', 'Boxing', 'CrossFit', 'Pilates', 'Rock Climbing'
+    "Weightlifting",
+    "Cardio",
+    "Running",
+    "Cycling",
+    "Swimming",
+    "Yoga",
+    "Boxing",
+    "CrossFit",
+    "Pilates",
+    "Rock Climbing",
   ];
 
-  useEffect(() => {
-    if (user) {
-      fetchWorkouts();
-    }
-  }, [user]);
-
-  const fetchWorkouts = async () => {
+  const fetchWorkouts = useCallback(async () => {
     try {
       const response = await fetch(`/api/workouts/user/${user._id}`);
       if (response.ok) {
@@ -36,24 +38,30 @@ const WorkoutLog = () => {
         setWorkouts(data);
       }
     } catch (error) {
-      console.error('Error fetching workouts:', error);
+      console.error("Error fetching workouts:", error);
     }
-  };
+  }, [user]);
+
+  useEffect(() => {
+    if (user) {
+      fetchWorkouts();
+    }
+  }, [user, fetchWorkouts]);
 
   const deleteWorkout = async (workoutId) => {
-    if (window.confirm('Are you sure you want to delete this workout?')) {
+    if (window.confirm("Are you sure you want to delete this workout?")) {
       try {
         const response = await fetch(`/api/workouts/${workoutId}`, {
-          method: 'DELETE',
+          method: "DELETE",
         });
 
         if (response.ok) {
           fetchWorkouts(); //refresh
         } else {
-          console.error('Error deleting workout');
+          console.error("Error deleting workout");
         }
       } catch (error) {
-        console.error('Error deleting workout:', error);
+        console.error("Error deleting workout:", error);
       }
     }
   };
@@ -62,12 +70,12 @@ const WorkoutLog = () => {
     setEditingWorkout(workout._id);
     setFormData({
       type: workout.type,
-      date: workout.date.split('T')[0],
+      date: workout.date.split("T")[0],
       duration: workout.duration,
       caloriesBurned: workout.caloriesBurned,
       exercises: workout.exercises || [],
-      distance: workout.distance || '',
-      notes: workout.notes || '',
+      distance: workout.distance || "",
+      notes: workout.notes || "",
     });
     setShowForm(true);
   };
@@ -75,32 +83,32 @@ const WorkoutLog = () => {
   const updateWorkout = async (workoutId, updatedData) => {
     try {
       const response = await fetch(`/api/workouts/${workoutId}`, {
-        method: 'PUT',
+        method: "PUT",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(updatedData),
       });
 
       if (response.ok) {
-        fetchWorkouts(); //refresh 
+        fetchWorkouts(); //refresh
         setEditingWorkout(null);
         setShowForm(false);
-        //reset form 
+        //reset form
         setFormData({
-          type: '',
-          date: new Date().toISOString().split('T')[0],
-          duration: '',
-          caloriesBurned: '',
+          type: "",
+          date: new Date().toISOString().split("T")[0],
+          duration: "",
+          caloriesBurned: "",
           exercises: [],
-          distance: '',
-          notes: '',
+          distance: "",
+          notes: "",
         });
       } else {
-        console.error('Error updating workout');
+        console.error("Error updating workout");
       }
     } catch (error) {
-      console.error('Error updating workout:', error);
+      console.error("Error updating workout:", error);
     }
   };
 
@@ -108,13 +116,13 @@ const WorkoutLog = () => {
     setEditingWorkout(null);
     setShowForm(false);
     setFormData({
-      type: '',
-      date: new Date().toISOString().split('T')[0],
-      duration: '',
-      caloriesBurned: '',
+      type: "",
+      date: new Date().toISOString().split("T")[0],
+      duration: "",
+      caloriesBurned: "",
       exercises: [],
-      distance: '',
-      notes: '',
+      distance: "",
+      notes: "",
     });
   };
 
@@ -143,30 +151,30 @@ const WorkoutLog = () => {
         await updateWorkout(editingWorkout, workoutData);
       } else {
         //create workout
-        const response = await fetch('/api/workouts', {
-          method: 'POST',
+        const response = await fetch("/api/workouts", {
+          method: "POST",
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
           },
           body: JSON.stringify(workoutData),
         });
 
         if (response.ok) {
           setFormData({
-            type: '',
-            date: new Date().toISOString().split('T')[0],
-            duration: '',
-            caloriesBurned: '',
+            type: "",
+            date: new Date().toISOString().split("T")[0],
+            duration: "",
+            caloriesBurned: "",
             exercises: [],
-            distance: '',
-            notes: '',
+            distance: "",
+            notes: "",
           });
           setShowForm(false);
           fetchWorkouts(); //refresh the list
         }
       }
     } catch (error) {
-      console.error('Error logging workout:', error);
+      console.error("Error logging workout:", error);
     } finally {
       setLoading(false);
     }
@@ -190,18 +198,22 @@ const WorkoutLog = () => {
             }
           }}
         >
-          {showForm ? 'Cancel' : 'Log New Workout'}
+          {showForm ? "Cancel" : "Log New Workout"}
         </button>
       </div>
 
       {showForm && (
         <div className="card mb-4">
           <div className="card-body">
-            <h5 className="card-title">{editingWorkout ? 'Edit Workout' : 'Log New Workout'}</h5>
+            <h5 className="card-title">
+              {editingWorkout ? "Edit Workout" : "Log New Workout"}
+            </h5>
             <form onSubmit={handleSubmit}>
               <div className="row">
                 <div className="col-md-6 mb-3">
-                  <label htmlFor="type" className="form-label">Workout Type</label>
+                  <label htmlFor="type" className="form-label">
+                    Workout Type
+                  </label>
                   <select
                     className="form-select"
                     id="type"
@@ -211,7 +223,7 @@ const WorkoutLog = () => {
                     required
                   >
                     <option value="">Select workout type</option>
-                    {workoutTypes.map(type => (
+                    {workoutTypes.map((type) => (
                       <option key={type} value={type.toLowerCase()}>
                         {type}
                       </option>
@@ -220,7 +232,9 @@ const WorkoutLog = () => {
                 </div>
 
                 <div className="col-md-6 mb-3">
-                  <label htmlFor="date" className="form-label">Date</label>
+                  <label htmlFor="date" className="form-label">
+                    Date
+                  </label>
                   <input
                     type="date"
                     className="form-control"
@@ -235,7 +249,9 @@ const WorkoutLog = () => {
 
               <div className="row">
                 <div className="col-md-4 mb-3">
-                  <label htmlFor="duration" className="form-label">Duration (minutes)</label>
+                  <label htmlFor="duration" className="form-label">
+                    Duration (minutes)
+                  </label>
                   <input
                     type="number"
                     className="form-control"
@@ -248,7 +264,9 @@ const WorkoutLog = () => {
                 </div>
 
                 <div className="col-md-4 mb-3">
-                  <label htmlFor="caloriesBurned" className="form-label">Calories Burned</label>
+                  <label htmlFor="caloriesBurned" className="form-label">
+                    Calories Burned
+                  </label>
                   <input
                     type="number"
                     className="form-control"
@@ -260,7 +278,9 @@ const WorkoutLog = () => {
                 </div>
 
                 <div className="col-md-4 mb-3">
-                  <label htmlFor="distance" className="form-label">Distance (miles)</label>
+                  <label htmlFor="distance" className="form-label">
+                    Distance (miles)
+                  </label>
                   <input
                     type="number"
                     step="0.1"
@@ -275,7 +295,9 @@ const WorkoutLog = () => {
               </div>
 
               <div className="mb-3">
-                <label htmlFor="notes" className="form-label">Notes</label>
+                <label htmlFor="notes" className="form-label">
+                  Notes
+                </label>
                 <textarea
                   className="form-control"
                   id="notes"
@@ -293,9 +315,15 @@ const WorkoutLog = () => {
                   className="btn btn-success"
                   disabled={loading}
                 >
-                  {loading ? (editingWorkout ? 'Updating...' : 'Logging...') : (editingWorkout ? 'Update Workout' : 'Log Workout')}
+                  {loading
+                    ? editingWorkout
+                      ? "Updating..."
+                      : "Logging..."
+                    : editingWorkout
+                      ? "Update Workout"
+                      : "Log Workout"}
                 </button>
-                
+
                 {editingWorkout && (
                   <button
                     type="button"
@@ -316,43 +344,48 @@ const WorkoutLog = () => {
           <div className="col-12">
             <div className="text-center py-5">
               <h4>No workouts logged yet</h4>
-              <p>Start tracking your fitness journey by logging your first workout!</p>
+              <p>
+                Start tracking your fitness journey by logging your first
+                workout!
+              </p>
             </div>
           </div>
         ) : (
-          workouts.map(workout => (
+          workouts.map((workout) => (
             <div key={workout._id} className="col-md-6 col-lg-4 mb-3">
               <div className="card">
                 <div className="card-body">
                   <div className="d-flex justify-content-between align-items-start mb-2">
-                    <h5 className="card-title text-capitalize">{workout.type}</h5>
+                    <h5 className="card-title text-capitalize">
+                      {workout.type}
+                    </h5>
                     <small className="text-muted">
                       {new Date(workout.date).toLocaleDateString()}
                     </small>
                   </div>
-                  
+
                   <div className="mb-2">
                     <strong>Duration:</strong> {workout.duration} minutes
                   </div>
-                  
+
                   {workout.caloriesBurned > 0 && (
                     <div className="mb-2">
                       <strong>Calories:</strong> {workout.caloriesBurned}
                     </div>
                   )}
-                  
+
                   {workout.distance && (
                     <div className="mb-2">
                       <strong>Distance:</strong> {workout.distance} miles
                     </div>
                   )}
-                  
+
                   {workout.notes && (
                     <div className="mb-2">
                       <strong>Notes:</strong> {workout.notes}
                     </div>
                   )}
-                  
+
                   <div className="d-flex gap-2">
                     <button
                       className="btn btn-outline-primary btn-sm"
@@ -367,7 +400,6 @@ const WorkoutLog = () => {
                       Delete
                     </button>
                   </div>
-                  
                 </div>
               </div>
             </div>

@@ -10,7 +10,7 @@
 
 body {
   background-color: var(--color-lightest);
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 /* bootstrap overrides */

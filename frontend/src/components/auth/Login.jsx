@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { useAuth } from '../../contexts/AuthContext';
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../../contexts/AuthContext";
 
 const Login = () => {
   const [formData, setFormData] = useState({
-    email: '',
-    password: '',
+    email: "",
+    password: "",
   });
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const { login, loading } = useAuth();
   const navigate = useNavigate();
 
@@ -20,12 +20,12 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError('');
+    setError("");
 
     const result = await login(formData.email, formData.password);
-    
+
     if (result.success) {
-      navigate('/dashboard');
+      navigate("/dashboard");
     } else {
       setError(result.error);
     }
@@ -37,13 +37,13 @@ const Login = () => {
         <div className="card">
           <div className="card-body">
             <h2 className="card-title text-center mb-4">Login to FitSwap</h2>
-            
+
             {error && (
               <div className="alert alert-danger" role="alert">
                 {error}
               </div>
             )}
-            
+
             <form onSubmit={handleSubmit}>
               <div className="mb-3">
                 <label htmlFor="email" className="form-label">
@@ -59,7 +59,7 @@ const Login = () => {
                   required
                 />
               </div>
-              
+
               <div className="mb-3">
                 <label htmlFor="password" className="form-label">
                   Password
@@ -74,19 +74,19 @@ const Login = () => {
                   required
                 />
               </div>
-              
+
               <button
                 type="submit"
                 className="btn btn-primary w-100"
                 disabled={loading}
               >
-                {loading ? 'Logging in...' : 'Login'}
+                {loading ? "Logging in..." : "Login"}
               </button>
             </form>
-            
+
             <div className="text-center mt-3">
               <p>
-                Don't have an account?{' '}
+                Don't have an account?{" "}
                 <Link to="/register" className="text-decoration-none">
                   Register here
                 </Link>

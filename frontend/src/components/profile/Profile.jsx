@@ -1,23 +1,31 @@
-import React, { useState } from 'react';
-import { useAuth } from '../../contexts/AuthContext';
+import React, { useState } from "react";
+import { useAuth } from "../../contexts/AuthContext";
 
 const Profile = () => {
   const { user, updateProfile, loading } = useAuth();
   const [editing, setEditing] = useState(false);
   const [formData, setFormData] = useState({
-    name: user?.name || '',
-    bio: user?.bio || '',
-    location: user?.location || '',
+    name: user?.name || "",
+    bio: user?.bio || "",
+    location: user?.location || "",
     skills: user?.skills || [],
     wantedSkills: user?.wantedSkills || [],
     goals: user?.goals || [],
   });
-  const [message, setMessage] = useState('');
-  const [newGoal, setNewGoal] = useState('');
+  const [message, setMessage] = useState("");
+  const [newGoal, setNewGoal] = useState("");
 
   const availableSkills = [
-    'Weightlifting', 'Cardio', 'Yoga', 'Boxing', 'Running', 
-    'Swimming', 'Cycling', 'CrossFit', 'Pilates', 'Rock Climbing'
+    "Weightlifting",
+    "Cardio",
+    "Yoga",
+    "Boxing",
+    "Running",
+    "Swimming",
+    "Cycling",
+    "CrossFit",
+    "Pilates",
+    "Rock Climbing",
   ];
 
   const handleChange = (e) => {
@@ -32,7 +40,7 @@ const Profile = () => {
     if (currentSkills.includes(skill)) {
       setFormData({
         ...formData,
-        [type]: currentSkills.filter(s => s !== skill),
+        [type]: currentSkills.filter((s) => s !== skill),
       });
     } else {
       setFormData({
@@ -46,27 +54,27 @@ const Profile = () => {
     if (newGoal.trim()) {
       setFormData({
         ...formData,
-        goals: [...formData.goals, newGoal.trim()]
+        goals: [...formData.goals, newGoal.trim()],
       });
-      setNewGoal('');
+      setNewGoal("");
     }
   };
 
   const handleGoalDelete = (index) => {
     setFormData({
       ...formData,
-      goals: formData.goals.filter((_, i) => i !== index)
+      goals: formData.goals.filter((_, i) => i !== index),
     });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setMessage('');
+    setMessage("");
 
     const result = await updateProfile(user._id, formData);
-    
+
     if (result.success) {
-      setMessage('Profile updated successfully!');
+      setMessage("Profile updated successfully!");
       setEditing(false);
     } else {
       setMessage(`Error: ${result.error}`);
@@ -88,20 +96,24 @@ const Profile = () => {
                 className="btn btn-outline-primary"
                 onClick={() => setEditing(!editing)}
               >
-                {editing ? 'Cancel' : 'Edit Profile'}
+                {editing ? "Cancel" : "Edit Profile"}
               </button>
             </div>
-            
+
             {message && (
-              <div className={`alert ${message.includes('Error') ? 'alert-danger' : 'alert-success'}`}>
+              <div
+                className={`alert ${message.includes("Error") ? "alert-danger" : "alert-success"}`}
+              >
                 {message}
               </div>
             )}
-            
+
             {editing ? (
               <form onSubmit={handleSubmit}>
                 <div className="mb-3">
-                  <label htmlFor="name" className="form-label">Name</label>
+                  <label htmlFor="name" className="form-label">
+                    Name
+                  </label>
                   <input
                     type="text"
                     className="form-control"
@@ -112,9 +124,11 @@ const Profile = () => {
                     required
                   />
                 </div>
-                
+
                 <div className="mb-3">
-                  <label htmlFor="bio" className="form-label">Bio</label>
+                  <label htmlFor="bio" className="form-label">
+                    Bio
+                  </label>
                   <textarea
                     className="form-control"
                     id="bio"
@@ -125,9 +139,11 @@ const Profile = () => {
                     placeholder="Tell us about yourself..."
                   />
                 </div>
-                
+
                 <div className="mb-3">
-                  <label htmlFor="location" className="form-label">Location</label>
+                  <label htmlFor="location" className="form-label">
+                    Location
+                  </label>
                   <input
                     type="text"
                     className="form-control"
@@ -138,11 +154,11 @@ const Profile = () => {
                     placeholder="City, State"
                   />
                 </div>
-                
+
                 <div className="mb-3">
                   <label className="form-label">Skills I can teach:</label>
                   <div className="row">
-                    {availableSkills.map(skill => (
+                    {availableSkills.map((skill) => (
                       <div key={skill} className="col-md-4 mb-2">
                         <div className="form-check">
                           <input
@@ -150,9 +166,12 @@ const Profile = () => {
                             type="checkbox"
                             id={`skill-${skill}`}
                             checked={formData.skills.includes(skill)}
-                            onChange={() => handleSkillToggle(skill, 'skills')}
+                            onChange={() => handleSkillToggle(skill, "skills")}
                           />
-                          <label className="form-check-label" htmlFor={`skill-${skill}`}>
+                          <label
+                            className="form-check-label"
+                            htmlFor={`skill-${skill}`}
+                          >
                             {skill}
                           </label>
                         </div>
@@ -160,11 +179,11 @@ const Profile = () => {
                     ))}
                   </div>
                 </div>
-                
+
                 <div className="mb-3">
                   <label className="form-label">Skills I want to learn:</label>
                   <div className="row">
-                    {availableSkills.map(skill => (
+                    {availableSkills.map((skill) => (
                       <div key={skill} className="col-md-4 mb-2">
                         <div className="form-check">
                           <input
@@ -172,9 +191,14 @@ const Profile = () => {
                             type="checkbox"
                             id={`wanted-${skill}`}
                             checked={formData.wantedSkills.includes(skill)}
-                            onChange={() => handleSkillToggle(skill, 'wantedSkills')}
+                            onChange={() =>
+                              handleSkillToggle(skill, "wantedSkills")
+                            }
                           />
-                          <label className="form-check-label" htmlFor={`wanted-${skill}`}>
+                          <label
+                            className="form-check-label"
+                            htmlFor={`wanted-${skill}`}
+                          >
                             {skill}
                           </label>
                         </div>
@@ -182,7 +206,7 @@ const Profile = () => {
                     ))}
                   </div>
                 </div>
-                
+
                 <div className="mb-3">
                   <label className="form-label">Fitness Goals:</label>
                   <div className="mb-2">
@@ -207,7 +231,10 @@ const Profile = () => {
                   {formData.goals.length > 0 && (
                     <div className="mt-2">
                       {formData.goals.map((goal, index) => (
-                        <div key={index} className="d-flex align-items-center mb-2">
+                        <div
+                          key={index}
+                          className="d-flex align-items-center mb-2"
+                        >
                           <span className="badge bg-success me-2 flex-grow-1 text-start">
                             {goal}
                           </span>
@@ -223,46 +250,56 @@ const Profile = () => {
                     </div>
                   )}
                 </div>
-                
+
                 <button
                   type="submit"
                   className="btn btn-primary"
                   disabled={loading}
                 >
-                  {loading ? 'Updating...' : 'Update Profile'}
+                  {loading ? "Updating..." : "Update Profile"}
                 </button>
               </form>
             ) : (
               <div>
                 <div className="row mb-3">
-                  <div className="col-sm-3"><strong>Name:</strong></div>
+                  <div className="col-sm-3">
+                    <strong>Name:</strong>
+                  </div>
                   <div className="col-sm-9">{user.name}</div>
                 </div>
-                
+
                 <div className="row mb-3">
-                  <div className="col-sm-3"><strong>Email:</strong></div>
+                  <div className="col-sm-3">
+                    <strong>Email:</strong>
+                  </div>
                   <div className="col-sm-9">{user.email}</div>
                 </div>
-                
+
                 {user.bio && (
                   <div className="row mb-3">
-                    <div className="col-sm-3"><strong>Bio:</strong></div>
+                    <div className="col-sm-3">
+                      <strong>Bio:</strong>
+                    </div>
                     <div className="col-sm-9">{user.bio}</div>
                   </div>
                 )}
-                
+
                 {user.location && (
                   <div className="row mb-3">
-                    <div className="col-sm-3"><strong>Location:</strong></div>
+                    <div className="col-sm-3">
+                      <strong>Location:</strong>
+                    </div>
                     <div className="col-sm-9">{user.location}</div>
                   </div>
                 )}
-                
+
                 {user.skills && user.skills.length > 0 && (
                   <div className="row mb-3">
-                    <div className="col-sm-3"><strong>Skills I teach:</strong></div>
+                    <div className="col-sm-3">
+                      <strong>Skills I teach:</strong>
+                    </div>
                     <div className="col-sm-9">
-                      {user.skills.map(skill => (
+                      {user.skills.map((skill) => (
                         <span key={skill} className="badge bg-secondary me-2">
                           {skill}
                         </span>
@@ -270,12 +307,14 @@ const Profile = () => {
                     </div>
                   </div>
                 )}
-                
+
                 {user.wantedSkills && user.wantedSkills.length > 0 && (
                   <div className="row mb-3">
-                    <div className="col-sm-3"><strong>Want to learn:</strong></div>
+                    <div className="col-sm-3">
+                      <strong>Want to learn:</strong>
+                    </div>
                     <div className="col-sm-9">
-                      {user.wantedSkills.map(skill => (
+                      {user.wantedSkills.map((skill) => (
                         <span key={skill} className="badge bg-secondary me-2">
                           {skill}
                         </span>
@@ -286,10 +325,15 @@ const Profile = () => {
 
                 {user.goals && user.goals.length > 0 && (
                   <div className="row mb-3">
-                    <div className="col-sm-3"><strong>Fitness Goals:</strong></div>
+                    <div className="col-sm-3">
+                      <strong>Fitness Goals:</strong>
+                    </div>
                     <div className="col-sm-9">
                       {user.goals.map((goal, index) => (
-                        <div key={index} className="badge bg-secondary me-2 mb-2">
+                        <div
+                          key={index}
+                          className="badge bg-secondary me-2 mb-2"
+                        >
                           {goal}
                         </div>
                       ))}
