@@ -12,6 +12,10 @@ Northeastern University
 
 [CS 5610 - Web Development Course](https://johnguerra.co/classes/webDevelopment_online_fall_2025)
 
+## Project Document
+
+[Project Document](https://docs.google.com/document/d/1OkSjVuFqMeXAfrLGnYz1lP8ywZyfcKBa-6JfkZX2BrQ/edit?usp=sharing)
+
 ## Project Objective
 
 FitSwap is designed to solve the problem of finding compatible workout partners and learning new fitness skills. The platform allows users to:
