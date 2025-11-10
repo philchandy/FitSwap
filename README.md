@@ -45,8 +45,6 @@ The app promotes a community-driven approach to fitness where users can both tea
 
 ## Screenshot
 
-*Note: Add screenshot here when available*
-
 ![FitSwap Dashboard](./screenshots/dash.png)
 ![FitSwap Workouts](./screenshots/workouts.png)
 ![FitSwap Partners](./screenshots/find%20partners.png)
