@@ -6,6 +6,7 @@ const WorkoutLog = () => {
   const [workouts, setWorkouts] = useState([]);
   const [showForm, setShowForm] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [editingWorkout, setEditingWorkout] = useState(null);
   const [formData, setFormData] = useState({
     type: '',
     date: new Date().toISOString().split('T')[0],
@@ -39,6 +40,84 @@ const WorkoutLog = () => {
     }
   };
 
+  const deleteWorkout = async (workoutId) => {
+    if (window.confirm('Are you sure you want to delete this workout?')) {
+      try {
+        const response = await fetch(`/api/workouts/${workoutId}`, {
+          method: 'DELETE',
+        });
+
+        if (response.ok) {
+          fetchWorkouts(); //refresh
+        } else {
+          console.error('Error deleting workout');
+        }
+      } catch (error) {
+        console.error('Error deleting workout:', error);
+      }
+    }
+  };
+
+  const startEdit = (workout) => {
+    setEditingWorkout(workout._id);
+    setFormData({
+      type: workout.type,
+      date: workout.date.split('T')[0],
+      duration: workout.duration,
+      caloriesBurned: workout.caloriesBurned,
+      exercises: workout.exercises || [],
+      distance: workout.distance || '',
+      notes: workout.notes || '',
+    });
+    setShowForm(true);
+  };
+
+  const updateWorkout = async (workoutId, updatedData) => {
+    try {
+      const response = await fetch(`/api/workouts/${workoutId}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(updatedData),
+      });
+
+      if (response.ok) {
+        fetchWorkouts(); //refresh 
+        setEditingWorkout(null);
+        setShowForm(false);
+        //reset form 
+        setFormData({
+          type: '',
+          date: new Date().toISOString().split('T')[0],
+          duration: '',
+          caloriesBurned: '',
+          exercises: [],
+          distance: '',
+          notes: '',
+        });
+      } else {
+        console.error('Error updating workout');
+      }
+    } catch (error) {
+      console.error('Error updating workout:', error);
+    }
+  };
+
+  const cancelEdit = () => {
+    setEditingWorkout(null);
+    setShowForm(false);
+    setFormData({
+      type: '',
+      date: new Date().toISOString().split('T')[0],
+      duration: '',
+      caloriesBurned: '',
+      exercises: [],
+      distance: '',
+      notes: '',
+    });
+  };
+
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -59,26 +138,32 @@ const WorkoutLog = () => {
         distance: formData.distance ? parseFloat(formData.distance) : null,
       };
 
-      const response = await fetch('/api/workouts', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(workoutData),
-      });
-
-      if (response.ok) {
-        setFormData({
-          type: '',
-          date: new Date().toISOString().split('T')[0],
-          duration: '',
-          caloriesBurned: '',
-          exercises: [],
-          distance: '',
-          notes: '',
+      if (editingWorkout) {
+        //update workout
+        await updateWorkout(editingWorkout, workoutData);
+      } else {
+        //create workout
+        const response = await fetch('/api/workouts', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(workoutData),
         });
-        setShowForm(false);
-        fetchWorkouts(); //refresh the list
+
+        if (response.ok) {
+          setFormData({
+            type: '',
+            date: new Date().toISOString().split('T')[0],
+            duration: '',
+            caloriesBurned: '',
+            exercises: [],
+            distance: '',
+            notes: '',
+          });
+          setShowForm(false);
+          fetchWorkouts(); //refresh the list
+        }
       }
     } catch (error) {
       console.error('Error logging workout:', error);
@@ -97,7 +182,13 @@ const WorkoutLog = () => {
         <h2>My Workouts</h2>
         <button
           className="btn btn-primary"
-          onClick={() => setShowForm(!showForm)}
+          onClick={() => {
+            if (editingWorkout) {
+              cancelEdit();
+            } else {
+              setShowForm(!showForm);
+            }
+          }}
         >
           {showForm ? 'Cancel' : 'Log New Workout'}
         </button>
@@ -106,7 +197,7 @@ const WorkoutLog = () => {
       {showForm && (
         <div className="card mb-4">
           <div className="card-body">
-            <h5 className="card-title">Log New Workout</h5>
+            <h5 className="card-title">{editingWorkout ? 'Edit Workout' : 'Log New Workout'}</h5>
             <form onSubmit={handleSubmit}>
               <div className="row">
                 <div className="col-md-6 mb-3">
@@ -196,13 +287,25 @@ const WorkoutLog = () => {
                 />
               </div>
 
-              <button
-                type="submit"
-                className="btn btn-success"
-                disabled={loading}
-              >
-                {loading ? 'Logging...' : 'Log Workout'}
-              </button>
+              <div className="d-flex gap-2">
+                <button
+                  type="submit"
+                  className="btn btn-success"
+                  disabled={loading}
+                >
+                  {loading ? (editingWorkout ? 'Updating...' : 'Logging...') : (editingWorkout ? 'Update Workout' : 'Log Workout')}
+                </button>
+                
+                {editingWorkout && (
+                  <button
+                    type="button"
+                    className="btn btn-secondary"
+                    onClick={cancelEdit}
+                  >
+                    Cancel
+                  </button>
+                )}
+              </div>
             </form>
           </div>
         </div>
@@ -249,6 +352,22 @@ const WorkoutLog = () => {
                       <strong>Notes:</strong> {workout.notes}
                     </div>
                   )}
+                  
+                  <div className="d-flex gap-2">
+                    <button
+                      className="btn btn-outline-primary btn-sm"
+                      onClick={() => startEdit(workout)}
+                    >
+                      Update
+                    </button>
+                    <button
+                      className="btn btn-outline-danger btn-sm"
+                      onClick={() => deleteWorkout(workout._id)}
+                    >
+                      Delete
+                    </button>
+                  </div>
+                  
                 </div>
               </div>
             </div>

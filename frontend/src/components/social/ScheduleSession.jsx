@@ -109,7 +109,6 @@ const ScheduleSession = () => {
           <div className="card-body">
             <h2 className="card-title">Schedule Session with {targetUser.name}</h2>
             
-            {/* Target User Info */}
             <div className="alert alert-info mb-4">
               <div className="row">
                 <div className="col-md-6">

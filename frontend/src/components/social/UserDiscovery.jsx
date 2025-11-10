@@ -82,7 +82,6 @@ const UserDiscovery = () => {
       <div className="d-flex justify-content-between align-items-center mb-4">
         <h2>Find Workout Partners</h2>
         
-        {/* Tab Navigation */}
         <ul className="nav nav-pills">
           <li className="nav-item">
             <button
@@ -103,7 +102,6 @@ const UserDiscovery = () => {
         </ul>
       </div>
 
-      {/* Filters (only show for discover tab) */}
       {activeTab === 'discover' && (
         <div className="card mb-4">
           <div className="card-body">
@@ -153,7 +151,6 @@ const UserDiscovery = () => {
         </div>
       )}
 
-      {/* Loading State */}
       {loading && (
         <div className="text-center py-4">
           <div className="spinner-border" role="status">
@@ -162,7 +159,6 @@ const UserDiscovery = () => {
         </div>
       )}
 
-      {/* Users Grid */}
       <div className="row">
         {activeTab === 'discover' ? (
           users.length === 0 && !loading ? (
@@ -221,7 +217,7 @@ const UserCard = ({ user, currentUser }) => {
               <strong>Skills:</strong>
               <div className="d-flex flex-wrap gap-1 mt-1">
                 {user.skills.map(skill => (
-                  <span key={skill} className="badge bg-primary">
+                  <span key={skill} className="badge bg-secondary">
                     {skill}
                   </span>
                 ))}
@@ -279,14 +275,11 @@ const MatchCard = ({ match, currentUser }) => {
         <div className="card-body">
           <div className="d-flex justify-content-between align-items-start mb-2">
             <h5 className="card-title">{match.name}</h5>
-            <span className={`badge bg-${getMatchTypeColor(match.matchType)}`}>
-              {getMatchTypeText(match.matchType)}
-            </span>
           </div>
           
           <div className="mb-2">
             <strong>Match Score: </strong>
-            <span className="badge bg-primary">{match.matchScore}</span>
+            <span className="badge bg-info">{match.matchScore}</span>
           </div>
           
           {match.location && (
@@ -300,7 +293,7 @@ const MatchCard = ({ match, currentUser }) => {
               <strong>Can teach you:</strong>
               <div className="d-flex flex-wrap gap-1 mt-1">
                 {match.canTeachMe.map(skill => (
-                  <span key={skill} className="badge bg-success">
+                  <span key={skill} className="badge bg-secondary">
                     {skill}
                   </span>
                 ))}
@@ -313,7 +306,7 @@ const MatchCard = ({ match, currentUser }) => {
               <strong>You can teach:</strong>
               <div className="d-flex flex-wrap gap-1 mt-1">
                 {match.canLearnFromMe.map(skill => (
-                  <span key={skill} className="badge bg-info">
+                  <span key={skill} className="badge bg-secondary">
                     {skill}
                   </span>
                 ))}

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
+import '../../styles/navbar.css';
 
 const Navbar = () => {
   const { user, logout, isAuthenticated } = useAuth();
@@ -12,7 +13,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
+    <nav className="navbar navbar-expand-lg navbar-dark">
       <div className="container">
         <Link className="navbar-brand" to="/dashboard">
           <strong>FitSwap</strong>

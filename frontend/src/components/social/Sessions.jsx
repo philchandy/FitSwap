@@ -6,7 +6,7 @@ const Sessions = () => {
   const { user } = useAuth();
   const [sessions, setSessions] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [filter, setFilter] = useState('all'); // 'all', 'scheduled', 'completed', 'cancelled'
+  const [filter, setFilter] = useState('all');
 
   useEffect(() => {
     if (user) {
@@ -90,7 +90,6 @@ const Sessions = () => {
         </Link>
       </div>
 
-      {/* Filter Tabs */}
       <ul className="nav nav-pills mb-4">
         <li className="nav-item">
           <button
@@ -116,17 +115,8 @@ const Sessions = () => {
             Completed
           </button>
         </li>
-        <li className="nav-item">
-          <button
-            className={`nav-link ${filter === 'cancelled' ? 'active' : ''}`}
-            onClick={() => setFilter('cancelled')}
-          >
-            Cancelled
-          </button>
-        </li>
       </ul>
 
-      {/* Loading State */}
       {loading && (
         <div className="text-center py-4">
           <div className="spinner-border" role="status">
@@ -135,7 +125,6 @@ const Sessions = () => {
         </div>
       )}
 
-      {/* Sessions List */}
       {sessions.length === 0 && !loading ? (
         <div className="text-center py-5">
           <h4>No sessions found</h4>
@@ -192,7 +181,6 @@ const SessionCard = ({ session, currentUser, onStatusUpdate, onDelete }) => {
     switch (status) {
       case 'scheduled': return 'primary';
       case 'completed': return 'success';
-      case 'cancelled': return 'danger';
       default: return 'secondary';
     }
   };
@@ -243,7 +231,6 @@ const SessionCard = ({ session, currentUser, onStatusUpdate, onDelete }) => {
             </div>
           )}
 
-          {/* Action Buttons */}
           <div className="d-flex gap-2 flex-wrap">
             {session.status === 'scheduled' && (
               <>

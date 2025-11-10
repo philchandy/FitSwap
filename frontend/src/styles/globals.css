@@ -1,0 +1,117 @@
+/* Color Palette - Global Variables */
+/* van dyke, dim gray, ash gray, tea green, timberwolf */
+:root {
+  --color-darkest: #4e3d42;
+  --color-dark: #6d6466;
+  --color-medium: #9f9f92;
+  --color-light: #c9d5b5;
+  --color-lightest: #e3dbdb;
+}
+
+body {
+  background-color: var(--color-lightest);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* bootstrap overrides */
+.btn-primary {
+  background-color: var(--color-light);
+  border-color: var(--color-light);
+  color: var(--color-darkest);
+  font-weight: 500;
+}
+
+.btn-primary:hover {
+  background-color: var(--color-medium);
+  border-color: var(--color-medium);
+  color: var(--color-darkest);
+}
+
+.btn-outline-primary {
+  color: var(--color-darkest);
+  border-color: var(--color-light);
+  background-color: transparent;
+}
+
+.btn-outline-primary:hover {
+  background-color: var(--color-light);
+  border-color: var(--color-light);
+  color: var(--color-darkest);
+}
+
+.btn-success {
+  background-color: var(--color-light);
+  border-color: var(--color-light);
+  color: var(--color-darkest);
+}
+
+.btn-success:hover {
+  background-color: var(--color-medium);
+  border-color: var(--color-medium);
+  color: var(--color-darkest);
+}
+
+.btn-outline-success {
+  color: var(--color-darkest);
+  border-color: var(--color-light);
+  background-color: transparent;
+}
+
+.btn-outline-success:hover {
+  background-color: var(--color-light);
+  border-color: var(--color-light);
+  color: var(--color-darkest);
+}
+
+.card {
+  background-color: white;
+  border: 1px solid var(--color-dark);
+  box-shadow: 0 2px 4px rgba(78, 61, 66, 0.1);
+}
+
+.badge.bg-primary {
+  background-color: var(--color-light);
+  color: var(--color-darkest);
+}
+
+.badge.bg-success {
+  background-color: var(--color-medium);
+  color: var(--color-darkest);
+}
+
+.badge.bg-secondary {
+  background-color: var(--color-dark);
+  color: white;
+}
+
+.form-control:focus {
+  border-color: var(--color-medium);
+  box-shadow: 0 0 0 0.2rem rgba(159, 159, 146, 0.25);
+}
+
+.alert-success {
+  background-color: var(--color-light);
+  border-color: var(--color-medium);
+  color: var(--color-darkest);
+}
+
+.alert-danger {
+  background-color: #f8d7da;
+  border-color: #f5c6cb;
+  color: #721c24;
+}
+
+/* Nav pills override */
+.nav-pills .nav-link.active {
+  background-color: var(--color-light);
+  color: var(--color-darkest);
+}
+
+.nav-pills .nav-link {
+  color: var(--color-darkest);
+}
+
+.nav-pills .nav-link:hover {
+  background-color: var(--color-medium);
+  color: var(--color-darkest);
+}

@@ -13,6 +13,7 @@ const Profile = () => {
     goals: user?.goals || [],
   });
   const [message, setMessage] = useState('');
+  const [newGoal, setNewGoal] = useState('');
 
   const availableSkills = [
     'Weightlifting', 'Cardio', 'Yoga', 'Boxing', 'Running', 
@@ -39,6 +40,23 @@ const Profile = () => {
         [type]: [...currentSkills, skill],
       });
     }
+  };
+
+  const handleGoalAdd = () => {
+    if (newGoal.trim()) {
+      setFormData({
+        ...formData,
+        goals: [...formData.goals, newGoal.trim()]
+      });
+      setNewGoal('');
+    }
+  };
+
+  const handleGoalDelete = (index) => {
+    setFormData({
+      ...formData,
+      goals: formData.goals.filter((_, i) => i !== index)
+    });
   };
 
   const handleSubmit = async (e) => {
@@ -165,6 +183,47 @@ const Profile = () => {
                   </div>
                 </div>
                 
+                <div className="mb-3">
+                  <label className="form-label">Fitness Goals:</label>
+                  <div className="mb-2">
+                    <div className="input-group">
+                      <input
+                        type="text"
+                        className="form-control"
+                        placeholder="Add a new goal..."
+                        value={newGoal}
+                        onChange={(e) => setNewGoal(e.target.value)}
+                      />
+                      <button
+                        type="button"
+                        className="btn btn-outline-success"
+                        onClick={handleGoalAdd}
+                        disabled={!newGoal.trim()}
+                      >
+                        Add Goal
+                      </button>
+                    </div>
+                  </div>
+                  {formData.goals.length > 0 && (
+                    <div className="mt-2">
+                      {formData.goals.map((goal, index) => (
+                        <div key={index} className="d-flex align-items-center mb-2">
+                          <span className="badge bg-success me-2 flex-grow-1 text-start">
+                            {goal}
+                          </span>
+                          <button
+                            type="button"
+                            className="btn btn-sm btn-outline-danger"
+                            onClick={() => handleGoalDelete(index)}
+                          >
+                            ×
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+                
                 <button
                   type="submit"
                   className="btn btn-primary"
@@ -204,7 +263,7 @@ const Profile = () => {
                     <div className="col-sm-3"><strong>Skills I teach:</strong></div>
                     <div className="col-sm-9">
                       {user.skills.map(skill => (
-                        <span key={skill} className="badge bg-primary me-2">
+                        <span key={skill} className="badge bg-secondary me-2">
                           {skill}
                         </span>
                       ))}
@@ -220,6 +279,19 @@ const Profile = () => {
                         <span key={skill} className="badge bg-secondary me-2">
                           {skill}
                         </span>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {user.goals && user.goals.length > 0 && (
+                  <div className="row mb-3">
+                    <div className="col-sm-3"><strong>Fitness Goals:</strong></div>
+                    <div className="col-sm-9">
+                      {user.goals.map((goal, index) => (
+                        <div key={index} className="badge bg-secondary me-2 mb-2">
+                          {goal}
+                        </div>
                       ))}
                     </div>
                   </div>

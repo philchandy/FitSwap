@@ -1,0 +1,13 @@
+/* navbar styles */
+.navbar {
+  background-color: var(--color-dark);
+}
+
+.navbar-brand,
+.navbar-nav .nav-link {
+  color: white;
+}
+
+.navbar-nav .nav-link:hover {
+  color: var(--color-lightest);
+}
