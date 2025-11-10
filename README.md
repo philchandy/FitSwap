@@ -215,6 +215,11 @@ Used GenAI (Claude Sonnet 4) to create database schemas for 3 collections; users
 Prompt Used:
 "Imagine you are designing a schema for a Mongo database for a fitness tracking application. You need to have a collection of users- which has a general user data along with bio and goals. However, users also has to point to a collection of workouts where workout data can be stored (user id, type, duration, calories burned, etc.). Another collection, sessions, will also contain data for appointments that users set up with each other, so this must contain user_id, trainer_id, location, dateTtime, etc. Please guide me through selecting the correct fields to set up this schema correctly"
 
+Used GenAI (GPT 5o) to create mock data for the database.
+
+Prompt Used:
+"I need to input 1000 entries into my collections with fields (format input here). I am using mockaroo, which uses Ruby. Please create a formula to select a random workout type from this Array of workouts ["Weightlifting","Cardio","Running","Cycling","Swimming", "Yoga","Boxing","CrossFit","Pilates","Rock Climbing"]."
+
 Used GenAI (Claude Sonnet 4) to create a README file for the project.
 
 Prompt Used:
