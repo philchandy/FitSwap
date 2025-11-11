@@ -9,9 +9,9 @@ CS 5610 - Web Development
 Northeastern University
 
 ## Test Account
-To access an account with populated data, please use the following email and password.
-email:test@test.com
-password:testtest
+To access an account with populated data, please use the following email and password:
+- **email: test@test.com
+- **password: testtest
 
 ## Class Link
 
