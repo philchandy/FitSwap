@@ -2,6 +2,10 @@
 
 A social fitness platform that connects workout partners and enables skill exchange in the fitness community.
 
+## Demo
+
+https://fitswap.onrender.com
+
 ## Author
 
 **Philip Chandy**  
