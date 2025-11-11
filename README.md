@@ -2,16 +2,16 @@
 
 A social fitness platform that connects workout partners and enables skill exchange in the fitness community.
 
-#Test Account
-To access an account with populated data, please use the following email and password.
-email:test@test.com
-password:testtest
-
 ## Author
 
 **Philip Chandy**  
 CS 5610 - Web Development  
 Northeastern University
+
+## Test Account
+To access an account with populated data, please use the following email and password.
+email:test@test.com
+password:testtest
 
 ## Class Link
 
