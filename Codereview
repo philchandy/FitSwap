@@ -1,0 +1,3 @@
+Great project.
+Only tip would be have two separate folders for backend and frontend with its own package jsons.
+This way the backend and frontend can have full package separation.
