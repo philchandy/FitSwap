@@ -10,7 +10,7 @@ import {
   Tooltip,
   Legend,
 } from "recharts";
-import "../../styles/Dashboard.css";
+import "../../styles/dashboard.css";
 
 const Dashboard = () => {
   const { user, isAuthenticated } = useAuth();
