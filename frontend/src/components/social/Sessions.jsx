@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useAuth } from "../../contexts/AuthContext";
 import { Link } from "react-router-dom";
+import "../../styles/Sessions.css";
 
 const Sessions = () => {
   const { user } = useAuth();
@@ -74,39 +75,34 @@ const Sessions = () => {
 
   return (
     <div>
-      <div className="d-flex justify-content-between align-items-center mb-4">
+      <div className="d-flex justify-content-between align-items-center mb-3">
         <h2>My Training Sessions</h2>
-        <Link to="/discover" className="btn btn-primary">
+        <Link to="/discover" className="btn log-workout-btn">
           Schedule New Session
         </Link>
       </div>
+      <hr className="chart-divider" />
 
-      <ul className="nav nav-pills mb-4">
-        <li className="nav-item">
-          <button
-            className={`nav-link ${filter === "all" ? "active" : ""}`}
-            onClick={() => setFilter("all")}
-          >
-            All Sessions
-          </button>
-        </li>
-        <li className="nav-item">
-          <button
-            className={`nav-link ${filter === "scheduled" ? "active" : ""}`}
-            onClick={() => setFilter("scheduled")}
-          >
-            Upcoming
-          </button>
-        </li>
-        <li className="nav-item">
-          <button
-            className={`nav-link ${filter === "completed" ? "active" : ""}`}
-            onClick={() => setFilter("completed")}
-          >
-            Completed
-          </button>
-        </li>
-      </ul>
+      <div className="chart-filters mb-4">
+        <button
+          className={`chart-filter-btn ${filter === "all" ? "active" : ""}`}
+          onClick={() => setFilter("all")}
+        >
+          All Sessions
+        </button>
+        <button
+          className={`chart-filter-btn ${filter === "scheduled" ? "active" : ""}`}
+          onClick={() => setFilter("scheduled")}
+        >
+          Upcoming
+        </button>
+        <button
+          className={`chart-filter-btn ${filter === "completed" ? "active" : ""}`}
+          onClick={() => setFilter("completed")}
+        >
+          Completed
+        </button>
+      </div>
 
       {loading && (
         <div className="text-center py-4">
@@ -117,7 +113,7 @@ const Sessions = () => {
       )}
 
       {sessions.length === 0 && !loading ? (
-        <div className="text-center py-5">
+        <div className="sessions-empty-state">
           <h4>No sessions found</h4>
           <p>
             {filter === "all"
@@ -167,86 +163,119 @@ const SessionCard = ({ session, currentUser, onStatusUpdate, onDelete }) => {
     });
   };
 
-  const getStatusBadgeColor = (status) => {
-    switch (status) {
-      case "scheduled":
-        return "primary";
-      case "completed":
-        return "success";
-      default:
-        return "secondary";
-    }
-  };
-
   const canMarkCompleted =
     session.status === "scheduled" && new Date(session.date) <= new Date();
 
   return (
     <div className="col-md-6 col-lg-4 mb-4">
-      <div className="card h-100">
-        <div className="card-body">
-          <div className="d-flex justify-content-between align-items-start mb-2">
-            <h5 className="card-title">{session.title}</h5>
-            <span className={`badge bg-${getStatusBadgeColor(session.status)}`}>
-              {session.status}
-            </span>
+      <div className="session-card">
+        <div className="session-card-header">
+          <h5 className="session-card-title">
+            {session.title}
+            <span className="session-role-badge">{role}</span>
+          </h5>
+          <span
+            className={`session-status-badge session-status-${session.status}`}
+          >
+            {session.status}
+          </span>
+        </div>
+
+        <div className="session-card-body">
+          <div className="session-stats">
+            <div className="session-stat-item">
+              <div className="session-stat-icon">
+                <i className="bi bi-person-fill"></i>
+              </div>
+              <div className="session-stat-content">
+                <div className="session-stat-label">Partner</div>
+                <div className="session-stat-value">
+                  {partner?.name || "Unknown"}
+                </div>
+              </div>
+            </div>
+
+            <div className="session-stat-item">
+              <div className="session-stat-icon">
+                <i className="bi bi-trophy-fill"></i>
+              </div>
+              <div className="session-stat-content">
+                <div className="session-stat-label">Skill</div>
+                <div className="session-stat-value">{session.skill}</div>
+              </div>
+            </div>
           </div>
 
-          <div className="mb-2">
-            <strong>Role:</strong> <span className="badge bg-info">{role}</span>
+          <div className="session-stats">
+            <div className="session-stat-item">
+              <div className="session-stat-icon">
+                <i className="bi bi-calendar-fill"></i>
+              </div>
+              <div className="session-stat-content">
+                <div className="session-stat-label">Date</div>
+                <div className="session-stat-value-small">
+                  {formatDate(session.date)}
+                </div>
+              </div>
+            </div>
           </div>
 
-          <div className="mb-2">
-            <strong>Partner:</strong> {partner?.name || "Unknown"}
-          </div>
-
-          <div className="mb-2">
-            <strong>Skill:</strong>{" "}
-            <span className="badge bg-secondary">{session.skill}</span>
-          </div>
-
-          <div className="mb-2">
-            <strong>Date:</strong> {formatDate(session.date)}
-          </div>
-
-          <div className="mb-2">
-            <strong>Time:</strong> {formatTime(session.startTime)} -{" "}
-            {formatTime(session.endTime)}
+          <div className="session-stats">
+            <div className="session-stat-item">
+              <div className="session-stat-icon">
+                <i className="bi bi-clock-fill"></i>
+              </div>
+              <div className="session-stat-content">
+                <div className="session-stat-label">Time</div>
+                <div className="session-stat-value-small">
+                  {formatTime(session.startTime)} -{" "}
+                  {formatTime(session.endTime)}
+                </div>
+              </div>
+            </div>
           </div>
 
           {session.location && (
-            <div className="mb-2">
-              <strong>Location:</strong> {session.location}
+            <div className="session-stats">
+              <div className="session-stat-item">
+                <div className="session-stat-icon">
+                  <i className="bi bi-geo-alt-fill"></i>
+                </div>
+                <div className="session-stat-content">
+                  <div className="session-stat-label">Location</div>
+                  <div className="session-stat-value-small">
+                    {session.location}
+                  </div>
+                </div>
+              </div>
             </div>
           )}
 
           {session.notes && (
-            <div className="mb-3">
-              <strong>Notes:</strong> {session.notes}
-            </div>
+            <div className="session-notes">{session.notes}</div>
           )}
 
-          <div className="d-flex gap-2 flex-wrap">
-            {session.status === "scheduled" && (
-              <>
-                {canMarkCompleted && (
-                  <button
-                    className="btn btn-success btn-sm"
-                    onClick={() => onStatusUpdate(session._id, "completed")}
-                  >
-                    Mark Complete
-                  </button>
-                )}
-
+          {session.status === "scheduled" && (
+            <div className="session-actions">
+              {canMarkCompleted && (
                 <button
-                  className="btn btn-outline-danger btn-sm"
-                  onClick={() => onDelete(session._id)}
+                  className="btn btn-success"
+                  onClick={() => onStatusUpdate(session._id, "completed")}
                 >
-                  Cancel
+                  <i className="bi bi-check-circle me-1"></i>
+                  Mark Complete
                 </button>
-              </>
-            )}
-          </div>
+              )}
+
+              <button
+                className="btn btn-outline-danger"
+                onClick={() => onDelete(session._id)}
+              >
+                <i className="bi bi-x-circle me-1"></i>
+                Cancel
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </div>

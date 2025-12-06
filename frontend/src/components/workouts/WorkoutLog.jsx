@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useAuth } from "../../contexts/AuthContext";
+import "../../styles/WorkoutLog.css";
 
 const WorkoutLog = () => {
   const { user } = useAuth();
@@ -7,6 +8,11 @@ const WorkoutLog = () => {
   const [showForm, setShowForm] = useState(false);
   const [loading, setLoading] = useState(false);
   const [editingWorkout, setEditingWorkout] = useState(null);
+  const [thisWeekPage, setThisWeekPage] = useState(1);
+  const [previousPage, setPreviousPage] = useState(1);
+  const workoutsPerPage = 9;
+  const previousWorkoutsPerPage = 9;
+  const [expandedNotes, setExpandedNotes] = useState({});
   const [formData, setFormData] = useState({
     type: "",
     date: new Date().toISOString().split("T")[0],
@@ -69,10 +75,12 @@ const WorkoutLog = () => {
   const startEdit = (workout) => {
     setEditingWorkout(workout._id);
     setFormData({
-      type: workout.type,
+      type: Array.isArray(workout.type)
+        ? workout.type[0] || ""
+        : workout.type || "",
       date: workout.date.split("T")[0],
-      duration: workout.duration,
-      caloriesBurned: workout.caloriesBurned,
+      duration: workout.duration || "",
+      caloriesBurned: workout.caloriesBurned || "",
       exercises: workout.exercises || [],
       distance: workout.distance || "",
       notes: workout.notes || "",
@@ -180,34 +188,77 @@ const WorkoutLog = () => {
     }
   };
 
+  const toggleNotes = (workoutId) => {
+    setExpandedNotes((prev) => ({
+      ...prev,
+      [workoutId]: !prev[workoutId],
+    }));
+  };
+
+  const renderNotes = (workout) => {
+    if (!workout.notes) return null;
+
+    const maxLength = 50;
+    const isLong = workout.notes.length > maxLength;
+    const isExpanded = expandedNotes[workout._id];
+
+    return (
+      <div className="mb-2 workout-notes">
+        <strong>Notes:</strong>{" "}
+        <div
+          className={
+            isLong && isExpanded
+              ? "workout-notes-full"
+              : isLong
+                ? "workout-notes-preview"
+                : ""
+          }
+        >
+          {workout.notes}
+        </div>
+        {isLong && (
+          <span
+            className="workout-notes-toggle"
+            onClick={() => toggleNotes(workout._id)}
+          >
+            {isExpanded ? "Show less" : "Show more"}
+          </span>
+        )}
+      </div>
+    );
+  };
+
   if (!user) {
     return <div>Please log in to view your workouts.</div>;
   }
 
   return (
-    <div>
-      <div className="d-flex justify-content-between align-items-center mb-4">
-        <h2>My Workouts</h2>
-        <button
-          className="btn btn-primary"
-          onClick={() => {
-            if (editingWorkout) {
-              cancelEdit();
-            } else {
-              setShowForm(!showForm);
-            }
-          }}
-        >
-          {showForm ? "Cancel" : "Log New Workout"}
-        </button>
-      </div>
-
+    <div className="workout-log-container">
       {showForm && (
-        <div className="card mb-4">
-          <div className="card-body">
-            <h5 className="card-title">
-              {editingWorkout ? "Edit Workout" : "Log New Workout"}
-            </h5>
+        <>
+          <div
+            className="workout-form-overlay"
+            onClick={() => {
+              setShowForm(false);
+              setEditingWorkout(null);
+            }}
+          ></div>
+          <div className="workout-form-modal">
+            <div className="workout-form-header">
+              <h5 className="workout-form-title">
+                {editingWorkout ? "Edit Workout" : "Log New Workout"}
+              </h5>
+              <button
+                type="button"
+                className="workout-form-close"
+                onClick={() => {
+                  setShowForm(false);
+                  setEditingWorkout(null);
+                }}
+              >
+                <i className="bi bi-x-lg"></i>
+              </button>
+            </div>
             <form onSubmit={handleSubmit}>
               <div className="row">
                 <div className="col-md-6 mb-3">
@@ -336,76 +387,467 @@ const WorkoutLog = () => {
               </div>
             </form>
           </div>
-        </div>
+        </>
       )}
 
-      <div className="row">
-        {workouts.length === 0 ? (
-          <div className="col-12">
-            <div className="text-center py-5">
-              <h4>No workouts logged yet</h4>
-              <p>
-                Start tracking your fitness journey by logging your first
-                workout!
-              </p>
-            </div>
-          </div>
-        ) : (
-          workouts.map((workout) => (
-            <div key={workout._id} className="col-md-6 col-lg-4 mb-3">
-              <div className="card">
-                <div className="card-body">
-                  <div className="d-flex justify-content-between align-items-start mb-2">
-                    <h5 className="card-title text-capitalize">
-                      {workout.type}
-                    </h5>
-                    <small className="text-muted">
-                      {new Date(workout.date).toLocaleDateString()}
-                    </small>
-                  </div>
+      {workouts.length === 0 ? (
+        <div className="text-center py-5">
+          <h4>No workouts logged yet</h4>
+          <p>
+            Start tracking your fitness journey by logging your first workout!
+          </p>
+        </div>
+      ) : (
+        <>
+          {(() => {
+            const now = new Date();
+            const startOfWeek = new Date(now);
+            startOfWeek.setDate(now.getDate() - now.getDay());
+            startOfWeek.setHours(0, 0, 0, 0);
 
-                  <div className="mb-2">
-                    <strong>Duration:</strong> {workout.duration} minutes
-                  </div>
+            const endOfWeek = new Date(startOfWeek);
+            endOfWeek.setDate(startOfWeek.getDate() + 6);
 
-                  {workout.caloriesBurned > 0 && (
-                    <div className="mb-2">
-                      <strong>Calories:</strong> {workout.caloriesBurned}
+            const formatDate = (date) => {
+              return date.toLocaleDateString("en-US", {
+                month: "long",
+                day: "2-digit",
+                year: "numeric",
+              });
+            };
+
+            const thisWeek = workouts.filter((workout) => {
+              const workoutDate = new Date(workout.date);
+              return workoutDate >= startOfWeek;
+            });
+
+            const previous = workouts.filter((workout) => {
+              const workoutDate = new Date(workout.date);
+              return workoutDate < startOfWeek;
+            });
+
+            const thisWeekStart = (thisWeekPage - 1) * workoutsPerPage;
+            const thisWeekEnd = thisWeekStart + workoutsPerPage;
+            const paginatedThisWeek = thisWeek.slice(
+              thisWeekStart,
+              thisWeekEnd
+            );
+            const thisWeekTotalPages = Math.ceil(
+              thisWeek.length / workoutsPerPage
+            );
+
+            const previousStart = (previousPage - 1) * previousWorkoutsPerPage;
+            const previousEnd = previousStart + previousWorkoutsPerPage;
+            const paginatedPrevious = previous.slice(
+              previousStart,
+              previousEnd
+            );
+            const previousTotalPages = Math.ceil(
+              previous.length / previousWorkoutsPerPage
+            );
+
+            return (
+              <div>
+                <div>
+                  {thisWeek.length > 0 && (
+                    <div className="mb-5">
+                      <div className="d-flex justify-content-between align-items-center mb-3">
+                        <h4 className="workout-section-title mb-0">
+                          This Week
+                        </h4>
+                        <button
+                          className="btn log-workout-btn"
+                          onClick={() => {
+                            if (editingWorkout) {
+                              cancelEdit();
+                            } else {
+                              setShowForm(!showForm);
+                            }
+                          }}
+                        >
+                          {showForm ? "Cancel" : "Log New Workout"}
+                        </button>
+                      </div>
+                      <hr className="workout-divider mb-4" />
+                      <div className="row">
+                        {paginatedThisWeek.map((workout) => (
+                          <div
+                            key={workout._id}
+                            className="col-md-6 col-lg-4 mb-3"
+                          >
+                            <div
+                              className={`card workout-card ${expandedNotes[workout._id] ? "expanded" : ""}`}
+                            >
+                              <div className="card-body">
+                                <div className="d-flex justify-content-between align-items-start mb-2">
+                                  <h5 className="card-title text-capitalize">
+                                    {workout.type}
+                                  </h5>
+                                  <div className="d-flex align-items-center gap-2">
+                                    <small className="text-muted">
+                                      {new Date(
+                                        workout.date
+                                      ).toLocaleDateString()}
+                                    </small>
+                                    <div className="dropdown">
+                                      <button
+                                        className="btn btn-link text-dark p-0"
+                                        type="button"
+                                        data-bs-toggle="dropdown"
+                                        aria-expanded="false"
+                                        style={{
+                                          fontSize: "1.2rem",
+                                          lineHeight: 1,
+                                        }}
+                                      >
+                                        <i className="bi bi-three-dots"></i>
+                                      </button>
+                                      <ul className="dropdown-menu dropdown-menu-end">
+                                        <li>
+                                          <button
+                                            className="dropdown-item"
+                                            onClick={() => startEdit(workout)}
+                                          >
+                                            <i className="bi bi-pencil me-2"></i>
+                                            Edit
+                                          </button>
+                                        </li>
+                                        <li>
+                                          <button
+                                            className="dropdown-item text-danger"
+                                            onClick={() =>
+                                              deleteWorkout(workout._id)
+                                            }
+                                          >
+                                            <i className="bi bi-trash me-2"></i>
+                                            Delete
+                                          </button>
+                                        </li>
+                                      </ul>
+                                    </div>
+                                  </div>
+                                </div>
+
+                                <div className="workout-stats">
+                                  <div className="workout-stat-item">
+                                    <div className="workout-stat-icon">
+                                      <i className="bi bi-stopwatch"></i>
+                                    </div>
+                                    <div className="workout-stat-content">
+                                      <div className="workout-stat-label">
+                                        Duration
+                                      </div>
+                                      <div className="workout-stat-value">
+                                        {workout.duration}{" "}
+                                        <span className="workout-stat-unit">
+                                          min
+                                        </span>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  {workout.caloriesBurned > 0 && (
+                                    <div className="workout-stat-item">
+                                      <div className="workout-stat-icon">
+                                        <i className="bi bi-fire"></i>
+                                      </div>
+                                      <div className="workout-stat-content">
+                                        <div className="workout-stat-label">
+                                          Calories
+                                        </div>
+                                        <div className="workout-stat-value">
+                                          {workout.caloriesBurned}{" "}
+                                          <span className="workout-stat-unit">
+                                            cal
+                                          </span>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  )}
+                                </div>
+
+                                {workout.distance && (
+                                  <div className="mb-2">
+                                    <strong>Distance:</strong>{" "}
+                                    {workout.distance} miles
+                                  </div>
+                                )}
+
+                                {renderNotes(workout)}
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                      {thisWeekTotalPages > 1 && (
+                        <div className="d-flex justify-content-center align-items-center gap-2 mt-3">
+                          <button
+                            className="chart-filter-btn"
+                            onClick={() => setThisWeekPage(1)}
+                            disabled={thisWeekPage === 1}
+                          >
+                            First
+                          </button>
+                          <button
+                            className="chart-filter-btn"
+                            onClick={() =>
+                              setThisWeekPage((prev) => Math.max(1, prev - 1))
+                            }
+                            disabled={thisWeekPage === 1}
+                          >
+                            <i className="bi bi-chevron-left"></i>
+                          </button>
+                          {(() => {
+                            const maxButtons = 5;
+                            let startPage = Math.max(
+                              1,
+                              thisWeekPage - Math.floor(maxButtons / 2)
+                            );
+                            let endPage = Math.min(
+                              thisWeekTotalPages,
+                              startPage + maxButtons - 1
+                            );
+                            if (endPage - startPage + 1 < maxButtons) {
+                              startPage = Math.max(1, endPage - maxButtons + 1);
+                            }
+                            return Array.from(
+                              { length: endPage - startPage + 1 },
+                              (_, i) => startPage + i
+                            ).map((page) => (
+                              <button
+                                key={page}
+                                className={`chart-filter-btn ${page === thisWeekPage ? "active" : ""}`}
+                                onClick={() => setThisWeekPage(page)}
+                              >
+                                {page}
+                              </button>
+                            ));
+                          })()}
+                          <button
+                            className="chart-filter-btn"
+                            onClick={() =>
+                              setThisWeekPage((prev) =>
+                                Math.min(thisWeekTotalPages, prev + 1)
+                              )
+                            }
+                            disabled={thisWeekPage === thisWeekTotalPages}
+                          >
+                            <i className="bi bi-chevron-right"></i>
+                          </button>
+                          <button
+                            className="chart-filter-btn"
+                            onClick={() => setThisWeekPage(thisWeekTotalPages)}
+                            disabled={thisWeekPage === thisWeekTotalPages}
+                          >
+                            Last
+                          </button>
+                        </div>
+                      )}
                     </div>
                   )}
 
-                  {workout.distance && (
-                    <div className="mb-2">
-                      <strong>Distance:</strong> {workout.distance} miles
+                  {previous.length > 0 && (
+                    <div className="mb-5">
+                      <div className="d-flex justify-content-between align-items-center mb-3">
+                        <h4 className="workout-section-title mb-0">
+                          Previous Workouts
+                        </h4>
+                        {thisWeek.length === 0 && (
+                          <button
+                            className="btn log-workout-btn"
+                            onClick={() => {
+                              if (editingWorkout) {
+                                cancelEdit();
+                              } else {
+                                setShowForm(!showForm);
+                              }
+                            }}
+                          >
+                            {showForm ? "Cancel" : "Log New Workout"}
+                          </button>
+                        )}
+                      </div>
+                      <hr className="workout-divider mb-4" />
+                      <div className="row">
+                        {paginatedPrevious.map((workout) => (
+                          <div
+                            key={workout._id}
+                            className="col-md-6 col-lg-4 mb-3"
+                          >
+                            <div
+                              className={`card workout-card ${expandedNotes[workout._id] ? "expanded" : ""}`}
+                            >
+                              <div className="card-body">
+                                <div className="d-flex justify-content-between align-items-start mb-2">
+                                  <h5 className="card-title text-capitalize">
+                                    {workout.type}
+                                  </h5>
+                                  <div className="d-flex align-items-center gap-2">
+                                    <small className="text-muted">
+                                      {new Date(
+                                        workout.date
+                                      ).toLocaleDateString()}
+                                    </small>
+                                    <div className="dropdown">
+                                      <button
+                                        className="btn btn-link text-dark p-0"
+                                        type="button"
+                                        data-bs-toggle="dropdown"
+                                        aria-expanded="false"
+                                        style={{
+                                          fontSize: "1.2rem",
+                                          lineHeight: 1,
+                                        }}
+                                      >
+                                        <i className="bi bi-three-dots"></i>
+                                      </button>
+                                      <ul className="dropdown-menu dropdown-menu-end">
+                                        <li>
+                                          <button
+                                            className="dropdown-item"
+                                            onClick={() => startEdit(workout)}
+                                          >
+                                            <i className="bi bi-pencil me-2"></i>
+                                            Edit
+                                          </button>
+                                        </li>
+                                        <li>
+                                          <button
+                                            className="dropdown-item text-danger"
+                                            onClick={() =>
+                                              deleteWorkout(workout._id)
+                                            }
+                                          >
+                                            <i className="bi bi-trash me-2"></i>
+                                            Delete
+                                          </button>
+                                        </li>
+                                      </ul>
+                                    </div>
+                                  </div>
+                                </div>
+
+                                <div className="workout-stats">
+                                  <div className="workout-stat-item">
+                                    <div className="workout-stat-icon">
+                                      <i className="bi bi-stopwatch"></i>
+                                    </div>
+                                    <div className="workout-stat-content">
+                                      <div className="workout-stat-label">
+                                        Duration
+                                      </div>
+                                      <div className="workout-stat-value">
+                                        {workout.duration}{" "}
+                                        <span className="workout-stat-unit">
+                                          min
+                                        </span>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  {workout.caloriesBurned > 0 && (
+                                    <div className="workout-stat-item">
+                                      <div className="workout-stat-icon">
+                                        <i className="bi bi-fire"></i>
+                                      </div>
+                                      <div className="workout-stat-content">
+                                        <div className="workout-stat-label">
+                                          Calories
+                                        </div>
+                                        <div className="workout-stat-value">
+                                          {workout.caloriesBurned}{" "}
+                                          <span className="workout-stat-unit">
+                                            cal
+                                          </span>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  )}
+                                </div>
+
+                                {workout.distance && (
+                                  <div className="mb-2">
+                                    <strong>Distance:</strong>{" "}
+                                    {workout.distance} miles
+                                  </div>
+                                )}
+
+                                {renderNotes(workout)}
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                      {previousTotalPages > 1 && (
+                        <div className="d-flex justify-content-center align-items-center gap-2 mt-3">
+                          <button
+                            className="chart-filter-btn"
+                            onClick={() => setPreviousPage(1)}
+                            disabled={previousPage === 1}
+                          >
+                            First
+                          </button>
+                          <button
+                            className="chart-filter-btn"
+                            onClick={() =>
+                              setPreviousPage((prev) => Math.max(1, prev - 1))
+                            }
+                            disabled={previousPage === 1}
+                          >
+                            <i className="bi bi-chevron-left"></i>
+                          </button>
+                          {(() => {
+                            const maxButtons = 5;
+                            let startPage = Math.max(
+                              1,
+                              previousPage - Math.floor(maxButtons / 2)
+                            );
+                            let endPage = Math.min(
+                              previousTotalPages,
+                              startPage + maxButtons - 1
+                            );
+                            if (endPage - startPage + 1 < maxButtons) {
+                              startPage = Math.max(1, endPage - maxButtons + 1);
+                            }
+                            return Array.from(
+                              { length: endPage - startPage + 1 },
+                              (_, i) => startPage + i
+                            ).map((page) => (
+                              <button
+                                key={page}
+                                className={`chart-filter-btn ${page === previousPage ? "active" : ""}`}
+                                onClick={() => setPreviousPage(page)}
+                              >
+                                {page}
+                              </button>
+                            ));
+                          })()}
+                          <button
+                            className="chart-filter-btn"
+                            onClick={() =>
+                              setPreviousPage((prev) =>
+                                Math.min(previousTotalPages, prev + 1)
+                              )
+                            }
+                            disabled={previousPage === previousTotalPages}
+                          >
+                            <i className="bi bi-chevron-right"></i>
+                          </button>
+                          <button
+                            className="chart-filter-btn"
+                            onClick={() => setPreviousPage(previousTotalPages)}
+                            disabled={previousPage === previousTotalPages}
+                          >
+                            Last
+                          </button>
+                        </div>
+                      )}
                     </div>
                   )}
-
-                  {workout.notes && (
-                    <div className="mb-2">
-                      <strong>Notes:</strong> {workout.notes}
-                    </div>
-                  )}
-
-                  <div className="d-flex gap-2">
-                    <button
-                      className="btn btn-outline-primary btn-sm"
-                      onClick={() => startEdit(workout)}
-                    >
-                      Update
-                    </button>
-                    <button
-                      className="btn btn-outline-danger btn-sm"
-                      onClick={() => deleteWorkout(workout._id)}
-                    >
-                      Delete
-                    </button>
-                  </div>
                 </div>
               </div>
-            </div>
-          ))
-        )}
-      </div>
+            );
+          })()}
+        </>
+      )}
     </div>
   );
 };

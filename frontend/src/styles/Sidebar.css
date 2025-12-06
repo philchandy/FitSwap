@@ -1,0 +1,95 @@
+/* Sidebar Styles */
+.sidebar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 230px;
+  height: 100vh;
+  background: var(--background);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+}
+
+.sidebar-brand {
+  padding: 1.5rem 1.5rem 1rem 1.5rem;
+  text-align: center;
+}
+
+.sidebar-title {
+  font-family: "Archivo Narrow", sans-serif;
+  font-style: italic;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--brand-primary);
+  margin: 0;
+  letter-spacing: 1px;
+}
+
+.sidebar-divider {
+  margin: 0 0;
+  border: none;
+  border-top: 1px solid;
+  opacity: 1;
+}
+
+.sidebar-nav {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1.5rem 0;
+}
+
+.sidebar-menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar-item {
+  margin-bottom: 0.75rem;
+}
+
+.sidebar-link {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 0.875rem 1.5rem;
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: all 0.2s;
+  position: relative;
+}
+
+.sidebar-link i {
+  font-size: 1.25rem;
+  text-align: center;
+}
+
+.sidebar-link:hover {
+  color: var(--brand-primary-soft);
+}
+
+.sidebar-item.active .sidebar-link {
+  color: var(--brand-primary);
+  font-weight: 600;
+}
+
+.sidebar-item.active .sidebar-link i {
+  color: var(--brand-primary);
+}
+
+@media (max-width: 992px) {
+  .sidebar {
+    transform: translateX(-100%);
+    transition: transform 0.3s;
+  }
+
+  .sidebar.show {
+    transform: translateX(0);
+  }
+}

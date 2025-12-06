@@ -12,106 +12,50 @@ const Navbar = () => {
     navigate("/login");
   };
 
+  if (!isAuthenticated) {
+    return null;
+  }
+
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark">
-      <div className="container">
-        <Link className="navbar-brand" to="/dashboard">
-          <strong>FitSwap</strong>
-        </Link>
+    <nav className="top-navbar">
+      <div className="navbar-center">
+        <ul className="navbar-links">
+          <li>
+            <Link to="/workouts" className="navbar-link">
+              Log Workouts
+            </Link>
+          </li>
+          <li>
+            <Link to="/discover" className="navbar-link">
+              Find Partners
+            </Link>
+          </li>
+          <li>
+            <Link to="/profile" className="navbar-link">
+              Edit Profile
+            </Link>
+          </li>
+        </ul>
+      </div>
 
-        <button
-          className="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarNav"
-        >
-          <span className="navbar-toggler-icon"></span>
-        </button>
-
-        <div className="collapse navbar-collapse" id="navbarNav">
-          <ul className="navbar-nav me-auto">
-            {isAuthenticated && (
-              <>
-                <li className="nav-item">
-                  <Link className="nav-link" to="/dashboard">
-                    Dashboard
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link className="nav-link" to="/workouts">
-                    Workouts
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link className="nav-link" to="/discover">
-                    Find Partners
-                  </Link>
-                </li>
-              </>
-            )}
-          </ul>
-
-          <ul className="navbar-nav">
-            {isAuthenticated ? (
-              <>
-                <li className="nav-item dropdown">
-                  <a
-                    className="nav-link dropdown-toggle"
-                    href="#"
-                    role="button"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  >
-                    Welcome, {user?.name}
-                  </a>
-                  <ul className="dropdown-menu">
-                    <li>
-                      <Link className="dropdown-item" to="/profile">
-                        Profile
-                      </Link>
-                    </li>
-                    <li>
-                      <hr className="dropdown-divider" />
-                    </li>
-                    <li>
-                      <Link className="dropdown-item" to="/sessions">
-                        Sessions
-                      </Link>
-                    </li>
-                    <li>
-                      <hr className="dropdown-divider" />
-                    </li>
-                    <li>
-                      <button className="dropdown-item" onClick={handleLogout}>
-                        Logout
-                      </button>
-                    </li>
-                  </ul>
-                </li>
-                {/* <li className="nav-item">
-                  <button
-                    className="btn btn-outline-light"
-                    onClick={handleLogout}
-                  >
-                    Logout
-                  </button>
-                </li> */}
-              </>
-            ) : (
-              <>
-                <li className="nav-item">
-                  <Link className="nav-link" to="/login">
-                    Login
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link className="nav-link" to="/register">
-                    Register
-                  </Link>
-                </li>
-              </>
-            )}
-          </ul>
+      <div className="navbar-profile">
+        <div className="profile-dropdown">
+          <button className="profile-button">
+            <i className="bi bi-person-circle"></i>
+            <span>{user?.name}</span>
+            <i className="bi bi-chevron-down"></i>
+          </button>
+          <div className="profile-menu">
+            <Link to="/profile" className="profile-menu-item">
+              <i className="bi bi-person"></i>
+              Profile
+            </Link>
+            <div className="profile-menu-divider"></div>
+            <button onClick={handleLogout} className="profile-menu-item">
+              <i className="bi bi-box-arrow-right"></i>
+              Logout
+            </button>
+          </div>
         </div>
       </div>
     </nav>

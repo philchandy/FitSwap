@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
+import "../../styles/Auth.css";
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -32,67 +33,69 @@ const Login = () => {
   };
 
   return (
-    <div className="row justify-content-center">
-      <div className="col-md-6 col-lg-4">
-        <div className="card">
-          <div className="card-body">
-            <h2 className="card-title text-center mb-4">Login to FitSwap</h2>
-
-            {error && (
-              <div className="alert alert-danger" role="alert">
-                {error}
-              </div>
-            )}
-
-            <form onSubmit={handleSubmit}>
-              <div className="mb-3">
-                <label htmlFor="email" className="form-label">
-                  Email
-                </label>
-                <input
-                  type="email"
-                  className="form-control"
-                  id="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-
-              <div className="mb-3">
-                <label htmlFor="password" className="form-label">
-                  Password
-                </label>
-                <input
-                  type="password"
-                  className="form-control"
-                  id="password"
-                  name="password"
-                  value={formData.password}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-
-              <button
-                type="submit"
-                className="btn btn-primary w-100"
-                disabled={loading}
-              >
-                {loading ? "Logging in..." : "Login"}
-              </button>
-            </form>
-
-            <div className="text-center mt-3">
-              <p>
-                Don't have an account?{" "}
-                <Link to="/register" className="text-decoration-none">
-                  Register here
-                </Link>
-              </p>
-            </div>
+    <div className="auth-container">
+      <div className="auth-logo-container">
+        <h1 className="auth-logo">FITSWAP</h1>
+        <p className="auth-logo-subtitle">Track Solo. Train Together.</p>
+      </div>
+      <div className="auth-card">
+        <div className="auth-header">
+          <div className="auth-icon-container">
+            <i className="bi bi-person-circle"></i>
           </div>
+          <h2 className="auth-title">Welcome Back</h2>
+          <p className="auth-subtitle">
+            Login to continue your fitness journey
+          </p>
+        </div>
+
+        {error && <div className="auth-error-message">{error}</div>}
+
+        <form onSubmit={handleSubmit}>
+          <div className="auth-form-group">
+            <label htmlFor="email" className="auth-form-label">
+              Email Address
+            </label>
+            <input
+              type="email"
+              className="auth-form-control"
+              id="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              placeholder="Enter your email"
+              required
+            />
+          </div>
+
+          <div className="auth-form-group">
+            <label htmlFor="password" className="auth-form-label">
+              Password
+            </label>
+            <input
+              type="password"
+              className="auth-form-control"
+              id="password"
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+              placeholder="Enter your password"
+              required
+            />
+          </div>
+
+          <button type="submit" className="auth-submit-btn" disabled={loading}>
+            {loading ? "Logging in..." : "Login"}
+          </button>
+        </form>
+
+        <div className="auth-footer">
+          <p className="auth-footer-text">
+            Don't have an account?{" "}
+            <Link to="/register" className="auth-footer-link">
+              Register here
+            </Link>
+          </p>
         </div>
       </div>
     </div>

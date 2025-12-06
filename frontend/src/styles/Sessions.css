@@ -1,0 +1,267 @@
+/* Sessions Component Styles */
+
+/* Session Cards*/
+.session-card {
+  background: rgba(240, 120, 112, 0.5);
+  border-radius: 12px;
+  padding: 1.5rem;
+  border: none;
+  height: auto;
+  min-height: 280px;
+  transition: transform 0.2s;
+  display: flex;
+  flex-direction: column;
+}
+
+.session-card:hover {
+  transform: translateY(-2px);
+}
+
+.session-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+}
+
+.session-card-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: rgba(0, 0, 0, 0.8);
+  margin: 0;
+  flex: 1;
+}
+
+.session-status-badge {
+  font-size: 0.75rem;
+  padding: 0.25rem 0.6rem;
+  border-radius: 12px;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.session-role-badge {
+  display: inline-flex;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.15);
+  color: rgba(0, 0, 0, 0.8);
+  padding: 0.25rem 0.6rem;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  margin-left: 0.5rem;
+}
+
+.session-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  flex: 1;
+}
+
+.session-info-row {
+  display: flex;
+  align-items: center;
+  font-size: 0.9rem;
+  color: rgba(0, 0, 0, 0.7);
+}
+
+.session-info-row strong {
+  color: rgba(0, 0, 0, 0.8);
+  font-weight: 600;
+  margin-right: 0.5rem;
+  min-width: 75px;
+}
+
+.session-info-row .badge {
+  background: rgba(0, 0, 0, 0.2);
+  color: rgba(0, 0, 0, 0.8);
+  font-weight: 600;
+  padding: 0.25rem 0.6rem;
+  border-radius: 8px;
+}
+
+.session-partner-name {
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.8);
+}
+
+.session-date-time {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.session-notes {
+  font-size: 0.9rem;
+  color: rgba(0, 0, 0, 0.7);
+  font-style: italic;
+  padding: 0.75rem;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 8px;
+  margin-top: 0.5rem;
+}
+
+.session-actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: auto;
+  padding-top: 1rem;
+}
+
+.session-actions .btn {
+  font-size: 0.85rem;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+
+.session-actions .btn-success {
+  background: rgba(40, 167, 69, 0.9);
+  border: none;
+}
+
+.session-actions .btn-success:hover {
+  background: rgba(40, 167, 69, 1);
+  transform: translateY(-1px);
+}
+
+.session-actions .btn-outline-danger {
+  border-color: rgba(220, 53, 69, 0.8);
+  color: rgba(220, 53, 69, 0.9);
+  background: transparent;
+}
+
+.session-actions .btn-outline-danger:hover {
+  background: rgba(220, 53, 69, 0.9);
+  border-color: rgba(220, 53, 69, 1);
+  color: white;
+  transform: translateY(-1px);
+}
+
+.sessions-empty-state {
+  text-align: center;
+  padding: 3rem 1rem;
+}
+
+.sessions-empty-state h4 {
+  color: rgba(0, 0, 0, 0.7);
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.sessions-empty-state p {
+  color: rgba(0, 0, 0, 0.6);
+  margin-bottom: 1.5rem;
+}
+
+/* Status Badge Colors */
+.session-status-scheduled {
+  background: rgba(13, 110, 253, 0.2);
+  color: rgb(13, 110, 253);
+}
+
+.session-status-completed {
+  background: rgba(25, 135, 84, 0.2);
+  color: rgb(25, 135, 84);
+}
+
+.session-status-cancelled {
+  background: rgba(108, 117, 125, 0.2);
+  color: rgb(108, 117, 125);
+}
+
+/* Filter Pills */
+.sessions-filters .nav-link {
+  border-radius: 20px;
+  padding: 0.5rem 1.25rem;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.sessions-filters .nav-link.active {
+  background: var(--brand-primary);
+  border-color: var(--brand-primary);
+}
+
+.sessions-filters .nav-link:not(.active) {
+  color: rgba(0, 0, 0, 0.6);
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.sessions-filters .nav-link:not(.active):hover {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+/* Schedule Session Button */
+.discovery-action {
+  margin-top: auto;
+  padding-top: 1rem;
+}
+
+.discovery-action .chart-filter-btn {
+  display: inline-block;
+  text-align: left;
+  padding: 0.6rem 1rem;
+  text-decoration: none;
+}
+
+/* Session Stats Icons*/
+.session-stats {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.session-stat-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex: 1;
+  min-width: 0;
+}
+
+.session-stat-icon {
+  width: 50px;
+  height: 50px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.session-stat-icon i {
+  color: black;
+  font-size: 1.5rem;
+}
+
+.session-stat-content {
+  min-width: 0;
+  flex: 1;
+}
+
+.session-stat-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: rgba(0, 0, 0, 0.7);
+  margin-bottom: 0.25rem;
+  text-transform: capitalize;
+}
+
+.session-stat-value {
+  font-size: 1rem;
+  font-weight: 700;
+  color: rgba(0, 0, 0, 0.9);
+  line-height: 1.2;
+}
+
+.session-stat-value-small {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: rgba(0, 0, 0, 0.85);
+  line-height: 1.3;
+}

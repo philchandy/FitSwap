@@ -1,0 +1,388 @@
+/* Profile Container */
+.profile-container {
+  padding: 2rem 0;
+}
+
+/* Profile Card */
+.profile-card {
+  background: rgba(240, 120, 112, 0.5);
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-bottom: 2rem;
+}
+
+/* Profile Header */
+.profile-header {
+  margin-bottom: 2rem;
+}
+
+.profile-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #333;
+  margin: 0;
+}
+
+/* Profile Section */
+.profile-section {
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 8px;
+}
+
+.profile-section-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.profile-section-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 1.1rem;
+}
+
+.profile-section-content {
+  padding-left: 3rem;
+}
+
+.profile-info-row {
+  display: flex;
+  margin-bottom: 0.75rem;
+}
+
+.profile-info-label {
+  font-weight: 600;
+  min-width: 150px;
+  color: #333;
+}
+
+.profile-info-value {
+  color: #555;
+}
+
+/* Skills and Badges */
+.profile-skill-badge,
+.profile-goal-badge {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  margin: 0.25rem;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 20px;
+  font-size: 0.9rem;
+  color: #333;
+  font-weight: 500;
+}
+
+.profile-goal-badge {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.profile-goal-text {
+  flex: 1;
+}
+
+.profile-goal-delete {
+  background: none;
+  border: none;
+  color: #d9534f;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 0;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s;
+}
+
+.profile-goal-delete:hover {
+  transform: scale(1.2);
+}
+
+/* Edit Button */
+.profile-edit-btn {
+  background: rgba(0, 0, 0, 0.2);
+  border: none;
+  padding: 0.5rem 1.5rem;
+  border-radius: 8px;
+  color: #333;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.profile-edit-btn:hover {
+  background: rgba(0, 0, 0, 0.3);
+  transform: translateY(-2px);
+}
+
+.profile-form-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1040;
+}
+
+.profile-form-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #FFFCEB;
+  border-radius: 12px;
+  z-index: 1050;
+  max-width: 700px;
+  width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.profile-form-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 2rem;
+  border-bottom: 2px solid rgba(240, 120, 112, 0.3);
+}
+
+.profile-form-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #333;
+  margin: 0;
+}
+
+.profile-form-close {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: #333;
+  cursor: pointer;
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s;
+}
+
+.profile-form-close:hover {
+  color: #d9534f;
+}
+
+.profile-form-body {
+  padding: 2rem;
+}
+
+/* Form Styles */
+.profile-form-label {
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.profile-form-control {
+  width: 100%;
+  padding: 0.75rem;
+  border: 2px solid rgba(240, 120, 112, 0.3);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.5);
+  font-size: 1rem;
+  transition: border-color 0.3s;
+}
+
+.profile-form-control:focus {
+  outline: none;
+  border-color: rgba(240, 120, 112, 0.7);
+}
+
+.profile-form-textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+/* Skills Checkboxes */
+.profile-skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+.profile-checkbox-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.profile-checkbox-item:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.profile-checkbox-input {
+  cursor: pointer;
+  width: 18px;
+  height: 18px;
+}
+
+.profile-checkbox-label {
+  cursor: pointer;
+  margin: 0;
+  font-size: 0.95rem;
+  color: #333;
+}
+
+/* Goals Section in Form */
+.profile-goal-input-group {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.profile-goal-input {
+  flex: 1;
+}
+
+.profile-goal-add-btn {
+  background: rgba(0, 0, 0, 0.2);
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  color: #333;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.profile-goal-add-btn:hover:not(:disabled) {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.profile-goal-add-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.profile-goals-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+/* Form Buttons */
+.profile-form-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.profile-submit-btn {
+  flex: 1;
+  background: rgba(240, 120, 112, 0.7);
+  border: none;
+  padding: 0.75rem 2rem;
+  border-radius: 8px;
+  color: #fff;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.profile-submit-btn:hover:not(:disabled) {
+  background: rgba(240, 120, 112, 0.9);
+  transform: translateY(-2px);
+}
+
+.profile-submit-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.profile-cancel-btn {
+  flex: 1;
+  background: rgba(0, 0, 0, 0.2);
+  border: none;
+  padding: 0.75rem 2rem;
+  border-radius: 8px;
+  color: #333;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.profile-cancel-btn:hover {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.profile-success-message {
+  background: rgba(92, 184, 92, 0.2);
+  border: 2px solid rgba(92, 184, 92, 0.5);
+  color: #3c763d;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  text-align: center;
+  font-weight: 500;
+}
+
+.profile-empty-state {
+  text-align: center;
+  padding: 2rem;
+  color: #666;
+  font-style: italic;
+}
+
+@media (max-width: 768px) {
+  .profile-section-content {
+    padding-left: 0;
+  }
+
+  .profile-info-row {
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .profile-info-label {
+    min-width: auto;
+  }
+
+  .profile-skills-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .profile-form-actions {
+    flex-direction: column;
+  }
+}

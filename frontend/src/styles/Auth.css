@@ -1,0 +1,248 @@
+/* Auth Container */
+.auth-container {
+  min-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem;
+  margin: 0 auto;
+}
+
+/* Auth Logo */
+.auth-logo-container {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.auth-logo {
+  font-family: "Archivo Narrow", sans-serif;
+  font-style: italic;
+  font-size: 4rem;
+  font-weight: 700;
+  color: rgb(240, 120, 112);
+  margin: 0;
+  letter-spacing: 2px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.auth-logo-subtitle {
+  font-size: 1.25rem;
+  color: #555;
+  margin: 0.5rem 0 0 0;
+  font-weight: 500;
+  letter-spacing: 1px;
+}
+
+/* Auth Card */
+.auth-card {
+  background: rgba(240, 120, 112, 0.5);
+  border-radius: 12px;
+  padding: 2.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 500px;
+}
+
+.auth-card-wide {
+  max-width: 700px;
+}
+
+/* Auth Header */
+.auth-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.auth-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+.auth-subtitle {
+  font-size: 1rem;
+  color: #555;
+  margin: 0;
+}
+
+/* Form Styles */
+.auth-form-label {
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.auth-form-control {
+  width: 100%;
+  padding: 0.75rem;
+  border: 2px solid rgba(240, 120, 112, 0.3);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.5);
+  font-size: 1rem;
+  transition: border-color 0.3s;
+}
+
+.auth-form-control:focus {
+  outline: none;
+  border-color: rgba(240, 120, 112, 0.7);
+}
+
+.auth-form-group {
+  margin-bottom: 1.5rem;
+}
+
+/* Error Message */
+.auth-error-message {
+  background: rgba(217, 83, 79, 0.2);
+  border: 2px solid rgba(217, 83, 79, 0.5);
+  color: #a94442;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  font-weight: 500;
+}
+
+/* Submit Button */
+.auth-submit-btn {
+  width: 100%;
+  background: rgba(240, 120, 112, 0.7);
+  border: none;
+  padding: 0.875rem 2rem;
+  border-radius: 8px;
+  color: #fff;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 1rem;
+}
+
+.auth-submit-btn:hover:not(:disabled) {
+  background: rgba(240, 120, 112, 0.9);
+  transform: translateY(-2px);
+}
+
+.auth-submit-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Skills Section */
+.auth-skills-section {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.auth-skills-title {
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.auth-skills-icon {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 0.9rem;
+}
+
+.auth-skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 0.75rem;
+}
+
+.auth-checkbox-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.auth-checkbox-item:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.auth-checkbox-input {
+  cursor: pointer;
+  width: 18px;
+  height: 18px;
+}
+
+.auth-checkbox-label {
+  cursor: pointer;
+  margin: 0;
+  font-size: 0.9rem;
+  color: #333;
+}
+
+/* Footer Link */
+.auth-footer {
+  text-align: center;
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.auth-footer-text {
+  color: #555;
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+.auth-footer-link {
+  color: #333;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.auth-footer-link:hover {
+  color: #000;
+  text-decoration: underline;
+}
+
+.auth-icon-container {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 1.5rem;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 2.5rem;
+}
+
+@media (max-width: 768px) {
+  .auth-card {
+    padding: 1.5rem;
+  }
+
+  .auth-title {
+    font-size: 1.5rem;
+  }
+
+  .auth-skills-grid {
+    grid-template-columns: 1fr;
+  }
+}

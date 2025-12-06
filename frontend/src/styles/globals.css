@@ -1,16 +1,38 @@
 /* Color Palette - Global Variables */
 /* van dyke, dim gray, ash gray, tea green, timberwolf */
 :root {
-  --color-darkest: #4e3d42;
-  --color-dark: #6d6466;
-  --color-medium: #9f9f92;
-  --color-light: #c9d5b5;
-  --color-lightest: #e3dbdb;
+  --brand-primary:#eb4c42;
+  --text-primary:black;
+  --text-secondary:#1a1a1a;
+  --brand-primary-soft:#f07870;
+  --brand-primary-strong: #e22418;
+  --background: #fffceb;
 }
 
 body {
-  background-color: var(--color-lightest);
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--background);
+  font-family: "Be Vietnam Pro", sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/* Custom Spacing Utilities */
+.mb-6 {
+  margin-bottom: 4rem;
+}
+
+/* Main Content Layout */
+.main-content {
+  margin-left: 400px;
+  margin-top: 79px;
+  padding: 2rem 2rem 2rem 0rem;
+  min-height: calc(100vh - 79px);
+}
+
+@media (max-width: 992px) {
+  .main-content {
+    margin-left: 0;
+  }
 }
 
 /* bootstrap overrides */
