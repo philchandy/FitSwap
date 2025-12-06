@@ -396,6 +396,12 @@ const WorkoutLog = () => {
           <p>
             Start tracking your fitness journey by logging your first workout!
           </p>
+          <button
+            className="btn log-workout-btn mt-3"
+            onClick={() => setShowForm(true)}
+          >
+            Log New Workout
+          </button>
         </div>
       ) : (
         <>
