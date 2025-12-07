@@ -272,7 +272,7 @@ const Dashboard = () => {
               <h6>My Skills</h6>
               <div className="skills-list">
                 {user?.skills && user.skills.length > 0 ? (
-                  (skillsExpanded ? user.skills : user.skills.slice(0, 3)).map(
+                  (skillsExpanded ? user.skills : user.skills.slice(0, 2)).map(
                     (skill, index) => (
                       <span key={index} className="skill-badge">
                         {skill}
@@ -288,7 +288,7 @@ const Dashboard = () => {
                 {user?.wantedSkills && user.wantedSkills.length > 0 ? (
                   (skillsExpanded
                     ? user.wantedSkills
-                    : user.wantedSkills.slice(0, 3)
+                    : user.wantedSkills.slice(0, 2)
                   ).map((skill, index) => (
                     <span key={index} className="skill-badge wanted">
                       {skill}
@@ -298,8 +298,8 @@ const Dashboard = () => {
                   <span className="no-skills">No skills added</span>
                 )}
               </div>
-              {((user?.skills && user.skills.length > 3) ||
-                (user?.wantedSkills && user.wantedSkills.length > 3)) && (
+              {((user?.skills && user.skills.length > 2) ||
+                (user?.wantedSkills && user.wantedSkills.length > 2)) && (
                 <span
                   className="skills-toggle"
                   onClick={() => setSkillsExpanded(!skillsExpanded)}
@@ -401,10 +401,10 @@ const Dashboard = () => {
                 });
 
                 dateRangeText = `${startOfWeek.toLocaleDateString("en-US", {
-                  month: "long",
+                  month: "short",
                   day: "2-digit",
                 })} - ${endOfWeek.toLocaleDateString("en-US", {
-                  month: "long",
+                  month: "short",
                   day: "2-digit",
                   year: "numeric",
                 })}`;
@@ -442,21 +442,6 @@ const Dashboard = () => {
                   const workoutDate = new Date(workout.date);
                   return workoutDate >= startOfYear && workoutDate <= endOfYear;
                 });
-
-                console.log(
-                  "Year filter - Total workouts:",
-                  weeklyWorkouts.length
-                );
-                console.log(
-                  "Year filter - Filtered workouts:",
-                  filteredWorkouts.length
-                );
-                console.log(
-                  "Year filter - Date range:",
-                  startOfYear,
-                  "to",
-                  endOfYear
-                );
 
                 dateRangeText = now.getFullYear().toString();
               }

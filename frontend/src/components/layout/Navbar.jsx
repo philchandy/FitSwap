@@ -20,6 +20,11 @@ const Navbar = () => {
     <nav className="top-navbar">
       <div className="navbar-center">
         <ul className="navbar-links">
+          <li className="navbar-link-mobile-only">
+            <Link to="/dashboard" className="navbar-link">
+              Dashboard
+            </Link>
+          </li>
           <li>
             <Link to="/workouts" className="navbar-link">
               Log Workouts
@@ -28,6 +33,11 @@ const Navbar = () => {
           <li>
             <Link to="/discover" className="navbar-link">
               Find Partners
+            </Link>
+          </li>
+          <li className="navbar-link-mobile-only">
+            <Link to="/sessions" className="navbar-link">
+              Sessions
             </Link>
           </li>
           <li>

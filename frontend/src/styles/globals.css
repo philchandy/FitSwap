@@ -1,5 +1,4 @@
 /* Color Palette - Global Variables */
-/* van dyke, dim gray, ash gray, tea green, timberwolf */
 :root {
   --brand-primary:#eb4c42;
   --text-primary:black;
@@ -32,6 +31,7 @@ body {
 @media (max-width: 992px) {
   .main-content {
     margin-left: 0;
+    padding-left: 2rem;
   }
 }
 
