@@ -19,6 +19,7 @@ const ScheduleSession = () => {
     notes: "",
   });
   const [message, setMessage] = useState("");
+  const [showSuccessPopup, setShowSuccessPopup] = useState(false);
 
   useEffect(() => {
     const fetchTargetUser = async () => {
@@ -63,6 +64,8 @@ const ScheduleSession = () => {
     e.preventDefault();
     setLoading(true);
     setMessage("");
+    
+    console.log("Form submitted");
 
     try {
       const sessionData = {
@@ -70,6 +73,8 @@ const ScheduleSession = () => {
         traineeId: user._id, //curr user
         ...formData,
       };
+      
+      console.log("Session data:", sessionData);
 
       const response = await fetch("/api/sessions", {
         method: "POST",
@@ -78,20 +83,26 @@ const ScheduleSession = () => {
         },
         body: JSON.stringify(sessionData),
       });
+      
+      console.log("Response status:", response.status);
+      console.log("Response ok:", response.ok);
 
       if (response.ok) {
-        setMessage("Session scheduled successfully!");
+        console.log("Session created successfully, showing popup");
+        setShowSuccessPopup(true);
+        console.log("showSuccessPopup set to true");
         setTimeout(() => {
           navigate("/sessions");
         }, 2000);
       } else {
         const data = await response.json();
+        console.log("Error response:", data);
         setMessage(`Error: ${data.error}`);
+        setLoading(false);
       }
     } catch (err) {
+      console.error("Catch block error:", err);
       setMessage("Error scheduling session");
-      console.error("Error:", err);
-    } finally {
       setLoading(false);
     }
   };
@@ -105,38 +116,51 @@ const ScheduleSession = () => {
   }
 
   return (
-    <div className="row justify-content-center">
-      <div className="col-md-8">
-        <div className="card">
-          <div className="card-body">
-            <h2 className="card-title">
-              Schedule Session with {targetUser.name}
-            </h2>
+    <>
+      {showSuccessPopup && (
+        <div className="success-popup-overlay">
+          <div className="success-popup">
+            <div className="success-popup-icon">
+              <i className="bi bi-check-circle-fill"></i>
+            </div>
+            <h3>Session Scheduled Successfully!</h3>
+            <p>Redirecting to your sessions...</p>
+          </div>
+        </div>
+      )}
+      
+      <div className="row justify-content-center">
+        <div className="col-md-8">
+          <div className="card">
+            <div className="card-body">
+              <h2 className="card-title">
+                Schedule Session with {targetUser.name}
+              </h2>
 
-            <div className="alert alert-info mb-4">
-              <div className="row">
-                <div className="col-md-6">
-                  <strong>Skills they can teach:</strong>
-                  <div className="d-flex flex-wrap gap-1 mt-1">
-                    {targetUser.skills?.map((skill) => (
-                      <span key={skill} className="badge bg-primary">
-                        {skill}
-                      </span>
-                    )) || <span>No skills listed</span>}
+              <div className="alert alert-info mb-4">
+                <div className="row">
+                  <div className="col-md-6">
+                    <strong>Skills they can teach:</strong>
+                    <div className="d-flex flex-wrap gap-1 mt-1">
+                      {targetUser.skills?.map((skill) => (
+                        <span key={skill} className="badge bg-primary">
+                          {skill}
+                        </span>
+                      )) || <span>No skills listed</span>}
+                    </div>
                   </div>
-                </div>
-                <div className="col-md-6">
-                  <strong>Skills they want to learn:</strong>
-                  <div className="d-flex flex-wrap gap-1 mt-1">
-                    {targetUser.wantedSkills?.map((skill) => (
-                      <span key={skill} className="badge bg-secondary">
-                        {skill}
-                      </span>
-                    )) || <span>No skills listed</span>}
+                  <div className="col-md-6">
+                    <strong>Skills they want to learn:</strong>
+                    <div className="d-flex flex-wrap gap-1 mt-1">
+                      {targetUser.wantedSkills?.map((skill) => (
+                        <span key={skill} className="badge bg-secondary">
+                          {skill}
+                        </span>
+                      )) || <span>No skills listed</span>}
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
 
             {message && (
               <div
@@ -282,10 +306,11 @@ const ScheduleSession = () => {
                 </button>
               </div>
             </form>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

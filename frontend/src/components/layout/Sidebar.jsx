@@ -16,7 +16,9 @@ const Sidebar = () => {
   return (
     <aside className="sidebar">
       <div className="sidebar-brand">
-        <h1 className="sidebar-title">FITSWAP</h1>
+        <h1 className="sidebar-title">
+          FITSW<img src="/logo.svg" alt="" className="logo-inline" />P
+        </h1>
       </div>
       <hr className="sidebar-divider" />
       <nav className="sidebar-nav">

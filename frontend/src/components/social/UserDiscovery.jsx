@@ -25,6 +25,7 @@ const UserDiscovery = () => {
     notes: "",
   });
   const [scheduleMessage, setScheduleMessage] = useState("");
+  const [showSuccessPopup, setShowSuccessPopup] = useState(false);
   const [usersPage, setUsersPage] = useState(1);
   const [matchesPage, setMatchesPage] = useState(1);
   const usersPerPage = 9;
@@ -193,10 +194,11 @@ const UserDiscovery = () => {
       });
 
       if (response.ok) {
-        setScheduleMessage("Session scheduled successfully!");
+        closeScheduleModal();
+        setShowSuccessPopup(true);
         setTimeout(() => {
-          closeScheduleModal();
-        }, 2000);
+          setShowSuccessPopup(false);
+        }, 3000);
       } else {
         const data = await response.json();
         setScheduleMessage(`Error: ${data.error}`);
@@ -212,9 +214,21 @@ const UserDiscovery = () => {
   }
 
   return (
-    <div>
-      <div className="d-flex justify-content-between align-items-center mb-3">
-        <h2>Find Workout Partners</h2>
+    <>
+      {showSuccessPopup && (
+        <div className="success-popup-overlay">
+          <div className="success-popup">
+            <div className="success-popup-icon">
+              <i className="bi bi-check-circle-fill"></i>
+            </div>
+            <h3>Session Scheduled Successfully!</h3>
+          </div>
+        </div>
+      )}
+      
+      <div>
+        <div className="d-flex justify-content-between align-items-center mb-3">
+          <h2>Find Workout Partners</h2>
 
         <div className="chart-filters discovery-tabs">
           <button
@@ -638,6 +652,7 @@ const UserDiscovery = () => {
         </>
       )}
     </div>
+    </>
   );
 };
 

@@ -27,7 +27,7 @@ function AppContent() {
       {!isAuthPage && <Navbar />}
       <div className={isAuthPage ? "" : "main-content"}>
         <Routes>
-          <Route path="/" element={<Navigate to="/dashboard" />} />
+          <Route path="/" element={<Navigate to="/login" />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/dashboard" element={<Dashboard />} />
