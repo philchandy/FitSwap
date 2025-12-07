@@ -15,6 +15,7 @@ const Profile = () => {
   });
   const [message, setMessage] = useState("");
   const [newGoal, setNewGoal] = useState("");
+  const [showSuccessPopup, setShowSuccessPopup] = useState(false);
 
   const availableSkills = [
     "Weightlifting",
@@ -93,11 +94,11 @@ const Profile = () => {
     const result = await updateProfile(user._id, formData);
 
     if (result.success) {
-      setMessage("Profile updated successfully!");
+      setShowEditModal(false);
+      setShowSuccessPopup(true);
       setTimeout(() => {
-        setShowEditModal(false);
-        setMessage("");
-      }, 2000);
+        setShowSuccessPopup(false);
+      }, 3000);
     } else {
       setMessage(`Error: ${result.error}`);
     }
@@ -108,7 +109,20 @@ const Profile = () => {
   }
 
   return (
-    <div className="profile-container">
+    <>
+      {showSuccessPopup && (
+        <div className="success-popup-overlay">
+          <div className="success-popup">
+            <div className="success-popup-icon">
+              <i className="bi bi-check-circle-fill"></i>
+            </div>
+            <h3>Profile Updated Successfully!</h3>
+            <p>Your profile information has been saved.</p>
+          </div>
+        </div>
+      )}
+
+      <div className="profile-container">
       <div className="d-flex justify-content-between align-items-center mb-3">
         <h2 className="profile-title">My Profile</h2>
         <button className="profile-edit-btn" onClick={openEditModal}>
@@ -388,6 +402,7 @@ const Profile = () => {
         </>
       )}
     </div>
+    </>
   );
 };
 
