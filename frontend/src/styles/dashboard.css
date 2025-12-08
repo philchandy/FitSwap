@@ -346,7 +346,6 @@
   font-weight: 700;
   color: var(--text-primary);
   margin: 0;
-  
 }
 
 .report-week-period {
@@ -376,7 +375,7 @@
 
 .goal-item {
   padding: 0.5rem 0;
-  font-family: 'Be Vietnam Pro', sans-serif;
+  font-family: "Be Vietnam Pro", sans-serif;
   font-size: 1rem;
   color: var(--text-primary);
   line-height: 1.5;
@@ -400,9 +399,9 @@
 }
 
 .lead {
-    font-family: 'Archivo Narrow', sans-serif;
-    font-size: 1.25rem;
-    font-style: italic;
+  font-family: "Archivo Narrow", sans-serif;
+  font-size: 1.25rem;
+  font-style: italic;
 }
 
 /* Responsive */
@@ -412,40 +411,40 @@
     flex: 0 0 100%;
     max-width: 100%;
   }
-  
+
   .report-section {
     position: static;
     margin-top: 2rem;
   }
-  
+
   /* cards in 2x2 grid */
   .row.mt-5.mb-6 .col-md-3 {
     flex: 0 0 50%;
     max-width: 50%;
     margin-bottom: 1.5rem;
   }
-  
+
   .tracker-card {
     padding: 1.75rem 1.25rem;
   }
-  
+
   .tracker-icon {
     width: 70px;
     height: 70px;
   }
-  
+
   .tracker-icon i {
     font-size: 1.75rem;
   }
-  
+
   .tracker-content h6 {
     font-size: 0.95rem;
   }
-  
+
   .tracker-value {
     font-size: 2rem;
   }
-  
+
   .tracker-unit {
     font-size: 0.85rem;
   }
@@ -455,24 +454,24 @@
   .tracker-card {
     padding: 1.5rem 1rem;
   }
-  
+
   .tracker-icon {
     width: 65px;
     height: 65px;
   }
-  
+
   .tracker-icon i {
     font-size: 1.6rem;
   }
-  
+
   .tracker-content h6 {
     font-size: 0.9rem;
   }
-  
+
   .tracker-value {
     font-size: 1.85rem;
   }
-  
+
   .tracker-unit {
     font-size: 0.8rem;
   }
@@ -482,35 +481,35 @@
   .tracker-cards {
     gap: 2rem;
   }
-  
+
   .tracker-card {
     height: auto;
     min-height: 160px;
     padding: 1.5rem;
   }
-  
+
   .tracker-icon {
     width: 60px;
     height: 60px;
   }
-  
+
   .tracker-icon i {
     font-size: 1.5rem;
   }
-  
+
   .tracker-content h6 {
     font-size: 0.85rem;
     margin-bottom: 0.75rem;
   }
-  
+
   .tracker-value {
     font-size: 1.75rem;
   }
-  
+
   .tracker-unit {
     font-size: 0.75rem;
   }
-  
+
   .skill-badge {
     font-size: 0.7rem;
     padding: 0.2rem 0.5rem;
@@ -522,31 +521,31 @@
     flex-direction: column;
     gap: 1.5rem;
   }
-  
+
   .tracker-card {
     height: auto;
     min-height: 140px;
     padding: 1.25rem;
   }
-  
+
   .tracker-icon {
     width: 55px;
     height: 55px;
   }
-  
+
   .tracker-icon i {
     font-size: 1.4rem;
   }
-  
+
   .tracker-content h6 {
     font-size: 0.8rem;
     margin-bottom: 0.5rem;
   }
-  
+
   .tracker-value {
     font-size: 1.6rem;
   }
-  
+
   .tracker-unit {
     font-size: 0.7rem;
   }
@@ -559,12 +558,12 @@
   .dashboard-goals-section {
     width: 100%;
   }
-  
+
   .skills-card {
     height: auto;
     min-height: 140px;
   }
-  
+
   .skills-list {
     gap: 0.35rem;
   }
@@ -585,7 +584,7 @@
     width: 48px;
     height: 48px;
   }
-  
+
   .tracker-icon i {
     font-size: 1.2rem;
   }
@@ -593,22 +592,22 @@
   .tracker-value {
     font-size: 1.4rem;
   }
-  
+
   .tracker-content h6 {
     font-size: 0.75rem;
     margin-bottom: 0.5rem;
   }
-  
+
   .tracker-unit {
     font-size: 0.7rem;
   }
-  
+
   .skill-badge {
     font-size: 0.65rem;
     padding: 0.2rem 0.4rem;
     white-space: nowrap;
   }
-  
+
   .skills-list {
     gap: 0.3rem;
   }
@@ -620,35 +619,35 @@
     flex-direction: row;
     gap: 0.65rem;
   }
-  
+
   .tracker-icon {
     width: 42px;
     height: 42px;
   }
-  
+
   .tracker-icon i {
     font-size: 1rem;
   }
-  
+
   .tracker-content {
     display: flex;
     flex-direction: column;
     justify-content: center;
   }
-  
+
   .tracker-value {
     font-size: 1.25rem;
   }
-  
+
   .tracker-content h6 {
     font-size: 0.7rem;
     margin-bottom: 0.4rem;
   }
-  
+
   .tracker-unit {
     font-size: 0.65rem;
   }
-  
+
   .skill-badge {
     font-size: 0.6rem;
     padding: 0.15rem 0.35rem;

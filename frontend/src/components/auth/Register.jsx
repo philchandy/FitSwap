@@ -88,7 +88,8 @@ const Register = () => {
     <div className="auth-container">
       <div className="auth-logo-container">
         <h1 className="auth-logo">
-          FITSW<img src="/logo.svg" alt="" className="logo-inline" />P
+          FITSW
+          <img src="/logo.svg" alt="" className="logo-inline" />P
         </h1>
         <p className="auth-logo-subtitle">Track Solo. Train Together.</p>
       </div>

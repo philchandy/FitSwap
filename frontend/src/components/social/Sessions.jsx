@@ -153,20 +153,20 @@ const SessionCard = ({ session, currentUser, onStatusUpdate, onDelete }) => {
   const formatDate = (date) => {
     //console.log('Raw date from backend:', date);
     //console.log('Date type:', typeof date);
-    
+
     // The date is already an ISO string from MongoDB, just parse it directly
     const dateObj = new Date(date);
     //console.log('Date object created:', dateObj);
-    
+
     const formatted = dateObj.toLocaleDateString("en-US", {
       weekday: "long",
       year: "numeric",
       month: "long",
       day: "numeric",
-      timeZone: "UTC"
+      timeZone: "UTC",
     });
     //console.log('Formatted date:', formatted);
-    
+
     return formatted;
   };
 

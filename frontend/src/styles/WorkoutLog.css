@@ -145,7 +145,7 @@
 }
 
 .workout-form-modal .btn-secondary {
-    background: transparent;
+  background: transparent;
   border: none;
   color: var(--text-black-alpha-70);
 }
@@ -206,7 +206,9 @@
   padding: 1.5rem;
   border: none;
   height: 240px;
-  transition: transform 0.2s, height 0.3s ease;
+  transition:
+    transform 0.2s,
+    height 0.3s ease;
   display: flex;
   flex-direction: column;
 }

@@ -272,7 +272,7 @@
   .session-card {
     min-height: 260px;
   }
-  
+
   .session-stat-item {
     flex: 0 0 100%;
   }
@@ -282,24 +282,24 @@
   .session-card {
     min-height: 240px;
   }
-  
+
   .session-card-title {
     font-size: 1rem;
   }
-  
+
   .session-stat-icon {
     width: 45px;
     height: 45px;
   }
-  
+
   .session-stat-icon i {
     font-size: 1.25rem;
   }
-  
+
   .session-stat-value {
     font-size: 0.95rem;
   }
-  
+
   .session-stat-value-small {
     font-size: 0.8rem;
   }
@@ -310,42 +310,42 @@
     padding: 1.25rem;
     min-height: 220px;
   }
-  
+
   .session-card-title {
     font-size: 0.95rem;
   }
-  
+
   .session-role-badge {
     font-size: 0.7rem;
     padding: 0.2rem 0.5rem;
   }
-  
+
   .session-status-badge {
     font-size: 0.7rem;
     padding: 0.2rem 0.5rem;
   }
-  
+
   .session-stat-icon {
     width: 40px;
     height: 40px;
   }
-  
+
   .session-stat-icon i {
     font-size: 1.1rem;
   }
-  
+
   .session-stat-label {
     font-size: 0.7rem;
   }
-  
+
   .session-stat-value {
     font-size: 0.9rem;
   }
-  
+
   .session-stat-value-small {
     font-size: 0.75rem;
   }
-  
+
   .session-actions .btn {
     font-size: 0.8rem;
     padding: 0.45rem 0.85rem;
@@ -356,39 +356,39 @@
   .session-card {
     padding: 1rem;
   }
-  
+
   .session-card-header {
     flex-direction: column;
     gap: 0.5rem;
     align-items: flex-start;
   }
-  
+
   .session-card-title {
     font-size: 0.9rem;
     word-break: break-word;
   }
-  
+
   .session-stats {
     gap: 0.75rem;
   }
-  
+
   .session-stat-item {
     gap: 0.5rem;
   }
-  
+
   .session-stat-icon {
     width: 35px;
     height: 35px;
   }
-  
+
   .session-stat-icon i {
     font-size: 1rem;
   }
-  
+
   .session-actions {
     flex-direction: column;
   }
-  
+
   .session-actions .btn {
     width: 100%;
   }

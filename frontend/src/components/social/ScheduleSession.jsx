@@ -64,7 +64,7 @@ const ScheduleSession = () => {
     e.preventDefault();
     setLoading(true);
     setMessage("");
-    
+
     console.log("Form submitted");
 
     try {
@@ -73,7 +73,7 @@ const ScheduleSession = () => {
         traineeId: user._id, //curr user
         ...formData,
       };
-      
+
       console.log("Session data:", sessionData);
 
       const response = await fetch("/api/sessions", {
@@ -83,7 +83,7 @@ const ScheduleSession = () => {
         },
         body: JSON.stringify(sessionData),
       });
-      
+
       console.log("Response status:", response.status);
       console.log("Response ok:", response.ok);
 
@@ -128,7 +128,7 @@ const ScheduleSession = () => {
           </div>
         </div>
       )}
-      
+
       <div className="row justify-content-center">
         <div className="col-md-8">
           <div className="card">
@@ -162,150 +162,150 @@ const ScheduleSession = () => {
                 </div>
               </div>
 
-            {message && (
-              <div
-                className={`alert ${message.includes("Error") ? "alert-danger" : "alert-success"}`}
-              >
-                {message}
-              </div>
-            )}
+              {message && (
+                <div
+                  className={`alert ${message.includes("Error") ? "alert-danger" : "alert-success"}`}
+                >
+                  {message}
+                </div>
+              )}
 
-            <form onSubmit={handleSubmit}>
-              <div className="row">
-                <div className="col-md-6 mb-3">
-                  <label htmlFor="title" className="form-label">
-                    Session Title
+              <form onSubmit={handleSubmit}>
+                <div className="row">
+                  <div className="col-md-6 mb-3">
+                    <label htmlFor="title" className="form-label">
+                      Session Title
+                    </label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="title"
+                      name="title"
+                      value={formData.title}
+                      onChange={handleChange}
+                      required
+                      placeholder="e.g., Weightlifting Basics"
+                    />
+                  </div>
+
+                  <div className="col-md-6 mb-3">
+                    <label htmlFor="skill" className="form-label">
+                      Skill Focus
+                    </label>
+                    <select
+                      className="form-select"
+                      id="skill"
+                      name="skill"
+                      value={formData.skill}
+                      onChange={handleChange}
+                      required
+                    >
+                      <option value="">Select a skill</option>
+                      {targetUser.skills?.map((skill) => (
+                        <option key={skill} value={skill}>
+                          {skill}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+
+                <div className="row">
+                  <div className="col-md-4 mb-3">
+                    <label htmlFor="date" className="form-label">
+                      Date
+                    </label>
+                    <input
+                      type="date"
+                      className="form-control"
+                      id="date"
+                      name="date"
+                      value={formData.date}
+                      onChange={handleChange}
+                      required
+                      min={new Date().toISOString().split("T")[0]}
+                    />
+                  </div>
+
+                  <div className="col-md-4 mb-3">
+                    <label htmlFor="startTime" className="form-label">
+                      Start Time
+                    </label>
+                    <input
+                      type="time"
+                      className="form-control"
+                      id="startTime"
+                      name="startTime"
+                      value={formData.startTime}
+                      onChange={handleChange}
+                      required
+                    />
+                  </div>
+
+                  <div className="col-md-4 mb-3">
+                    <label htmlFor="endTime" className="form-label">
+                      End Time
+                    </label>
+                    <input
+                      type="time"
+                      className="form-control"
+                      id="endTime"
+                      name="endTime"
+                      value={formData.endTime}
+                      onChange={handleChange}
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div className="mb-3">
+                  <label htmlFor="location" className="form-label">
+                    Location
                   </label>
                   <input
                     type="text"
                     className="form-control"
-                    id="title"
-                    name="title"
-                    value={formData.title}
+                    id="location"
+                    name="location"
+                    value={formData.location}
                     onChange={handleChange}
-                    required
-                    placeholder="e.g., Weightlifting Basics"
+                    placeholder="Gym name, park, online, etc."
                   />
                 </div>
 
-                <div className="col-md-6 mb-3">
-                  <label htmlFor="skill" className="form-label">
-                    Skill Focus
+                <div className="mb-3">
+                  <label htmlFor="notes" className="form-label">
+                    Additional Notes
                   </label>
-                  <select
-                    className="form-select"
-                    id="skill"
-                    name="skill"
-                    value={formData.skill}
+                  <textarea
+                    className="form-control"
+                    id="notes"
+                    name="notes"
+                    rows="3"
+                    value={formData.notes}
                     onChange={handleChange}
-                    required
+                    placeholder="Any special requests or additional information..."
+                  />
+                </div>
+
+                <div className="d-flex gap-2">
+                  <button
+                    type="submit"
+                    className="btn btn-primary"
+                    disabled={loading}
                   >
-                    <option value="">Select a skill</option>
-                    {targetUser.skills?.map((skill) => (
-                      <option key={skill} value={skill}>
-                        {skill}
-                      </option>
-                    ))}
-                  </select>
+                    {loading ? "Scheduling..." : "Schedule Session"}
+                  </button>
+
+                  <button
+                    type="button"
+                    className="btn btn-secondary"
+                    onClick={() => navigate("/discover")}
+                  >
+                    Cancel
+                  </button>
                 </div>
-              </div>
-
-              <div className="row">
-                <div className="col-md-4 mb-3">
-                  <label htmlFor="date" className="form-label">
-                    Date
-                  </label>
-                  <input
-                    type="date"
-                    className="form-control"
-                    id="date"
-                    name="date"
-                    value={formData.date}
-                    onChange={handleChange}
-                    required
-                    min={new Date().toISOString().split("T")[0]}
-                  />
-                </div>
-
-                <div className="col-md-4 mb-3">
-                  <label htmlFor="startTime" className="form-label">
-                    Start Time
-                  </label>
-                  <input
-                    type="time"
-                    className="form-control"
-                    id="startTime"
-                    name="startTime"
-                    value={formData.startTime}
-                    onChange={handleChange}
-                    required
-                  />
-                </div>
-
-                <div className="col-md-4 mb-3">
-                  <label htmlFor="endTime" className="form-label">
-                    End Time
-                  </label>
-                  <input
-                    type="time"
-                    className="form-control"
-                    id="endTime"
-                    name="endTime"
-                    value={formData.endTime}
-                    onChange={handleChange}
-                    required
-                  />
-                </div>
-              </div>
-
-              <div className="mb-3">
-                <label htmlFor="location" className="form-label">
-                  Location
-                </label>
-                <input
-                  type="text"
-                  className="form-control"
-                  id="location"
-                  name="location"
-                  value={formData.location}
-                  onChange={handleChange}
-                  placeholder="Gym name, park, online, etc."
-                />
-              </div>
-
-              <div className="mb-3">
-                <label htmlFor="notes" className="form-label">
-                  Additional Notes
-                </label>
-                <textarea
-                  className="form-control"
-                  id="notes"
-                  name="notes"
-                  rows="3"
-                  value={formData.notes}
-                  onChange={handleChange}
-                  placeholder="Any special requests or additional information..."
-                />
-              </div>
-
-              <div className="d-flex gap-2">
-                <button
-                  type="submit"
-                  className="btn btn-primary"
-                  disabled={loading}
-                >
-                  {loading ? "Scheduling..." : "Schedule Session"}
-                </button>
-
-                <button
-                  type="button"
-                  className="btn btn-secondary"
-                  onClick={() => navigate("/discover")}
-                >
-                  Cancel
-                </button>
-              </div>
-            </form>
+              </form>
             </div>
           </div>
         </div>

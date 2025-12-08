@@ -24,27 +24,42 @@ const Navbar = () => {
       <div className="navbar-center">
         <ul className="navbar-links">
           <li className="navbar-link-mobile-only">
-            <Link to="/dashboard" className={`navbar-link ${isActive("/dashboard") ? "active" : ""}`}>
+            <Link
+              to="/dashboard"
+              className={`navbar-link ${isActive("/dashboard") ? "active" : ""}`}
+            >
               Dashboard
             </Link>
           </li>
           <li>
-            <Link to="/workouts" className={`navbar-link ${isActive("/workouts") ? "active" : ""}`}>
+            <Link
+              to="/workouts"
+              className={`navbar-link ${isActive("/workouts") ? "active" : ""}`}
+            >
               Log Workouts
             </Link>
           </li>
           <li>
-            <Link to="/discover" className={`navbar-link ${isActive("/discover") ? "active" : ""}`}>
+            <Link
+              to="/discover"
+              className={`navbar-link ${isActive("/discover") ? "active" : ""}`}
+            >
               Find Partners
             </Link>
           </li>
           <li className="navbar-link-mobile-only">
-            <Link to="/sessions" className={`navbar-link ${isActive("/sessions") ? "active" : ""}`}>
+            <Link
+              to="/sessions"
+              className={`navbar-link ${isActive("/sessions") ? "active" : ""}`}
+            >
               Sessions
             </Link>
           </li>
           <li>
-            <Link to="/profile" className={`navbar-link ${isActive("/profile") ? "active" : ""}`}>
+            <Link
+              to="/profile"
+              className={`navbar-link ${isActive("/profile") ? "active" : ""}`}
+            >
               Edit Profile
             </Link>
           </li>

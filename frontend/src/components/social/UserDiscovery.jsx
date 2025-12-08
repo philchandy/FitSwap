@@ -232,392 +232,59 @@ const UserDiscovery = () => {
           </div>
         </div>
       )}
-      
+
       <div>
         <div className="d-flex justify-content-between align-items-center mb-3">
           <h2>Find Workout Partners</h2>
 
-        <div className="chart-filters discovery-tabs">
-          <button
-            className={`chart-filter-btn ${activeTab === "discover" ? "active" : ""}`}
-            onClick={() => {
-              setActiveTab("discover");
-              setUsersPage(1);
-            }}
-          >
-            Discover Users
-          </button>
-          <button
-            className={`chart-filter-btn ${activeTab === "matches" ? "active" : ""}`}
-            onClick={() => {
-              setActiveTab("matches");
-              setMatchesPage(1);
-            }}
-          >
-            My Matches
-          </button>
-        </div>
-      </div>
-      <hr className="chart-divider" />
-
-      {activeTab === "discover" && (
-        <div className="discovery-filters">
-          <p className="discovery-filters-title">Filters</p>
-          <div className="row">
-            <div className="col-md-4">
-              <label htmlFor="skill" className="form-label">
-                Skill
-              </label>
-              <select
-                className="form-select"
-                id="skill"
-                name="skill"
-                value={filter.skill}
-                onChange={handleFilterChange}
-              >
-                <option value="">All Skills</option>
-                {availableSkills.map((skill) => (
-                  <option key={skill} value={skill}>
-                    {skill}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            <div className="col-md-4">
-              <label htmlFor="location" className="form-label">
-                Location
-              </label>
-              <input
-                type="text"
-                className="form-control"
-                id="location"
-                name="location"
-                value={filter.location}
-                onChange={handleFilterChange}
-                placeholder="City, State"
-              />
-            </div>
-
-            <div className="col-md-4 d-flex align-items-end">
-              <button className="chart-filter-btn" onClick={clearFilters}>
-                Clear Filters
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {loading && (
-        <div className="text-center py-4">
-          <div className="spinner-border" role="status">
-            <span className="visually-hidden">Loading...</span>
-          </div>
-        </div>
-      )}
-
-      <div className="row">
-        {activeTab === "discover" ? (
-          users.length === 0 && !loading ? (
-            <div className="col-12">
-              <div className="discovery-empty-state">
-                <h4>No users found</h4>
-                <p>Try adjusting your filters or check back later!</p>
-              </div>
-            </div>
-          ) : (
-            paginatedUsers.map((userItem) => (
-              <UserCard
-                key={userItem._id}
-                user={userItem}
-                onSchedule={openScheduleModal}
-              />
-            ))
-          )
-        ) : matches.length === 0 && !loading ? (
-          <div className="col-12">
-            <div className="discovery-empty-state">
-              <h4>No matches found</h4>
-              <p>
-                Update your skills and wanted skills in your profile to find
-                better matches!
-              </p>
-              <Link to="/profile" className="chart-filter-btn active">
-                Update Profile
-              </Link>
-            </div>
-          </div>
-        ) : (
-          paginatedMatches.map((match) => (
-            <MatchCard
-              key={match._id}
-              match={match}
-              onSchedule={openScheduleModal}
-            />
-          ))
-        )}
-      </div>
-
-      {activeTab === "discover" && users.length > 0 && totalUsersPages > 1 && (
-        <div className="d-flex justify-content-center align-items-center gap-2 mt-4">
-          <button
-            className="chart-filter-btn"
-            onClick={() => setUsersPage(1)}
-            disabled={usersPage === 1}
-          >
-            First
-          </button>
-          <button
-            className="chart-filter-btn"
-            onClick={() => setUsersPage(usersPage - 1)}
-            disabled={usersPage === 1}
-            aria-label="Previous page"
-          >
-            <i className="bi bi-chevron-left"></i>
-          </button>
-          {(() => {
-            const maxButtons = 5;
-            let startPage = Math.max(1, usersPage - Math.floor(maxButtons / 2));
-            let endPage = Math.min(totalUsersPages, startPage + maxButtons - 1);
-            if (endPage - startPage + 1 < maxButtons) {
-              startPage = Math.max(1, endPage - maxButtons + 1);
-            }
-            return Array.from(
-              { length: endPage - startPage + 1 },
-              (_, i) => startPage + i
-            ).map((page) => (
-              <button
-                key={page}
-                className={`chart-filter-btn ${page === usersPage ? "active" : ""}`}
-                onClick={() => setUsersPage(page)}
-              >
-                {page}
-              </button>
-            ));
-          })()}
-          <button
-            className="chart-filter-btn"
-            onClick={() => setUsersPage(usersPage + 1)}
-            disabled={usersPage === totalUsersPages}
-            aria-label="Next page"
-          >
-            <i className="bi bi-chevron-right"></i>
-          </button>
-          <button
-            className="chart-filter-btn"
-            onClick={() => setUsersPage(totalUsersPages)}
-            disabled={usersPage === totalUsersPages}
-          >
-            Last
-          </button>
-        </div>
-      )}
-
-      {activeTab === "matches" &&
-        matches.length > 0 &&
-        totalMatchesPages > 1 && (
-          <div className="d-flex justify-content-center align-items-center gap-2 mt-4">
+          <div className="chart-filters discovery-tabs">
             <button
-              className="chart-filter-btn"
-              onClick={() => setMatchesPage(1)}
-              disabled={matchesPage === 1}
+              className={`chart-filter-btn ${activeTab === "discover" ? "active" : ""}`}
+              onClick={() => {
+                setActiveTab("discover");
+                setUsersPage(1);
+              }}
             >
-              First
+              Discover Users
             </button>
             <button
-              className="chart-filter-btn"
-              onClick={() => setMatchesPage(matchesPage - 1)}
-              disabled={matchesPage === 1}
-              aria-label="Previous page"
+              className={`chart-filter-btn ${activeTab === "matches" ? "active" : ""}`}
+              onClick={() => {
+                setActiveTab("matches");
+                setMatchesPage(1);
+              }}
             >
-              <i className="bi bi-chevron-left"></i>
+              My Matches
             </button>
-            {(() => {
-              const maxButtons = 5;
-              let startPage = Math.max(
-                1,
-                matchesPage - Math.floor(maxButtons / 2)
-              );
-              let endPage = Math.min(
-                totalMatchesPages,
-                startPage + maxButtons - 1
-              );
-              if (endPage - startPage + 1 < maxButtons) {
-                startPage = Math.max(1, endPage - maxButtons + 1);
-              }
-              return Array.from(
-                { length: endPage - startPage + 1 },
-                (_, i) => startPage + i
-              ).map((page) => (
-                <button
-                  key={page}
-                  className={`chart-filter-btn ${page === matchesPage ? "active" : ""}`}
-                  onClick={() => setMatchesPage(page)}
+          </div>
+        </div>
+        <hr className="chart-divider" />
+
+        {activeTab === "discover" && (
+          <div className="discovery-filters">
+            <p className="discovery-filters-title">Filters</p>
+            <div className="row">
+              <div className="col-md-4">
+                <label htmlFor="skill" className="form-label">
+                  Skill
+                </label>
+                <select
+                  className="form-select"
+                  id="skill"
+                  name="skill"
+                  value={filter.skill}
+                  onChange={handleFilterChange}
                 >
-                  {page}
-                </button>
-              ));
-            })()}
-            <button
-              className="chart-filter-btn"
-              onClick={() => setMatchesPage(matchesPage + 1)}
-              disabled={matchesPage === totalMatchesPages}
-              aria-label="Next page"
-            >
-              <i className="bi bi-chevron-right"></i>
-            </button>
-            <button
-              className="chart-filter-btn"
-              onClick={() => setMatchesPage(totalMatchesPages)}
-              disabled={matchesPage === totalMatchesPages}
-            >
-              Last
-            </button>
-          </div>
-        )}
-
-      {showScheduleModal && selectedUser && (
-        <>
-          <div
-            className="workout-form-overlay"
-            onClick={closeScheduleModal}
-          ></div>
-          <div className="workout-form-modal" ref={modalRef} tabIndex={-1}>
-            <div className="workout-form-header">
-              <h3 className="workout-form-title">
-                Schedule Session with {selectedUser.name}
-              </h3>
-              <button
-                className="workout-form-close"
-                onClick={closeScheduleModal}
-                aria-label="Close modal"
-              >
-                <i className="bi bi-x-lg"></i>
-              </button>
-            </div>
-
-            <form onSubmit={handleScheduleSubmit} style={{ padding: "2rem" }}>
-              <div className="mb-3">
-                <div className="row">
-                  <div className="col-md-6">
-                    <strong>Skills they can teach:</strong>
-                    <div className="d-flex flex-wrap gap-1 mt-1">
-                      {selectedUser.skills?.map((skill) => (
-                        <span key={skill} className="discovery-skill-badge">
-                          {skill}
-                        </span>
-                      )) || <span>No skills listed</span>}
-                    </div>
-                  </div>
-                  <div className="col-md-6">
-                    <strong>Skills they want to learn:</strong>
-                    <div className="d-flex flex-wrap gap-1 mt-1">
-                      {selectedUser.wantedSkills?.map((skill) => (
-                        <span key={skill} className="discovery-skill-badge">
-                          {skill}
-                        </span>
-                      )) || <span>No skills listed</span>}
-                    </div>
-                  </div>
-                </div>
+                  <option value="">All Skills</option>
+                  {availableSkills.map((skill) => (
+                    <option key={skill} value={skill}>
+                      {skill}
+                    </option>
+                  ))}
+                </select>
               </div>
 
-              {scheduleMessage && (
-                <div
-                  className={`alert ${scheduleMessage.includes("Error") ? "alert-danger" : "alert-success"}`}
-                >
-                  {scheduleMessage}
-                </div>
-              )}
-
-              <div className="row">
-                <div className="col-md-6 mb-3">
-                  <label htmlFor="title" className="form-label">
-                    Session Title
-                  </label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="title"
-                    name="title"
-                    value={sessionForm.title}
-                    onChange={handleSessionFormChange}
-                    required
-                    placeholder="e.g., Weightlifting Basics"
-                  />
-                </div>
-
-                <div className="col-md-6 mb-3">
-                  <label htmlFor="skill" className="form-label">
-                    Skill Focus
-                  </label>
-                  <select
-                    className="form-select"
-                    id="skill"
-                    name="skill"
-                    value={sessionForm.skill}
-                    onChange={handleSessionFormChange}
-                    required
-                  >
-                    <option value="">Select a skill</option>
-                    {selectedUser.skills?.map((skill) => (
-                      <option key={skill} value={skill}>
-                        {skill}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-              </div>
-
-              <div className="row">
-                <div className="col-md-4 mb-3">
-                  <label htmlFor="date" className="form-label">
-                    Date
-                  </label>
-                  <input
-                    type="date"
-                    className="form-control"
-                    id="date"
-                    name="date"
-                    value={sessionForm.date}
-                    onChange={handleSessionFormChange}
-                    required
-                    min={new Date().toISOString().split("T")[0]}
-                  />
-                </div>
-
-                <div className="col-md-4 mb-3">
-                  <label htmlFor="startTime" className="form-label">
-                    Start Time
-                  </label>
-                  <input
-                    type="time"
-                    className="form-control"
-                    id="startTime"
-                    name="startTime"
-                    value={sessionForm.startTime}
-                    onChange={handleSessionFormChange}
-                    required
-                  />
-                </div>
-
-                <div className="col-md-4 mb-3">
-                  <label htmlFor="endTime" className="form-label">
-                    End Time
-                  </label>
-                  <input
-                    type="time"
-                    className="form-control"
-                    id="endTime"
-                    name="endTime"
-                    value={sessionForm.endTime}
-                    onChange={handleSessionFormChange}
-                    required
-                  />
-                </div>
-              </div>
-
-              <div className="mb-3">
+              <div className="col-md-4">
                 <label htmlFor="location" className="form-label">
                   Location
                 </label>
@@ -626,44 +293,385 @@ const UserDiscovery = () => {
                   className="form-control"
                   id="location"
                   name="location"
-                  value={sessionForm.location}
-                  onChange={handleSessionFormChange}
-                  placeholder="Gym name, park, online, etc."
+                  value={filter.location}
+                  onChange={handleFilterChange}
+                  placeholder="City, State"
                 />
               </div>
 
-              <div className="mb-3">
-                <label htmlFor="notes" className="form-label">
-                  Additional Notes
-                </label>
-                <textarea
-                  className="form-control"
-                  id="notes"
-                  name="notes"
-                  rows="3"
-                  value={sessionForm.notes}
-                  onChange={handleSessionFormChange}
-                  placeholder="Any special requests or additional information..."
-                />
-              </div>
-
-              <div className="d-flex gap-2">
-                <button type="submit" className="btn btn-success">
-                  Schedule Session
-                </button>
-                <button
-                  type="button"
-                  className="btn btn-outline-secondary"
-                  onClick={closeScheduleModal}
-                >
-                  Cancel
+              <div className="col-md-4 d-flex align-items-end">
+                <button className="chart-filter-btn" onClick={clearFilters}>
+                  Clear Filters
                 </button>
               </div>
-            </form>
+            </div>
           </div>
-        </>
-      )}
-    </div>
+        )}
+
+        {loading && (
+          <div className="text-center py-4">
+            <div className="spinner-border" role="status">
+              <span className="visually-hidden">Loading...</span>
+            </div>
+          </div>
+        )}
+
+        <div className="row">
+          {activeTab === "discover" ? (
+            users.length === 0 && !loading ? (
+              <div className="col-12">
+                <div className="discovery-empty-state">
+                  <h4>No users found</h4>
+                  <p>Try adjusting your filters or check back later!</p>
+                </div>
+              </div>
+            ) : (
+              paginatedUsers.map((userItem) => (
+                <UserCard
+                  key={userItem._id}
+                  user={userItem}
+                  onSchedule={openScheduleModal}
+                />
+              ))
+            )
+          ) : matches.length === 0 && !loading ? (
+            <div className="col-12">
+              <div className="discovery-empty-state">
+                <h4>No matches found</h4>
+                <p>
+                  Update your skills and wanted skills in your profile to find
+                  better matches!
+                </p>
+                <Link to="/profile" className="chart-filter-btn active">
+                  Update Profile
+                </Link>
+              </div>
+            </div>
+          ) : (
+            paginatedMatches.map((match) => (
+              <MatchCard
+                key={match._id}
+                match={match}
+                onSchedule={openScheduleModal}
+              />
+            ))
+          )}
+        </div>
+
+        {activeTab === "discover" &&
+          users.length > 0 &&
+          totalUsersPages > 1 && (
+            <div className="d-flex justify-content-center align-items-center gap-2 mt-4">
+              <button
+                className="chart-filter-btn"
+                onClick={() => setUsersPage(1)}
+                disabled={usersPage === 1}
+              >
+                First
+              </button>
+              <button
+                className="chart-filter-btn"
+                onClick={() => setUsersPage(usersPage - 1)}
+                disabled={usersPage === 1}
+                aria-label="Previous page"
+              >
+                <i className="bi bi-chevron-left"></i>
+              </button>
+              {(() => {
+                const maxButtons = 5;
+                let startPage = Math.max(
+                  1,
+                  usersPage - Math.floor(maxButtons / 2)
+                );
+                let endPage = Math.min(
+                  totalUsersPages,
+                  startPage + maxButtons - 1
+                );
+                if (endPage - startPage + 1 < maxButtons) {
+                  startPage = Math.max(1, endPage - maxButtons + 1);
+                }
+                return Array.from(
+                  { length: endPage - startPage + 1 },
+                  (_, i) => startPage + i
+                ).map((page) => (
+                  <button
+                    key={page}
+                    className={`chart-filter-btn ${page === usersPage ? "active" : ""}`}
+                    onClick={() => setUsersPage(page)}
+                  >
+                    {page}
+                  </button>
+                ));
+              })()}
+              <button
+                className="chart-filter-btn"
+                onClick={() => setUsersPage(usersPage + 1)}
+                disabled={usersPage === totalUsersPages}
+                aria-label="Next page"
+              >
+                <i className="bi bi-chevron-right"></i>
+              </button>
+              <button
+                className="chart-filter-btn"
+                onClick={() => setUsersPage(totalUsersPages)}
+                disabled={usersPage === totalUsersPages}
+              >
+                Last
+              </button>
+            </div>
+          )}
+
+        {activeTab === "matches" &&
+          matches.length > 0 &&
+          totalMatchesPages > 1 && (
+            <div className="d-flex justify-content-center align-items-center gap-2 mt-4">
+              <button
+                className="chart-filter-btn"
+                onClick={() => setMatchesPage(1)}
+                disabled={matchesPage === 1}
+              >
+                First
+              </button>
+              <button
+                className="chart-filter-btn"
+                onClick={() => setMatchesPage(matchesPage - 1)}
+                disabled={matchesPage === 1}
+                aria-label="Previous page"
+              >
+                <i className="bi bi-chevron-left"></i>
+              </button>
+              {(() => {
+                const maxButtons = 5;
+                let startPage = Math.max(
+                  1,
+                  matchesPage - Math.floor(maxButtons / 2)
+                );
+                let endPage = Math.min(
+                  totalMatchesPages,
+                  startPage + maxButtons - 1
+                );
+                if (endPage - startPage + 1 < maxButtons) {
+                  startPage = Math.max(1, endPage - maxButtons + 1);
+                }
+                return Array.from(
+                  { length: endPage - startPage + 1 },
+                  (_, i) => startPage + i
+                ).map((page) => (
+                  <button
+                    key={page}
+                    className={`chart-filter-btn ${page === matchesPage ? "active" : ""}`}
+                    onClick={() => setMatchesPage(page)}
+                  >
+                    {page}
+                  </button>
+                ));
+              })()}
+              <button
+                className="chart-filter-btn"
+                onClick={() => setMatchesPage(matchesPage + 1)}
+                disabled={matchesPage === totalMatchesPages}
+                aria-label="Next page"
+              >
+                <i className="bi bi-chevron-right"></i>
+              </button>
+              <button
+                className="chart-filter-btn"
+                onClick={() => setMatchesPage(totalMatchesPages)}
+                disabled={matchesPage === totalMatchesPages}
+              >
+                Last
+              </button>
+            </div>
+          )}
+
+        {showScheduleModal && selectedUser && (
+          <>
+            <div
+              className="workout-form-overlay"
+              onClick={closeScheduleModal}
+            ></div>
+            <div className="workout-form-modal" ref={modalRef} tabIndex={-1}>
+              <div className="workout-form-header">
+                <h3 className="workout-form-title">
+                  Schedule Session with {selectedUser.name}
+                </h3>
+                <button
+                  className="workout-form-close"
+                  onClick={closeScheduleModal}
+                  aria-label="Close modal"
+                >
+                  <i className="bi bi-x-lg"></i>
+                </button>
+              </div>
+
+              <form onSubmit={handleScheduleSubmit} style={{ padding: "2rem" }}>
+                <div className="mb-3">
+                  <div className="row">
+                    <div className="col-md-6">
+                      <strong>Skills they can teach:</strong>
+                      <div className="d-flex flex-wrap gap-1 mt-1">
+                        {selectedUser.skills?.map((skill) => (
+                          <span key={skill} className="discovery-skill-badge">
+                            {skill}
+                          </span>
+                        )) || <span>No skills listed</span>}
+                      </div>
+                    </div>
+                    <div className="col-md-6">
+                      <strong>Skills they want to learn:</strong>
+                      <div className="d-flex flex-wrap gap-1 mt-1">
+                        {selectedUser.wantedSkills?.map((skill) => (
+                          <span key={skill} className="discovery-skill-badge">
+                            {skill}
+                          </span>
+                        )) || <span>No skills listed</span>}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {scheduleMessage && (
+                  <div
+                    className={`alert ${scheduleMessage.includes("Error") ? "alert-danger" : "alert-success"}`}
+                  >
+                    {scheduleMessage}
+                  </div>
+                )}
+
+                <div className="row">
+                  <div className="col-md-6 mb-3">
+                    <label htmlFor="title" className="form-label">
+                      Session Title
+                    </label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="title"
+                      name="title"
+                      value={sessionForm.title}
+                      onChange={handleSessionFormChange}
+                      required
+                      placeholder="e.g., Weightlifting Basics"
+                    />
+                  </div>
+
+                  <div className="col-md-6 mb-3">
+                    <label htmlFor="skill" className="form-label">
+                      Skill Focus
+                    </label>
+                    <select
+                      className="form-select"
+                      id="skill"
+                      name="skill"
+                      value={sessionForm.skill}
+                      onChange={handleSessionFormChange}
+                      required
+                    >
+                      <option value="">Select a skill</option>
+                      {selectedUser.skills?.map((skill) => (
+                        <option key={skill} value={skill}>
+                          {skill}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+
+                <div className="row">
+                  <div className="col-md-4 mb-3">
+                    <label htmlFor="date" className="form-label">
+                      Date
+                    </label>
+                    <input
+                      type="date"
+                      className="form-control"
+                      id="date"
+                      name="date"
+                      value={sessionForm.date}
+                      onChange={handleSessionFormChange}
+                      required
+                      min={new Date().toISOString().split("T")[0]}
+                    />
+                  </div>
+
+                  <div className="col-md-4 mb-3">
+                    <label htmlFor="startTime" className="form-label">
+                      Start Time
+                    </label>
+                    <input
+                      type="time"
+                      className="form-control"
+                      id="startTime"
+                      name="startTime"
+                      value={sessionForm.startTime}
+                      onChange={handleSessionFormChange}
+                      required
+                    />
+                  </div>
+
+                  <div className="col-md-4 mb-3">
+                    <label htmlFor="endTime" className="form-label">
+                      End Time
+                    </label>
+                    <input
+                      type="time"
+                      className="form-control"
+                      id="endTime"
+                      name="endTime"
+                      value={sessionForm.endTime}
+                      onChange={handleSessionFormChange}
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div className="mb-3">
+                  <label htmlFor="location" className="form-label">
+                    Location
+                  </label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="location"
+                    name="location"
+                    value={sessionForm.location}
+                    onChange={handleSessionFormChange}
+                    placeholder="Gym name, park, online, etc."
+                  />
+                </div>
+
+                <div className="mb-3">
+                  <label htmlFor="notes" className="form-label">
+                    Additional Notes
+                  </label>
+                  <textarea
+                    className="form-control"
+                    id="notes"
+                    name="notes"
+                    rows="3"
+                    value={sessionForm.notes}
+                    onChange={handleSessionFormChange}
+                    placeholder="Any special requests or additional information..."
+                  />
+                </div>
+
+                <div className="d-flex gap-2">
+                  <button type="submit" className="btn btn-success">
+                    Schedule Session
+                  </button>
+                  <button
+                    type="button"
+                    className="btn btn-outline-secondary"
+                    onClick={closeScheduleModal}
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </form>
+            </div>
+          </>
+        )}
+      </div>
     </>
   );
 };

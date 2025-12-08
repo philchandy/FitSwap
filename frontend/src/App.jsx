@@ -19,7 +19,8 @@ import Sidebar from "./components/layout/Sidebar";
 
 function AppContent() {
   const location = useLocation();
-  const isAuthPage = location.pathname === "/login" || location.pathname === "/register";
+  const isAuthPage =
+    location.pathname === "/login" || location.pathname === "/register";
 
   return (
     <div className="App">
