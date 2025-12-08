@@ -255,6 +255,7 @@ const WorkoutLog = () => {
                   setShowForm(false);
                   setEditingWorkout(null);
                 }}
+                aria-label="Close form"
               >
                 <i className="bi bi-x-lg"></i>
               </button>
@@ -490,7 +491,7 @@ const WorkoutLog = () => {
                                     {workout.type}
                                   </h5>
                                   <div className="d-flex align-items-center gap-2">
-                                    <small className="text-muted">
+                                    <small className="workout-date">
                                       {new Date(
                                         workout.date
                                       ).toLocaleDateString()}
@@ -501,6 +502,7 @@ const WorkoutLog = () => {
                                         type="button"
                                         data-bs-toggle="dropdown"
                                         aria-expanded="false"
+                                        aria-label="Workout options menu"
                                         style={{
                                           fontSize: "1.2rem",
                                           lineHeight: 1,
@@ -599,6 +601,7 @@ const WorkoutLog = () => {
                               setThisWeekPage((prev) => Math.max(1, prev - 1))
                             }
                             disabled={thisWeekPage === 1}
+                            aria-label="Previous page"
                           >
                             <i className="bi bi-chevron-left"></i>
                           </button>
@@ -636,6 +639,7 @@ const WorkoutLog = () => {
                               )
                             }
                             disabled={thisWeekPage === thisWeekTotalPages}
+                            aria-label="Next page"
                           >
                             <i className="bi bi-chevron-right"></i>
                           </button>
@@ -688,7 +692,7 @@ const WorkoutLog = () => {
                                     {workout.type}
                                   </h5>
                                   <div className="d-flex align-items-center gap-2">
-                                    <small className="text-muted">
+                                    <small className="workout-date">
                                       {new Date(
                                         workout.date
                                       ).toLocaleDateString()}
@@ -699,6 +703,7 @@ const WorkoutLog = () => {
                                         type="button"
                                         data-bs-toggle="dropdown"
                                         aria-expanded="false"
+                                        aria-label="Workout options menu"
                                         style={{
                                           fontSize: "1.2rem",
                                           lineHeight: 1,
@@ -797,6 +802,7 @@ const WorkoutLog = () => {
                               setPreviousPage((prev) => Math.max(1, prev - 1))
                             }
                             disabled={previousPage === 1}
+                            aria-label="Previous page"
                           >
                             <i className="bi bi-chevron-left"></i>
                           </button>
@@ -834,6 +840,7 @@ const WorkoutLog = () => {
                               )
                             }
                             disabled={previousPage === previousTotalPages}
+                            aria-label="Next page"
                           >
                             <i className="bi bi-chevron-right"></i>
                           </button>

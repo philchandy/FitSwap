@@ -364,6 +364,7 @@ const UserDiscovery = () => {
             className="chart-filter-btn"
             onClick={() => setUsersPage(usersPage - 1)}
             disabled={usersPage === 1}
+            aria-label="Previous page"
           >
             <i className="bi bi-chevron-left"></i>
           </button>
@@ -391,6 +392,7 @@ const UserDiscovery = () => {
             className="chart-filter-btn"
             onClick={() => setUsersPage(usersPage + 1)}
             disabled={usersPage === totalUsersPages}
+            aria-label="Next page"
           >
             <i className="bi bi-chevron-right"></i>
           </button>
@@ -419,6 +421,7 @@ const UserDiscovery = () => {
               className="chart-filter-btn"
               onClick={() => setMatchesPage(matchesPage - 1)}
               disabled={matchesPage === 1}
+              aria-label="Previous page"
             >
               <i className="bi bi-chevron-left"></i>
             </button>
@@ -452,6 +455,7 @@ const UserDiscovery = () => {
               className="chart-filter-btn"
               onClick={() => setMatchesPage(matchesPage + 1)}
               disabled={matchesPage === totalMatchesPages}
+              aria-label="Next page"
             >
               <i className="bi bi-chevron-right"></i>
             </button>
@@ -479,6 +483,7 @@ const UserDiscovery = () => {
               <button
                 className="workout-form-close"
                 onClick={closeScheduleModal}
+                aria-label="Close modal"
               >
                 <i className="bi bi-x-lg"></i>
               </button>

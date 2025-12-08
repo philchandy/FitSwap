@@ -28,7 +28,7 @@
 }
 
 .tracker-card {
-  background: rgba(240, 120, 112, 0.5);
+  background: var(--brand-primary-alpha-50);
   border-radius: 12px;
   padding: 2rem 1.5rem;
   display: flex;
@@ -44,7 +44,7 @@
 .tracker-icon {
   width: 80px;
   height: 80px;
-  background: rgba(0, 0, 0, 0.2);
+  background: var(--background-black-alpha-20);
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -67,7 +67,7 @@
 .tracker-content h6 {
   font-size: 1rem;
   font-weight: 600;
-  color: rgba(0, 0, 0, 0.7);
+  color: var(--text-black-alpha-70);
   margin: 0 0 1rem 0;
   text-transform: capitalize;
   word-wrap: break-word;
@@ -133,7 +133,7 @@
 }
 
 .skills-toggle {
-  color: var(--brand-primary);
+  color: var(--text-link-dark);
   cursor: pointer;
   font-size: 0.85rem;
   text-decoration: none;
@@ -148,21 +148,21 @@
 .skill-badge {
   display: inline-block;
   padding: 0.25rem 0.6rem;
-  background: rgba(0, 0, 0, 0.2);
-  color: rgba(0, 0, 0, 0.9);
+  background: var(--background-black-alpha-20);
+  color: var(--text-black-alpha-90);
   border-radius: 12px;
   font-size: 0.75rem;
   font-weight: 600;
 }
 
 .skill-badge.wanted {
-  background: rgba(0, 0, 0, 0.2);
-  color: rgba(0, 0, 0, 0.9);
+  background: var(--background-black-alpha-20);
+  color: var(--text-black-alpha-90);
 }
 
 .no-skills {
   font-size: 0.75rem;
-  color: rgba(0, 0, 0, 0.5);
+  color: var(--text-black-alpha-50);
   font-style: italic;
 }
 
@@ -191,7 +191,7 @@
   padding: 0.5rem 0.75rem;
   border: none;
   background: transparent;
-  color: #666;
+  color: var(--text-light-dark);
   font-size: 0.9rem;
   font-weight: 500;
   cursor: pointer;
@@ -205,7 +205,7 @@
 
 .chart-filter-btn.active {
   background: transparent;
-  color: var(--brand-primary);
+  color: var(--text-button-coral-bg);
   font-weight: 600;
 }
 
@@ -237,7 +237,7 @@
   border-radius: 12px;
   padding: 1.5rem;
   border: none;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 3px var(--shadow-light);
 }
 
 .chart-header {
@@ -272,7 +272,7 @@
 }
 
 .chart-tab:hover {
-  background: rgba(0, 0, 0, 0.05);
+  background: var(--background-black-alpha-5);
 }
 
 .chart-tab.active {
@@ -301,7 +301,7 @@
   padding: 0.5rem 1.25rem;
   border: none;
   background: transparent;
-  color: var(--brand-primary-soft);
+  color: var(--brand-primary);
   font-size: 0.9rem;
   font-weight: 500;
   cursor: pointer;
@@ -311,7 +311,7 @@
 }
 
 .goals-edit-btn:hover {
-  color: var(--brand-primary);
+  color: var(--brand-primary-alpha-50);
 }
 
 .goals-divider {

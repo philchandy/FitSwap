@@ -5,10 +5,10 @@
 
 /* Profile Card */
 .profile-card {
-  background: rgba(240, 120, 112, 0.5);
+  background: var(--brand-primary-alpha-50);
   border-radius: 12px;
   padding: 2rem;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 6px var(--shadow-light);
   margin-bottom: 2rem;
 }
 
@@ -20,7 +20,7 @@
 .profile-title {
   font-size: 2rem;
   font-weight: 700;
-  color: #333;
+  color: var(--text-dark);
   margin: 0;
 }
 
@@ -28,14 +28,14 @@
 .profile-section {
   margin-bottom: 2rem;
   padding: 1.5rem;
-  background: rgba(255, 255, 255, 0.3);
+  background: var(--background-white-alpha-30);
   border-radius: 8px;
 }
 
 .profile-section-title {
   font-size: 1.25rem;
   font-weight: 600;
-  color: #333;
+  color: var(--text-dark);
   margin-bottom: 1rem;
   display: flex;
   align-items: center;
@@ -46,11 +46,11 @@
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background: rgba(0, 0, 0, 0.2);
+  background: var(--background-black-alpha-20);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #fff;
+  color: var(--text-white);
   font-size: 1.1rem;
 }
 
@@ -66,11 +66,11 @@
 .profile-info-label {
   font-weight: 600;
   min-width: 150px;
-  color: #333;
+  color: var(--text-dark);
 }
 
 .profile-info-value {
-  color: #555;
+  color: var(--text-medium);
 }
 
 /* Skills and Badges */
@@ -79,10 +79,10 @@
   display: inline-block;
   padding: 0.5rem 1rem;
   margin: 0.25rem;
-  background: rgba(0, 0, 0, 0.2);
+  background: var(--background-black-alpha-20);
   border-radius: 20px;
   font-size: 0.9rem;
-  color: #333;
+  color: var(--text-dark);
   font-weight: 500;
 }
 
@@ -100,7 +100,7 @@
 .profile-goal-delete {
   background: none;
   border: none;
-  color: #d9534f;
+  color: var(--danger-primary);
   font-size: 1.2rem;
   cursor: pointer;
   padding: 0;
@@ -118,11 +118,11 @@
 
 /* Edit Button */
 .profile-edit-btn {
-  background: rgba(0, 0, 0, 0.2);
+  background: var(--background-black-alpha-20);
   border: none;
   padding: 0.5rem 1.5rem;
   border-radius: 8px;
-  color: #333;
+  color: var(--text-dark);
   font-weight: 500;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -130,7 +130,7 @@
 }
 
 .profile-edit-btn:hover {
-  background: rgba(0, 0, 0, 0.3);
+  background: var(--background-black-alpha-30);
   transform: translateY(-2px);
 }
 
@@ -140,7 +140,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: var(--background-black-alpha-50);
   z-index: 1040;
 }
 
@@ -149,14 +149,14 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: #FFFCEB;
+  background-color: var(--background-cream);
   border-radius: 12px;
   z-index: 1050;
   max-width: 700px;
   width: 90%;
   max-height: 90vh;
   overflow-y: auto;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 10px 30px var(--background-black-alpha-30);
 }
 
 .profile-form-header {
@@ -164,13 +164,13 @@
   justify-content: space-between;
   align-items: center;
   padding: 1.5rem 2rem;
-  border-bottom: 2px solid rgba(240, 120, 112, 0.3);
+  border-bottom: 2px solid var(--brand-primary-alpha-30);
 }
 
 .profile-form-title {
   font-size: 1.5rem;
   font-weight: 700;
-  color: #333;
+  color: var(--text-dark);
   margin: 0;
 }
 
@@ -178,7 +178,7 @@
   background: none;
   border: none;
   font-size: 1.5rem;
-  color: #333;
+  color: var(--text-dark);
   cursor: pointer;
   padding: 0;
   width: 30px;
@@ -190,7 +190,7 @@
 }
 
 .profile-form-close:hover {
-  color: #d9534f;
+  color: var(--danger-primary);
 }
 
 .profile-form-body {
@@ -200,7 +200,7 @@
 /* Form Styles */
 .profile-form-label {
   font-weight: 600;
-  color: #333;
+  color: var(--text-dark);
   margin-bottom: 0.5rem;
   display: block;
 }
@@ -208,16 +208,16 @@
 .profile-form-control {
   width: 100%;
   padding: 0.75rem;
-  border: 2px solid rgba(240, 120, 112, 0.3);
+  border: 2px solid var(--brand-primary-alpha-30);
   border-radius: 8px;
-  background: rgba(255, 255, 255, 0.5);
+  background: var(--background-white-alpha-50);
   font-size: 1rem;
   transition: border-color 0.3s;
 }
 
 .profile-form-control:focus {
   outline: none;
-  border-color: rgba(240, 120, 112, 0.7);
+  border-color: var(--brand-primary-alpha-70);
 }
 
 .profile-form-textarea {
@@ -238,14 +238,14 @@
   align-items: center;
   gap: 0.5rem;
   padding: 0.5rem;
-  background: rgba(255, 255, 255, 0.3);
+  background: var(--background-white-alpha-30);
   border-radius: 6px;
   cursor: pointer;
   transition: background 0.2s;
 }
 
 .profile-checkbox-item:hover {
-  background: rgba(255, 255, 255, 0.5);
+  background: var(--background-white-alpha-50);
 }
 
 .profile-checkbox-input {
@@ -258,7 +258,7 @@
   cursor: pointer;
   margin: 0;
   font-size: 0.95rem;
-  color: #333;
+  color: var(--text-dark);
 }
 
 /* Goals Section in Form */
@@ -273,11 +273,11 @@
 }
 
 .profile-goal-add-btn {
-  background: rgba(0, 0, 0, 0.2);
+  background: var(--background-black-alpha-20);
   border: none;
   padding: 0.75rem 1.5rem;
   border-radius: 8px;
-  color: #333;
+  color: var(--text-dark);
   font-weight: 500;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -285,7 +285,7 @@
 }
 
 .profile-goal-add-btn:hover:not(:disabled) {
-  background: rgba(0, 0, 0, 0.3);
+  background: var(--background-black-alpha-30);
 }
 
 .profile-goal-add-btn:disabled {
@@ -308,11 +308,11 @@
 
 .profile-submit-btn {
   flex: 1;
-  background: rgba(240, 120, 112, 0.7);
+  background: var(--brand-primary-strong);
   border: none;
   padding: 0.75rem 2rem;
   border-radius: 8px;
-  color: #fff;
+  color: var(--text-white);
   font-weight: 600;
   font-size: 1rem;
   cursor: pointer;
@@ -320,7 +320,7 @@
 }
 
 .profile-submit-btn:hover:not(:disabled) {
-  background: rgba(240, 120, 112, 0.9);
+  background: var(--brand-primary);
   transform: translateY(-2px);
 }
 
@@ -331,11 +331,11 @@
 
 .profile-cancel-btn {
   flex: 1;
-  background: rgba(0, 0, 0, 0.2);
+  background: var(--background-black-alpha-20);
   border: none;
   padding: 0.75rem 2rem;
   border-radius: 8px;
-  color: #333;
+  color: var(--text-dark);
   font-weight: 600;
   font-size: 1rem;
   cursor: pointer;
@@ -343,13 +343,13 @@
 }
 
 .profile-cancel-btn:hover {
-  background: rgba(0, 0, 0, 0.3);
+  background: var(--background-black-alpha-30);
 }
 
 .profile-success-message {
-  background: rgba(92, 184, 92, 0.2);
-  border: 2px solid rgba(92, 184, 92, 0.5);
-  color: #3c763d;
+  background: var(--success-green-light);
+  border: 2px solid var(--success-green-border);
+  color: var(--success-green-text);
   padding: 1rem;
   border-radius: 8px;
   margin-bottom: 1rem;
@@ -360,7 +360,7 @@
 .profile-empty-state {
   text-align: center;
   padding: 2rem;
-  color: #666;
+  color: var(--text-light);
   font-style: italic;
 }
 

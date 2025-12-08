@@ -2,7 +2,7 @@
 
 /* Discovery Cards*/
 .discovery-card {
-  background: rgba(240, 120, 112, 0.5);
+  background: var(--brand-primary-alpha-50);
   border-radius: 12px;
   padding: 1.5rem;
   border: none;
@@ -27,14 +27,14 @@
 .discovery-card-title {
   font-size: 1.2rem;
   font-weight: 600;
-  color: rgba(0, 0, 0, 0.8);
+  color: var(--text-black-alpha-80);
   margin: 0;
   flex: 1;
 }
 
 .match-score-badge {
-  background: rgba(0, 0, 0, 0.2);
-  color: rgba(0, 0, 0, 0.9);
+  background: var(--background-black-alpha-20);
+  color: var(--text-black-alpha-90);
   padding: 0.4rem 0.8rem;
   border-radius: 12px;
   font-size: 0.85rem;
@@ -70,7 +70,7 @@
 .discovery-stat-icon {
   width: 50px;
   height: 50px;
-  background: rgba(0, 0, 0, 0.2);
+  background: var(--background-black-alpha-20);
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -91,7 +91,7 @@
 .discovery-stat-label {
   font-size: 0.75rem;
   font-weight: 600;
-  color: rgba(0, 0, 0, 0.7);
+  color: var(--text-black-alpha-70);
   margin-bottom: 0.25rem;
   text-transform: capitalize;
 }
@@ -99,17 +99,17 @@
 .discovery-stat-value {
   font-size: 0.9rem;
   font-weight: 600;
-  color: rgba(0, 0, 0, 0.85);
+  color: var(--text-black-alpha-85);
   line-height: 1.3;
 }
 
 /* Bio Section */
 .discovery-bio {
   font-size: 0.9rem;
-  color: rgba(0, 0, 0, 0.7);
+  color: var(--text-black-alpha-70);
   font-style: italic;
   padding: 0.75rem;
-  background: rgba(255, 255, 255, 0.3);
+  background: var(--background-white-alpha-30);
   border-radius: 8px;
   margin-bottom: 0.75rem;
   max-height: 60px;
@@ -124,7 +124,7 @@
 .discovery-skills-label {
   font-size: 0.75rem;
   font-weight: 600;
-  color: rgba(0, 0, 0, 0.7);
+  color: var(--text-black-alpha-70);
   margin-bottom: 0.5rem;
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -137,8 +137,8 @@
 }
 
 .discovery-skill-badge {
-  background: rgba(0, 0, 0, 0.2);
-  color: rgba(0, 0, 0, 0.9);
+  background: var(--background-black-alpha-20);
+  color: var(--text-black-alpha-90);
   padding: 0.25rem 0.6rem;
   border-radius: 8px;
   font-size: 0.75rem;
@@ -160,7 +160,7 @@
 
 /* Filter Section */
 .discovery-filters {
-  background: rgba(240, 120, 112, 0.2);
+  background: var(--brand-primary-alpha-20);
   border-radius: 12px;
   padding: 1.5rem;
   margin-bottom: 2rem;
@@ -169,28 +169,28 @@
 .discovery-filters-title {
   font-size: 1.1rem;
   font-weight: 600;
-  color: rgba(0, 0, 0, 0.8);
+  color: var(--text-black-alpha-80);
   margin-bottom: 1rem;
 }
 
 .discovery-filters .form-label {
   font-weight: 600;
-  color: rgba(0, 0, 0, 0.8);
+  color: var(--text-black-alpha-80);
   font-size: 0.9rem;
 }
 
 .discovery-filters .form-control,
 .discovery-filters .form-select {
-  border: 1px solid rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--background-black-alpha-20);
   border-radius: 8px;
   padding: 0.6rem;
-  background: rgba(255, 255, 255, 0.8);
+  background: var(--background-white-alpha-80);
 }
 
 .discovery-filters .form-control:focus,
 .discovery-filters .form-select:focus {
   border-color: var(--brand-primary);
-  box-shadow: 0 0 0 0.2rem rgba(240, 120, 112, 0.25);
+  box-shadow: 0 0 0 0.2rem var(--brand-primary-alpha-25);
 }
 
 .discovery-empty-state {
@@ -199,13 +199,13 @@
 }
 
 .discovery-empty-state h4 {
-  color: rgba(0, 0, 0, 0.7);
+  color: var(--text-black-alpha-70);
   font-weight: 600;
   margin-bottom: 1rem;
 }
 
 .discovery-empty-state p {
-  color: rgba(0, 0, 0, 0.6);
+  color: var(--text-black-alpha-60);
   margin-bottom: 1.5rem;
 }
 

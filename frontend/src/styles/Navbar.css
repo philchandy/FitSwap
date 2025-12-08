@@ -71,7 +71,7 @@
   gap: 0.5rem;
   padding: 0.5rem 1rem;
   background: transparent;
-  border: 1px solid rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--background-black-alpha-10);
   border-radius: 8px;
   cursor: pointer;
   font-size: 0.95rem;
@@ -80,7 +80,7 @@
 }
 
 .profile-button:hover {
-  background: rgba(0, 0, 0, 0.05);
+  background: var(--background-black-alpha-5);
   border-color: var(--brand-primary);
 }
 
@@ -97,9 +97,9 @@
   top: calc(100% + 0.5rem);
   right: 0;
   background: white;
-  border: 1px solid rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--background-black-alpha-10);
   border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 12px var(--shadow-medium);
   min-width: 180px;
   opacity: 0;
   visibility: hidden;
@@ -131,7 +131,7 @@
 }
 
 .profile-menu-item:hover {
-  background: rgba(235, 76, 66, 0.05);
+  background: var(--brand-primary-alpha-5);
   color: var(--brand-primary);
 }
 
@@ -142,7 +142,7 @@
 
 .profile-menu-divider {
   height: 1px;
-  background: rgba(0, 0, 0, 0.1);
+  background: var(--background-black-alpha-10);
   margin: 0.25rem 0;
 }
 

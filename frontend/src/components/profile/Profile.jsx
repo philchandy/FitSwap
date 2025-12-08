@@ -228,7 +228,7 @@ const Profile = () => {
           <div className="profile-form-modal">
             <div className="profile-form-header">
               <h3 className="profile-form-title">Edit Profile</h3>
-              <button className="profile-form-close" onClick={closeEditModal}>
+              <button className="profile-form-close" onClick={closeEditModal} aria-label="Close modal">
                 <i className="bi bi-x-lg"></i>
               </button>
             </div>

@@ -25,7 +25,7 @@ function AppContent() {
     <div className="App">
       {!isAuthPage && <Sidebar />}
       {!isAuthPage && <Navbar />}
-      <div className={isAuthPage ? "" : "main-content"}>
+      <main className={isAuthPage ? "" : "main-content"}>
         <Routes>
           <Route path="/" element={<Navigate to="/login" />} />
           <Route path="/login" element={<Login />} />
@@ -40,7 +40,7 @@ function AppContent() {
           />
           <Route path="/sessions" element={<Sessions />} />
         </Routes>
-      </div>
+      </main>
     </div>
   );
 }
