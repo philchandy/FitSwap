@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { useAuth } from "../../contexts/AuthContext";
 import { Link } from "react-router-dom";
 import WorkoutChart from "./WorkoutChart";
@@ -27,17 +27,8 @@ const Dashboard = () => {
   const [skillsExpanded, setSkillsExpanded] = useState(false);
   const [hasWorkouts, setHasWorkouts] = useState(true);
   const [pieChartPeriod, setPieChartPeriod] = useState("week");
-  const [pieChartData, setPieChartData] = useState([]);
 
-  useEffect(() => {
-    if (isAuthenticated && user) {
-      fetchDailyStats();
-      fetchSessionStats();
-      checkWorkoutsAndSetPeriod();
-    }
-  }, [isAuthenticated, user]);
-
-  const fetchDailyStats = () => {
+  const fetchDailyStats = useCallback(() => {
     if (!user || !user._id) {
       console.log("No user available yet");
       return;
@@ -79,9 +70,9 @@ const Dashboard = () => {
           exerciseMinutes: 0,
         });
       });
-  };
+  }, [user]);
 
-  const fetchSessionStats = () => {
+  const fetchSessionStats = useCallback(() => {
     if (!user || !user._id) {
       console.log("No user available yet");
       return;
@@ -112,9 +103,9 @@ const Dashboard = () => {
           totalSessions: 0,
         });
       });
-  };
+  }, [user]);
 
-  const checkWorkoutsAndSetPeriod = () => {
+  const checkWorkoutsAndSetPeriod = useCallback(() => {
     if (!user || !user._id) {
       return;
     }
@@ -176,7 +167,21 @@ const Dashboard = () => {
         console.error("Error checking workouts:", err);
         setHasWorkouts(true);
       });
-  };
+  }, [user]);
+
+  useEffect(() => {
+    if (isAuthenticated && user) {
+      fetchDailyStats();
+      fetchSessionStats();
+      checkWorkoutsAndSetPeriod();
+    }
+  }, [
+    isAuthenticated,
+    user,
+    fetchDailyStats,
+    fetchSessionStats,
+    checkWorkoutsAndSetPeriod,
+  ]);
 
   useEffect(() => {
     if (user && user._id) {
@@ -185,25 +190,6 @@ const Dashboard = () => {
         .then((data) => {
           // Store ALL workouts so the pie chart can filter them by period
           setWeeklyWorkouts(data);
-
-          // Generate pie chart data from all workouts initially
-          if (data.length > 0) {
-            const workoutTypeDurations = {};
-            data.forEach((w) => {
-              const type = w.type || "Other";
-              workoutTypeDurations[type] =
-                (workoutTypeDurations[type] || 0) + (w.duration || 0);
-            });
-
-            const pieData = Object.keys(workoutTypeDurations).map((type) => ({
-              name: type.charAt(0).toUpperCase() + type.slice(1),
-              value: workoutTypeDurations[type],
-            }));
-
-            setPieChartData(pieData);
-          } else {
-            setPieChartData([]);
-          }
         })
         .catch((err) => console.error("Error fetching workouts:", err));
     }

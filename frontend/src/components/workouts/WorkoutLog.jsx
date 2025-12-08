@@ -423,22 +423,9 @@ const WorkoutLog = () => {
             const endOfWeek = new Date(startOfWeek);
             endOfWeek.setDate(startOfWeek.getDate() + 6);
 
-            const formatDate = (date) => {
-              return date.toLocaleDateString("en-US", {
-                month: "long",
-                day: "2-digit",
-                year: "numeric",
-              });
-            };
-
             const thisWeek = workouts.filter((workout) => {
               const workoutDate = new Date(workout.date);
               return workoutDate >= startOfWeek;
-            });
-
-            const previous = workouts.filter((workout) => {
-              const workoutDate = new Date(workout.date);
-              return workoutDate < startOfWeek;
             });
 
             const thisWeekStart = (thisWeekPage - 1) * workoutsPerPage;
@@ -450,6 +437,11 @@ const WorkoutLog = () => {
             const thisWeekTotalPages = Math.ceil(
               thisWeek.length / workoutsPerPage
             );
+
+            const previous = workouts.filter((workout) => {
+              const workoutDate = new Date(workout.date);
+              return workoutDate < startOfWeek;
+            });
 
             const previousStart = (previousPage - 1) * previousWorkoutsPerPage;
             const previousEnd = previousStart + previousWorkoutsPerPage;
@@ -488,7 +480,7 @@ const WorkoutLog = () => {
                         </h2>
                       </div>
                       <div className="row">
-                        {thisWeek.map((workout) => (
+                        {paginatedThisWeek.map((workout) => (
                           <div
                             key={workout._id}
                             className="col-md-6 col-lg-4 mb-3"
