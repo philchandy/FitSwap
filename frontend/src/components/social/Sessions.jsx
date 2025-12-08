@@ -185,10 +185,10 @@ const SessionCard = ({ session, currentUser, onStatusUpdate, onDelete }) => {
     <div className="col-md-6 col-lg-4 mb-4">
       <div className="session-card">
         <div className="session-card-header">
-          <h5 className="session-card-title">
+          <p className="session-card-title">
             {session.title}
             <span className="session-role-badge">{role}</span>
-          </h5>
+          </p>
           <span
             className={`session-status-badge session-status-${session.status}`}
           >

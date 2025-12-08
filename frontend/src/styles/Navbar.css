@@ -55,6 +55,11 @@
   color: var(--brand-primary);
 }
 
+.navbar-link.active {
+  color: var(--brand-primary);
+  font-weight: 600;
+}
+
 .navbar-profile {
   min-width: 200px;
   display: flex;

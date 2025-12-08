@@ -21,7 +21,7 @@ const Sidebar = () => {
         </h1>
       </div>
       <hr className="sidebar-divider" />
-      <nav className="sidebar-nav">
+      <nav className="sidebar-nav" aria-label="Main navigation">
         <ul className="sidebar-menu">
           <li
             className={`sidebar-item ${isActive("/dashboard") ? "active" : ""}`}

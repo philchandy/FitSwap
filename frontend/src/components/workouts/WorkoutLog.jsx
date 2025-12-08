@@ -234,6 +234,7 @@ const WorkoutLog = () => {
 
   return (
     <div className="workout-log-container">
+      <h1 className="visually-hidden">My Workouts</h1>
       {showForm && (
         <>
           <div
@@ -245,9 +246,9 @@ const WorkoutLog = () => {
           ></div>
           <div className="workout-form-modal">
             <div className="workout-form-header">
-              <h5 className="workout-form-title">
+              <h2 className="workout-form-title">
                 {editingWorkout ? "Edit Workout" : "Log New Workout"}
-              </h5>
+              </h2>
               <button
                 type="button"
                 className="workout-form-close"
@@ -393,7 +394,7 @@ const WorkoutLog = () => {
 
       {workouts.length === 0 ? (
         <div className="text-center py-5">
-          <h4>No workouts logged yet</h4>
+          <h2>No workouts logged yet</h2>
           <p>
             Start tracking your fitness journey by logging your first workout!
           </p>
@@ -455,29 +456,32 @@ const WorkoutLog = () => {
 
             return (
               <div>
+                <div className="d-flex justify-content-between align-items-center mb-3">
+                  <h2 className="workout-section-title mb-0">My Workouts</h2>
+                  <button
+                    className="btn log-workout-btn"
+                    onClick={() => {
+                      if (editingWorkout) {
+                        cancelEdit();
+                      } else {
+                        setShowForm(!showForm);
+                      }
+                    }}
+                  >
+                    {showForm ? "Cancel" : "Log New Workout"}
+                  </button>
+                </div>
+                <hr className="workout-divider mb-4" />
                 <div>
                   {thisWeek.length > 0 && (
                     <div className="mb-5">
-                      <div className="d-flex justify-content-between align-items-center mb-3">
-                        <h4 className="workout-section-title mb-0">
+                      <div className="d-flex justify-content-between align-items-center mb-4">
+                        <h2 className="workout-section-title-small mb-0">
                           This Week
-                        </h4>
-                        <button
-                          className="btn log-workout-btn"
-                          onClick={() => {
-                            if (editingWorkout) {
-                              cancelEdit();
-                            } else {
-                              setShowForm(!showForm);
-                            }
-                          }}
-                        >
-                          {showForm ? "Cancel" : "Log New Workout"}
-                        </button>
+                        </h2>
                       </div>
-                      <hr className="workout-divider mb-4" />
                       <div className="row">
-                        {paginatedThisWeek.map((workout) => (
+                        {thisWeek.map((workout) => (
                           <div
                             key={workout._id}
                             className="col-md-6 col-lg-4 mb-3"
@@ -487,9 +491,9 @@ const WorkoutLog = () => {
                             >
                               <div className="card-body">
                                 <div className="d-flex justify-content-between align-items-start mb-2">
-                                  <h5 className="card-title text-capitalize">
+                                  <h3 className="card-title text-capitalize">
                                     {workout.type}
-                                  </h5>
+                                  </h3>
                                   <div className="d-flex align-items-center gap-2">
                                     <small className="workout-date">
                                       {new Date(
@@ -657,26 +661,11 @@ const WorkoutLog = () => {
 
                   {previous.length > 0 && (
                     <div className="mb-5">
-                      <div className="d-flex justify-content-between align-items-center mb-3">
-                        <h4 className="workout-section-title mb-0">
+                      <div className="d-flex justify-content-between align-items-center mb-4">
+                        <h2 className="workout-section-title-small mb-0">
                           Previous Workouts
-                        </h4>
-                        {thisWeek.length === 0 && (
-                          <button
-                            className="btn log-workout-btn"
-                            onClick={() => {
-                              if (editingWorkout) {
-                                cancelEdit();
-                              } else {
-                                setShowForm(!showForm);
-                              }
-                            }}
-                          >
-                            {showForm ? "Cancel" : "Log New Workout"}
-                          </button>
-                        )}
+                        </h2>
                       </div>
-                      <hr className="workout-divider mb-4" />
                       <div className="row">
                         {paginatedPrevious.map((workout) => (
                           <div
@@ -688,9 +677,9 @@ const WorkoutLog = () => {
                             >
                               <div className="card-body">
                                 <div className="d-flex justify-content-between align-items-start mb-2">
-                                  <h5 className="card-title text-capitalize">
+                                  <h3 className="card-title text-capitalize">
                                     {workout.type}
-                                  </h5>
+                                  </h3>
                                   <div className="d-flex align-items-center gap-2">
                                     <small className="workout-date">
                                       {new Date(

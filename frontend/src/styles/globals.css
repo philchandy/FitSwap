@@ -23,6 +23,7 @@
   --text-white: #ffffff;
   --text-link-dark: #6D1610;
   --text-button-coral-bg: #4a0f0c;
+  --icon-card: #fffceb;
   --text-black-alpha-90: rgba(0, 0, 0, 0.9);
   --text-black-alpha-85: rgba(0, 0, 0, 0.85);
   --text-black-alpha-80: rgba(0, 0, 0, 0.8);
@@ -279,4 +280,17 @@ body {
     transform: translateY(0);
     opacity: 1;
   }
+}
+
+/* Accessibility Utilities */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
 }

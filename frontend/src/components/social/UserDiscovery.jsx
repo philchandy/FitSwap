@@ -255,7 +255,7 @@ const UserDiscovery = () => {
 
       {activeTab === "discover" && (
         <div className="discovery-filters">
-          <h5 className="discovery-filters-title">Filters</h5>
+          <p className="discovery-filters-title">Filters</p>
           <div className="row">
             <div className="col-md-4">
               <label htmlFor="skill" className="form-label">
@@ -666,7 +666,7 @@ const UserCard = ({ user, onSchedule }) => {
     <div className="col-md-6 col-lg-4 mb-4">
       <div className="discovery-card">
         <div className="discovery-card-header">
-          <h5 className="discovery-card-title">{user.name}</h5>
+          <p className="discovery-card-title">{user.name}</p>
         </div>
 
         <div className="discovery-card-body">
@@ -731,7 +731,7 @@ const MatchCard = ({ match, onSchedule }) => {
     <div className="col-md-6 col-lg-4 mb-4">
       <div className="discovery-card">
         <div className="discovery-card-header">
-          <h5 className="discovery-card-title">{match.name}</h5>
+          <p className="discovery-card-title">{match.name}</p>
           <span className="match-score-badge">
             <i className="bi bi-star-fill"></i>
             {match.matchScore}

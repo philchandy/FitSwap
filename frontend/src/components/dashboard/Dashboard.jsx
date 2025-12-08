@@ -237,7 +237,7 @@ const Dashboard = () => {
               <i className="bi bi-fire"></i>
             </div>
             <div className="tracker-content">
-              <h6>Calories Burned Today</h6>
+              <p className="tracker-label">Calories Burned Today</p>
               <p className="tracker-value">
                 {dailyStats.calories.toLocaleString()}{" "}
                 <span className="tracker-unit">cal</span>
@@ -252,7 +252,7 @@ const Dashboard = () => {
               <i className="bi bi-stopwatch"></i>
             </div>
             <div className="tracker-content">
-              <h6>Exercise Minutes Today</h6>
+              <p className="tracker-label">Exercise Minutes Today</p>
               <p className="tracker-value">
                 {dailyStats.exerciseMinutes}{" "}
                 <span className="tracker-unit">min</span>
@@ -269,7 +269,7 @@ const Dashboard = () => {
               <i className="bi bi-award"></i>
             </div>
             <div className="tracker-content">
-              <h6>My Skills</h6>
+              <p className="tracker-label">My Skills</p>
               <div className="skills-list">
                 {user?.skills && user.skills.length > 0 ? (
                   (skillsExpanded ? user.skills : user.skills.slice(0, 2)).map(
@@ -283,7 +283,7 @@ const Dashboard = () => {
                   <span className="no-skills">No skills added</span>
                 )}
               </div>
-              <h6 className="mt-3">Want to Learn</h6>
+              <p className="tracker-label mt-3">Want to Learn</p>
               <div className="skills-list">
                 {user?.wantedSkills && user.wantedSkills.length > 0 ? (
                   (skillsExpanded
@@ -317,7 +317,7 @@ const Dashboard = () => {
               <i className="bi bi-calendar-check"></i>
             </div>
             <div className="tracker-content">
-              <h6>Completed Sessions</h6>
+              <p className="tracker-label">Completed Sessions</p>
               <p className="tracker-value">
                 {sessionStats.completedSessions}{" "}
                 <span className="tracker-unit">
@@ -333,7 +333,7 @@ const Dashboard = () => {
         <div className="col-lg-8">
           <div className="chart-section">
             <div className="d-flex justify-content-between align-items-center mb-3">
-              <h5 className="chart-section-title">Calories Burned</h5>
+              <h2 className="chart-section-title">Calories Burned</h2>
               <div className="chart-filters">
                 <button
                   className={`chart-filter-btn ${chartPeriod === "day" ? "active" : ""}`}
@@ -364,9 +364,9 @@ const Dashboard = () => {
                   className="bi bi-bar-chart-line"
                   style={{ fontSize: "3rem", color: "rgba(0, 0, 0, 0.3)" }}
                 ></i>
-                <h5 className="mt-3" style={{ color: "rgba(0, 0, 0, 0.6)" }}>
+                <h2 className="mt-3" style={{ color: "rgba(0, 0, 0, 0.6)" }}>
                   No Workout Data Available
-                </h5>
+                </h2>
                 <p style={{ color: "rgba(0, 0, 0, 0.5)" }}>
                   Start logging workouts to display reports
                 </p>
@@ -494,7 +494,7 @@ const Dashboard = () => {
                 <div className="report-section">
                   <div className="d-flex justify-content-between align-items-center mb-3">
                     <div className="d-flex align-items-center gap-2">
-                      <h4 className="report-section-title mb-0">Report</h4>
+                      <h2 className="report-section-title mb-0">Report</h2>
                       <span className="report-week-period">
                         {dateRangeText}
                       </span>
@@ -570,7 +570,7 @@ const Dashboard = () => {
         <div className="col-12">
           <div className="goals-section">
             <div className="d-flex justify-content-between align-items-center mb-3">
-              <h5 className="goals-section-title mb-0">Your Goals</h5>
+              <h2 className="goals-section-title mb-0">Your Goals</h2>
               <Link to="/profile" className="goals-edit-btn">
                 Edit Goals
               </Link>

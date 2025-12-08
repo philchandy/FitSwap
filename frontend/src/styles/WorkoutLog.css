@@ -157,9 +157,15 @@
 }
 
 .workout-section-title {
+  font-size: 2rem;
+  font-weight: 500;
+  margin-bottom: 1.5rem;
+}
+
+.workout-section-title-small {
   font-size: 1.5rem;
   font-weight: 700;
-  color: var(--text-primary);
+  color: var(--text-light);
   margin-bottom: 1.5rem;
 }
 
@@ -317,7 +323,7 @@
 }
 
 .workout-stat-icon i {
-  color: white;
+  color: var(--icon-card);
   font-size: 1.5rem;
 }
 
