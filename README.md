@@ -21,6 +21,18 @@ To access an account with populated data, please use the following email and pas
 
 [CS 5610 - Web Development Course](https://johnguerra.co/classes/webDevelopment_online_fall_2025)
 
+## Usability Study Document 
+
+[Usability Study Report](https://docs.google.com/document/d/1JR8Fn4ZIN3OFbgIQ6gbV4JFQtasKhDX9OQ2wRzrMnCY/edit?usp=sharing)
+
+Links to all recordings are provided in the document.
+
+## Accessibility Changes
+
+Web Application updated to conform to WCAG. All pages and forms are accessible by keyboard only. Color Palette chosen conforms to optimal contrast ratios for intended use.
+
+Design Changes made in project 3 were made to improve user experience and tie together a brand identity.
+
 ## Project Document
 
 [Project Document](https://docs.google.com/document/d/1OkSjVuFqMeXAfrLGnYz1lP8ywZyfcKBa-6JfkZX2BrQ/edit?usp=sharing)
@@ -58,11 +70,13 @@ The app promotes a community-driven approach to fitness where users can both tea
 
 ## Screenshot
 
-![FitSwap Dashboard](./screenshots/dash.png)
+![FitSwap Dashboard](./screenshots/dashboard.png)
 ![FitSwap Workouts](./screenshots/workouts.png)
-![FitSwap Partners](./screenshots/find%20partners.png)
-![FitSwap Matching](./screenshots/matches.png)
+![FitSwap Partners](./screenshots/discovery.png)
+![FitSwap Profile](./screenshots/profile.png)
 ![FitSwap Sessions](./screenshots/sessions.png)
+![FitSwap Login](./screenshots/login.png)
+![FitSwap Register](./screenshots/register.png)
 
 ## Technology Stack
 
@@ -237,6 +251,20 @@ Used GenAI (Claude Sonnet 4) to create a README file for the project.
 
 Prompt Used:
 "Please create a clear and descriptive readme file including at least: * Author * Class Link * Project Objective * Screenshot * Instructions to build, and put notes as to where I should input specific assets not available to you." 
+
+Used GenAI (Claude Sonnet 4) to refactor css color selectors and maintain styles in the global.css file. This allowed me to change colors and fix contrast issues quickly.
+
+Prompt Used:
+"Go through the all the css files and change all the hard coded rgba/rgb colors into variables, put these variable colors in globals.css so that I can easily fix contrast ratios." 
+
+Used GenAI to create demographic questions for the usability study.
+
+Prompt Used:
+"Imagine you are doing a usability study for a social platform revolving around fitness. Here is the description of the application: 
+
+'FitSwap is a peer-to-peer platform to share and learn new workouts while also meeting new people with similar interests. FitSwap also offers a logging system for personal progress so that users can help see their growth over time. FitSwap ultimately aims to blend skill exchange and social learning with workout tracking and progress analytics.'
+
+Create a set of demographic questions to ask a set of participants who are participating in this usability study."
 
 ---
 
