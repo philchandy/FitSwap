@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useAuth } from "../../contexts/AuthContext";
 import "../../styles/Profile.css";
 
 const Profile = () => {
   const { user, updateProfile, loading } = useAuth();
   const [showEditModal, setShowEditModal] = useState(false);
+  const modalRef = useRef(null);
   const [formData, setFormData] = useState({
     name: user?.name || "",
     bio: user?.bio || "",
@@ -68,6 +69,12 @@ const Profile = () => {
       goals: formData.goals.filter((_, i) => i !== index),
     });
   };
+
+  useEffect(() => {
+    if (showEditModal && modalRef.current) {
+      modalRef.current.focus();
+    }
+  }, [showEditModal]);
 
   const openEditModal = () => {
     setFormData({
@@ -225,7 +232,7 @@ const Profile = () => {
       {showEditModal && (
         <>
           <div className="profile-form-overlay" onClick={closeEditModal}></div>
-          <div className="profile-form-modal">
+          <div className="profile-form-modal" ref={modalRef} tabIndex={-1}>
             <div className="profile-form-header">
               <h3 className="profile-form-title">Edit Profile</h3>
               <button className="profile-form-close" onClick={closeEditModal} aria-label="Close modal">

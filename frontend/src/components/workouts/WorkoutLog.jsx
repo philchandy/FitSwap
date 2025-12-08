@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import { useAuth } from "../../contexts/AuthContext";
 import "../../styles/WorkoutLog.css";
 
@@ -6,6 +6,7 @@ const WorkoutLog = () => {
   const { user } = useAuth();
   const [workouts, setWorkouts] = useState([]);
   const [showForm, setShowForm] = useState(false);
+  const modalRef = useRef(null);
   const [loading, setLoading] = useState(false);
   const [editingWorkout, setEditingWorkout] = useState(null);
   const [thisWeekPage, setThisWeekPage] = useState(1);
@@ -53,6 +54,12 @@ const WorkoutLog = () => {
       fetchWorkouts();
     }
   }, [user, fetchWorkouts]);
+
+  useEffect(() => {
+    if (showForm && modalRef.current) {
+      modalRef.current.focus();
+    }
+  }, [showForm]);
 
   const deleteWorkout = async (workoutId) => {
     if (window.confirm("Are you sure you want to delete this workout?")) {
@@ -244,7 +251,7 @@ const WorkoutLog = () => {
               setEditingWorkout(null);
             }}
           ></div>
-          <div className="workout-form-modal">
+          <div className="workout-form-modal" ref={modalRef} tabIndex={-1}>
             <div className="workout-form-header">
               <h2 className="workout-form-title">
                 {editingWorkout ? "Edit Workout" : "Log New Workout"}

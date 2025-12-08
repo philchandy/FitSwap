@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useAuth } from "../../contexts/AuthContext";
 import { Link } from "react-router-dom";
 import "../../styles/UserDiscovery.css";
@@ -6,6 +6,7 @@ import "../../styles/UserDiscovery.css";
 const UserDiscovery = () => {
   const { user } = useAuth();
   const [users, setUsers] = useState([]);
+  const modalRef = useRef(null);
   const [matches, setMatches] = useState([]);
   const [loading, setLoading] = useState(false);
   const [filter, setFilter] = useState({
@@ -59,6 +60,12 @@ const UserDiscovery = () => {
     "Pilates",
     "Rock Climbing",
   ];
+
+  useEffect(() => {
+    if (showScheduleModal && modalRef.current) {
+      modalRef.current.focus();
+    }
+  }, [showScheduleModal]);
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -475,7 +482,7 @@ const UserDiscovery = () => {
             className="workout-form-overlay"
             onClick={closeScheduleModal}
           ></div>
-          <div className="workout-form-modal">
+          <div className="workout-form-modal" ref={modalRef} tabIndex={-1}>
             <div className="workout-form-header">
               <h3 className="workout-form-title">
                 Schedule Session with {selectedUser.name}
